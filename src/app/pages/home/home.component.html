@@ -1,13 +1,22 @@
-<div class="m-8 flex align-middle justify-center content-center">
-  <div class="bg-blue-400 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2">
+<div class="sm:m-8 m-1 flex justify-center">
+  <div
+    [ngClass]="{
+      'bg-blue-400 shadow-md rounded p-2 m-4 ': true,
+      'sm:px-4 sm:pt-3 sm:pb-4 sm:mb-2': true,
+      'md:px-8 md:pt-6 md:pb-8 md:mb-4 md:w-1/2': true
+    }"
+  >
     <h1 class="font-medium leading-tight text-5xl">
       Tu seguro del coche al mejor precio
     </h1>
-    <h3 class="leading-tight text-xl pl-3">
+    <h3 class="leading-tight text-xl sm:pl-3">
       Buscamos por tí entre los mejores seguros y servicios
     </h3>
-    <form class="grid grid-cols-2" (ngSubmit)="submit()">
-      <div class="mb-4 w-48">
+    <form
+      class="grid sm:grid-cols-2 gap-4 justify-center items-center sm:m-4 lg:m-8"
+      (ngSubmit)="submit()"
+    >
+      <div class="">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
           for="username"
@@ -25,7 +34,7 @@
         </p>
       </div>
 
-      <div class="mb-4 w-48">
+      <div class="">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
           for="username"
@@ -43,7 +52,7 @@
         </p>
       </div>
 
-      <div class="mb-4 w-48">
+      <div class="">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
           for="username"
@@ -61,7 +70,7 @@
         </p>
       </div>
 
-      <div class="mb-4 w-48">
+      <div class="">
         <label
           class="block text-gray-700 text-sm font-bold mb-2"
           for="username"
