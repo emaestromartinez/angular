@@ -6,86 +6,92 @@
       'md:px-8 md:pt-6 md:pb-8 md:mb-4 md:w-1/2': true
     }"
   >
-    <h1 class="font-medium leading-tight text-5xl">
+    <h1 class="font-medium leading-tight text-5xl text-white">
       Tu seguro del coche al mejor precio
     </h1>
-    <h3 class="leading-tight text-xl sm:pl-3">
+    <h3 class="leading-tight text-xl sm:pl-3 text-white">
       Buscamos por tí entre los mejores seguros y servicios
     </h3>
     <form
-      class="grid sm:grid-cols-2 gap-4 justify-center items-center sm:m-4 lg:m-8"
+      class="grid sm:grid-cols-2 gap-4 justify-center items-center mt-2 sm:m-4 lg:m-8"
+      [formGroup]="form"
       (ngSubmit)="submit()"
     >
       <div class="">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="username"
-        >
+        <label class="block text-sm font-bold mb-2 text-white" for="username">
           Nombre
         </label>
         <input
+          [formControl]="username"
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="username"
           type="text"
           placeholder="Nombre"
         />
-        <p class="text-red-500 text-xs italic">
+        <p
+          *ngIf="!username.pristine && username.errors?.['required']"
+          class="text-red-500 text-xs italic"
+        >
           Por favor, introduce tu nombre.
         </p>
       </div>
 
       <div class="">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="username"
-        >
-          Nombre
+        <label class="block text-sm font-bold mb-2 text-white" for="phone">
+          Teléfono
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username"
-          type="text"
-          placeholder="Nombre"
+          [formControl]="phone"
+          id="phone"
+          type="number"
+          placeholder="Teléfono"
         />
-        <p class="text-red-500 text-xs italic">
-          Por favor, introduce tu nombre.
+        <p
+          *ngIf="!phone.pristine && phone.errors?.['required']"
+          class="text-red-500 text-xs italic"
+        >
+          Por favor, introduce tu teléfono.
         </p>
       </div>
 
       <div class="">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="username"
-        >
-          Nombre
+        <label class="block text-sm font-bold mb-2 text-white" for="email">
+          Correo electrónico
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username"
-          type="text"
-          placeholder="Nombre"
+          [formControl]="email"
+          id="email"
+          type="email"
+          placeholder="Correo electrónico"
         />
-        <p class="text-red-500 text-xs italic">
-          Por favor, introduce tu nombre.
+        <p
+          *ngIf="!email.pristine && email.errors?.['required']"
+          class="text-red-500 text-xs italic"
+        >
+          Por favor, introduce tu correo electrónico.
         </p>
       </div>
 
-      <div class="">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="username"
-        >
-          Nombre
-        </label>
+      <div class="col-span-2 flex gap-2">
         <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username"
-          type="text"
-          placeholder="Nombre"
+          type="checkbox"
+          class="self-start top-5 mt-1 w-6 h-6"
+          [formControl]="conditions"
+          id="acceptTerms"
+          [ngClass]="{ 'is-invalid': submitted && conditions.errors }"
         />
-        <p class="text-red-500 text-xs italic">
-          Por favor, introduce tu nombre.
-        </p>
+        <div
+          for="acceptTerms"
+          class="text-white w-full"
+          [innerHTML]="termsAndConditionsString"
+        >
+          Accept Terms & Conditions
+        </div>
+        <div *ngIf="submitted && conditions.errors" class="col-span-2">
+          Es necesario aceptar los terminos y condiciones.
+        </div>
       </div>
     </form>
   </div>

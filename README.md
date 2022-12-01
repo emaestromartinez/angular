@@ -26,3 +26,17 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 # doctori
+
+
+
+<!-- 
+  Qué me ha faltado por hacer, por tiempo, por quedar fuera de scope, etc.
+
+    - Tanto el telefono como el email deberían traer validaciones correctas.
+      He usado las propias de ReactiveForms pero lo suyo sería haberlas creado nuevas.
+    - Añadir soporte para traducir todos los textos. En otros proyectos he usado Lokalise.
+    - Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay placeholder).
+    - Habría uqe haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
+    -
+
+ -->
