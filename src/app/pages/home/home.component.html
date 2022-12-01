@@ -1,2 +1,32 @@
-<p>home works!</p>
-<div class="flex"></div>
+<div class="m-8">
+  <div class="w-full">
+    <h1 class="font-medium leading-tight text-5xl">
+      Tu seguro del coche al mejor precio
+    </h1>
+    <h3 class="leading-tight text-xl pl-3">
+      Buscamos por tí entre los mejores seguros y servicios
+    </h3>
+    <form
+      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      (ngSubmit)="submit()"
+    >
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="username"
+        >
+          Nombre
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="username"
+          type="text"
+          placeholder="Nombre"
+        />
+        <p class="text-red-500 text-xs italic">
+          Por favor, introduce tu nombre.
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
