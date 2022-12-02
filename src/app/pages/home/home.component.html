@@ -74,6 +74,91 @@
         </p>
       </div>
 
+      <div>
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Favorite food</mat-label>
+          <mat-select>
+            <mat-option
+              *ngFor="let carBrand of carBrandOptions"
+              [value]="carBrand.value"
+            >
+              {{ carBrand.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+
+        <div class="relative">
+          <div>
+            <label
+              class="block text-sm font-bold mb-2 text-white w-full"
+              for="email"
+            >
+              Marca de tu coche
+            </label>
+            <button
+              (click)="toggleCarBrandSelect()"
+              type="button"
+              [ngClass]="{
+                'inline-flex justify-end border-gray-300 bg-white text-sm font-medium': true,
+                'hover:bg-gray-50 shadow appearance-none border rounded w-full ': true,
+                'py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline': true
+              }"
+              id="menu-button"
+              aria-expanded="true"
+              aria-haspopup="true"
+            >
+              <div class="w-full text-left">Marca de tu coche</div>
+              <!-- Heroicon name: mini/chevron-down -->
+              <svg
+                class="-mr-1 ml-2 h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!--
+            Dropdown menu, show/hide based on menu state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+          <div
+            *ngIf="showCarBrands"
+            class="absolute right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="menu-button"
+            tabindex="-1"
+          >
+            <div class="py-1" role="none">
+              <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+              <div
+                href="#"
+                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-0"
+              >
+                Account settings
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="col-span-2 flex gap-2">
         <input
           type="checkbox"

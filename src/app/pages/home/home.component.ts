@@ -7,6 +7,11 @@ import {
   FormGroup,
 } from '@angular/forms';
 
+interface CarBrand {
+  value: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,6 +19,8 @@ import {
 })
 export class HomeComponent implements OnInit {
   form: FormGroup;
+  showCarBrands = false;
+  carBrandOptions: CarBrand[] = [];
 
   submitted = false;
   termsAndConditionsString =
@@ -46,6 +53,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  toggleCarBrandSelect() {
+    this.showCarBrands = !this.showCarBrands;
+  }
 
   submit() {
     this.submitted = true;
