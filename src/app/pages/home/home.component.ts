@@ -6,6 +6,7 @@ import {
   Validators,
   FormGroup,
 } from '@angular/forms';
+import { HomeService } from './home.service';
 
 interface CarBrand {
   value: string;
@@ -39,26 +40,37 @@ export class HomeComponent implements OnInit {
   get phone() {
     return this.form?.get('phone') as FormControl;
   }
-  get conditions() {
-    return this.form?.get('conditions') as FormControl;
+  get termsAndConditions() {
+    return this.form?.get('termsAndConditions') as FormControl;
   }
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private _homeService: HomeService) {
     this.form = this._fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
-      conditios: [false, Validators.required],
+      carBrand: ['', Validators.required],
+
+      termsAndConditions: [false, Validators.requiredTrue],
     });
   }
 
   ngOnInit() {}
 
+  selectedCarBrand(carBrand: CarBrand) {}
   toggleCarBrandSelect() {
     this.showCarBrands = !this.showCarBrands;
   }
 
   submit() {
+    console.log('subbamitting');
     this.submitted = true;
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      console.log('valid');
+      this._homeService.getCardBrands().subscribe((carBrands) => {
+        console.log('carBrands', carBrands);
+      });
+    }
   }
 }

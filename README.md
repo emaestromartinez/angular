@@ -27,7 +27,17 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 # doctori
 
+<!-- 
+  TODO:
+    - Componentizar almenos el formulario o un par de componentes.
+    - Marcar el activo en el dropdown.
 
+ -->
+
+<!-- 
+  Soy consciente de que el diseño no es 100% fiel al diseño provisto, esto es a proposito y en el ambiente laboral no pasaría sin antes consultarlo con quien fuera responsable.
+  De la misma forma, he hecho que los campos sean requeridos para poder mostraros cómo trato un formulario invalido.
+ -->
 
 <!-- 
   Qué me ha faltado por hacer, por tiempo, por quedar fuera de scope, etc.
@@ -35,8 +45,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     - Tanto el telefono como el email deberían traer validaciones correctas.
       He usado las propias de ReactiveForms pero lo suyo sería haberlas creado nuevas.
     - Añadir soporte para traducir todos los textos. En otros proyectos he usado Lokalise.
-    - Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay placeholder).
-    - Habría uqe haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
-    -
+    - Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay
+      placeholder).
+    - Habría que haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
+    - La authenticacion usando headers, debería hacerse una vez al principio y no en la propia llamada.
+      Incluso se podría/debería crear un interceptor de llamadas http para manejar todas estas configuraciones.
 
  -->

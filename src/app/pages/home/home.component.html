@@ -29,7 +29,7 @@
           placeholder="Nombre"
         />
         <p
-          *ngIf="!username.pristine && username.errors?.['required']"
+          *ngIf="username.touched && username.errors?.['required']"
           class="text-red-500 text-xs italic"
         >
           Por favor, introduce tu nombre.
@@ -48,7 +48,7 @@
           placeholder="Teléfono"
         />
         <p
-          *ngIf="!phone.pristine && phone.errors?.['required']"
+          *ngIf="phone.touched && phone.errors?.['required']"
           class="text-red-500 text-xs italic"
         >
           Por favor, introduce tu teléfono.
@@ -67,7 +67,7 @@
           placeholder="Correo electrónico"
         />
         <p
-          *ngIf="!email.pristine && email.errors?.['required']"
+          *ngIf="email.touched && email.errors?.['required']"
           class="text-red-500 text-xs italic"
         >
           Por favor, introduce tu correo electrónico.
@@ -75,18 +75,6 @@
       </div>
 
       <div>
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>Favorite food</mat-label>
-          <mat-select>
-            <mat-option
-              *ngFor="let carBrand of carBrandOptions"
-              [value]="carBrand.value"
-            >
-              {{ carBrand.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field> -->
-
         <div class="relative">
           <div>
             <label
@@ -125,16 +113,6 @@
             </button>
           </div>
 
-          <!--
-            Dropdown menu, show/hide based on menu state.
-
-            Entering: "transition ease-out duration-100"
-              From: "transform opacity-0 scale-95"
-              To: "transform opacity-100 scale-100"
-            Leaving: "transition ease-in duration-75"
-              From: "transform opacity-100 scale-100"
-              To: "transform opacity-0 scale-95"
-          -->
           <div
             *ngIf="showCarBrands"
             class="absolute right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -146,37 +124,49 @@
             <div class="py-1" role="none">
               <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
               <div
+                *ngFor="let carBrand of carBrandOptions"
                 href="#"
                 class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900"
                 role="menuitem"
-                tabindex="-1"
-                id="menu-item-0"
+                (click)="selectedCarBrand(carBrand)"
               >
-                Account settings
+                {{ carBrand.name }}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-span-2 flex gap-2">
-        <input
-          type="checkbox"
-          class="self-start top-5 mt-1 w-6 h-6"
-          [formControl]="conditions"
-          id="acceptTerms"
-          [ngClass]="{ 'is-invalid': submitted && conditions.errors }"
-        />
-        <div
-          for="acceptTerms"
-          class="text-white w-full"
-          [innerHTML]="termsAndConditionsString"
+      <div class="col-span-2 grid grid-cols-1 gap-2">
+        <div class="flex gap-2">
+          <input
+            type="checkbox"
+            class="self-start top-5 mt-1 w-6 h-6"
+            [formControl]="termsAndConditions"
+            id="acceptTerms"
+            [ngClass]="{ 'is-invalid': submitted && termsAndConditions.errors }"
+          />
+          <div
+            for="acceptTerms"
+            class="text-white w-full"
+            [innerHTML]="termsAndConditionsString"
+          >
+            Accept Terms & Conditions
+          </div>
+        </div>
+        <div *ngIf="submitted && termsAndConditions.errors" class="">
+          <p class="text-red-500 text-xs italic">
+            Es necesario aceptar los terminos y condiciones.
+          </p>
+        </div>
+      </div>
+
+      <div class="">
+        <button
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
-          Accept Terms & Conditions
-        </div>
-        <div *ngIf="submitted && conditions.errors" class="col-span-2">
-          Es necesario aceptar los terminos y condiciones.
-        </div>
+          Buscar
+        </button>
       </div>
     </form>
   </div>
