@@ -55,7 +55,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._homeService.getCardBrands().subscribe((carBrands) => {
+      console.log('carBrands', carBrands);
+    });
+  }
 
   selectedCarBrand(carBrand: CarBrand) {}
   toggleCarBrandSelect() {
@@ -68,9 +72,6 @@ export class HomeComponent implements OnInit {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       console.log('valid');
-      this._homeService.getCardBrands().subscribe((carBrands) => {
-        console.log('carBrands', carBrands);
-      });
     }
   }
 }

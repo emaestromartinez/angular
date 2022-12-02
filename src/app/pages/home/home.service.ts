@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 
-const CAR_BRANDS_URL = 'https://www.doctori.com/coche/brands ';
+const CAR_BRANDS_URL = 'https://www.doctori.com/coche/brands';
 
 @Injectable({
   providedIn: 'root',

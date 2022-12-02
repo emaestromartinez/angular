@@ -31,6 +31,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   TODO:
     - Componentizar almenos el formulario o un par de componentes.
     - Marcar el activo en el dropdown.
+    - Form Responsiveness.
 
  -->
 
