@@ -12,6 +12,20 @@ interface CarBrand {
   value: string;
   name: string;
 }
+const MOCK_CAR_BRANDS: CarBrand[] = [
+  {
+    value: 'peugeot',
+    name: 'Peugeot',
+  },
+  {
+    value: 'porsche',
+    name: 'Porsche',
+  },
+  {
+    value: 'doritos',
+    name: 'Doritos',
+  },
+];
 
 @Component({
   selector: 'app-home',
@@ -21,7 +35,7 @@ interface CarBrand {
 export class HomeComponent implements OnInit {
   form: FormGroup;
   showCarBrands = false;
-  carBrandOptions: CarBrand[] = [];
+  carBrandOptions: CarBrand[] = MOCK_CAR_BRANDS;
 
   submitted = false;
   termsAndConditionsString =
@@ -39,6 +53,9 @@ export class HomeComponent implements OnInit {
   }
   get phone() {
     return this.form?.get('phone') as FormControl;
+  }
+  get carBrand() {
+    return this.form?.get('carBrand') as FormControl;
   }
   get termsAndConditions() {
     return this.form?.get('termsAndConditions') as FormControl;
@@ -61,17 +78,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  selectedCarBrand(carBrand: CarBrand) {}
+  selectedCarBrand(carBrand: CarBrand) {
+    this.carBrand.setValue(carBrand);
+    this.toggleCarBrandSelect();
+  }
   toggleCarBrandSelect() {
     this.showCarBrands = !this.showCarBrands;
   }
 
   submit() {
-    console.log('subbamitting');
+    console.log('subbmitting: ', this.form);
     this.submitted = true;
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      console.log('valid');
+      console.log('valid', this.form);
     }
   }
 }

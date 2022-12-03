@@ -17,7 +17,7 @@
       [formGroup]="form"
       (ngSubmit)="submit()"
     >
-      <div class="">
+      <div>
         <label class="block text-sm font-bold mb-2 text-white" for="username">
           Nombre
         </label>
@@ -36,7 +36,7 @@
         </p>
       </div>
 
-      <div class="">
+      <div>
         <label class="block text-sm font-bold mb-2 text-white" for="phone">
           Teléfono
         </label>
@@ -55,7 +55,7 @@
         </p>
       </div>
 
-      <div class="">
+      <div>
         <label class="block text-sm font-bold mb-2 text-white" for="email">
           Correo electrónico
         </label>
@@ -95,7 +95,9 @@
               aria-expanded="true"
               aria-haspopup="true"
             >
-              <div class="w-full text-left">Marca de tu coche</div>
+              <div class="w-full text-left">
+                {{ carBrand.value.name || "Marca de tu coche" }}
+              </div>
               <!-- Heroicon name: mini/chevron-down -->
               <svg
                 class="-mr-1 ml-2 h-5 w-5"
@@ -111,6 +113,11 @@
                 />
               </svg>
             </button>
+            <div *ngIf="carBrand.touched && carBrand.errors?.['required']">
+              <p class="text-red-500 text-xs italic">
+                Por favor, introduce la marca de tu coche.
+              </p>
+            </div>
           </div>
 
           <div
@@ -124,13 +131,17 @@
             <div class="py-1" role="none">
               <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
               <div
-                *ngFor="let carBrand of carBrandOptions"
+                *ngFor="let carBrandOption of carBrandOptions; let i = index"
                 href="#"
-                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900"
+                [ngClass]="{
+                  'text-gray-600 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900': true,
+                  '!bg-gray-300 !text-gray-900':
+                    carBrandOption.value === carBrand.value.value
+                }"
                 role="menuitem"
-                (click)="selectedCarBrand(carBrand)"
+                (click)="selectedCarBrand(carBrandOption)"
               >
-                {{ carBrand.name }}
+                {{ carBrandOption.name }}
               </div>
             </div>
           </div>
@@ -154,14 +165,14 @@
             Accept Terms & Conditions
           </div>
         </div>
-        <div *ngIf="submitted && termsAndConditions.errors" class="">
+        <div *ngIf="submitted && termsAndConditions.errors">
           <p class="text-red-500 text-xs italic">
             Es necesario aceptar los terminos y condiciones.
           </p>
         </div>
       </div>
 
-      <div class="">
+      <div>
         <button
           class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >

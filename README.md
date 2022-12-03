@@ -28,13 +28,33 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # doctori
 
 <!-- 
+  NO HE ACABADO LA PRUEBA
+  Primero de todo, me gustaría entrar un poco en detalle de por qué no he terminado la prueba.
+  La prueba queda a medias por dos motivos principales: he empleado todo el tiempo que tenía
+  reservado para la misma, y me he atascado al hacer la llamada HTTP a vuestro servidor, ya que
+  por navegador me rechaza el cross origin request.
+
+  Por otro lado, considero que en la prueba que os envío demuestro gran parte de las capacidades que tengo al programar. Este proyecto incluye:
+  - Proyecto angular última version.
+  - Usando tailwind css.
+  - La pagina principal conteniendo el formulario.
+  - Validaciones.
+  - Modularizado, con buena separación de comportamientos/componentes, el servicio también aparte.
+  - Responsive usando flex y grid.
+  - El texto de los terminos y condiciones es enriquecido y contiene enlaces web.
+  - Las llamadas a APIs publicas funcionan bien, aún así no conseguí acceder a la vuestra.
+  - He añadido una segunda pagina que es donde iría la tabla, para tener un ejemplo de rutas
+    cargadas con lazy loading.
+
+
+
+ -->
+<!-- 
   TODO:
     - Componentizar almenos el formulario o un par de componentes.
     - Marcar el activo en el dropdown.
     - Form Responsiveness.
-
  -->
-
 <!-- 
   Soy consciente de que el diseño no es 100% fiel al diseño provisto, esto es a proposito y en el ambiente laboral no pasaría sin antes consultarlo con quien fuera responsable.
   De la misma forma, he hecho que los campos sean requeridos para poder mostraros cómo trato un formulario invalido.
@@ -42,7 +62,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 <!-- 
   Qué me ha faltado por hacer, por tiempo, por quedar fuera de scope, etc.
-
     - Tanto el telefono como el email deberían traer validaciones correctas.
       He usado las propias de ReactiveForms pero lo suyo sería haberlas creado nuevas.
     - Añadir soporte para traducir todos los textos. En otros proyectos he usado Lokalise.
