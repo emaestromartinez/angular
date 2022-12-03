@@ -1,3 +1,4 @@
+import { InputModule } from './../../components/input/input.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,6 +14,7 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
     HomeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    InputModule,
   ],
   exports: [HomeComponent],
 })

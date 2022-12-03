@@ -5,74 +5,34 @@
       'sm:px-4 sm:pt-3 sm:pb-4 sm:mb-2': true
     }"
   >
-    <!-- 'md:px-8 md:pt-6 md:pb-8 md:mb-4 md:w-1/2': true -->
     <h1 class="font-medium leading-tight text-5xl text-white">
       Tu seguro del coche al mejor precio
     </h1>
     <h3 class="leading-tight text-xl sm:pl-3 text-white">
       Buscamos por tí entre los mejores seguros y servicios
     </h3>
-    <!-- class="grid sm:grid-cols-2 gap-4 justify-center items-center mt-2 sm:m-4 lg:m-8" -->
     <form
-      class="grid sm:grid-cols-2 gap-4 justify-center items-center mt-2 sm:m-4 lg:m-8"
+      class="grid sm:grid-cols-2 gap-4 justify-center items-center mt-2 sm:m-4 lg:m-8 px-6 sm:px-0"
       [formGroup]="form"
       (ngSubmit)="submit()"
     >
       <div class="col-span-2 sm:col-span-1">
-        <label class="block text-sm font-bold mb-2 text-white" for="username">
-          Nombre
-        </label>
-        <input
-          [formControl]="username"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username"
-          type="text"
-          placeholder="Nombre"
-        />
-        <p
-          *ngIf="username.touched && username.errors?.['required']"
-          class="text-red-500 text-xs italic"
-        >
-          Por favor, introduce tu nombre.
-        </p>
+        <app-input [inputFormControl]="username" title="Username"></app-input>
       </div>
 
       <div class="col-span-2 sm:col-span-1">
-        <label class="block text-sm font-bold mb-2 text-white" for="phone">
-          Teléfono
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          [formControl]="phone"
-          id="phone"
+        <app-input
+          [inputFormControl]="phone"
+          title="Teléfono"
           type="number"
-          placeholder="Teléfono"
-        />
-        <p
-          *ngIf="phone.touched && phone.errors?.['required']"
-          class="text-red-500 text-xs italic"
-        >
-          Por favor, introduce tu teléfono.
-        </p>
+        ></app-input>
       </div>
 
       <div class="col-span-2 sm:col-span-1">
-        <label class="block text-sm font-bold mb-2 text-white" for="email">
-          Correo electrónico
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          [formControl]="email"
-          id="email"
-          type="email"
-          placeholder="Correo electrónico"
-        />
-        <p
-          *ngIf="email.touched && email.errors?.['required']"
-          class="text-red-500 text-xs italic"
-        >
-          Por favor, introduce tu correo electrónico.
-        </p>
+        <app-input
+          [inputFormControl]="email"
+          title="Correo electrónico"
+        ></app-input>
       </div>
 
       <div class="col-span-2 sm:col-span-1">
@@ -99,7 +59,6 @@
               <div class="w-full text-left">
                 {{ carBrand.value.name || "Marca de tu coche" }}
               </div>
-              <!-- Heroicon name: mini/chevron-down -->
               <svg
                 class="-mr-1 ml-2 h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +89,6 @@
             tabindex="-1"
           >
             <div class="py-1" role="none">
-              <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
               <div
                 *ngFor="let carBrandOption of carBrandOptions; let i = index"
                 href="#"
