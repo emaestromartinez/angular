@@ -1,7 +1,6 @@
 import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Route } from '@angular/router';
-import { SecondPageModule } from './pages/second-page/second-page.module';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [];
@@ -20,6 +19,13 @@ export const routesApp: CustomRoute[] = [
     component: HomeComponent,
     children: [
       {
+        path: '',
+        loadChildren: () =>
+          import('./pages/main-form/main-form.module').then(
+            (m) => m.MainFormModule
+          ),
+      },
+      {
         path: 'second-page',
         loadChildren: () =>
           import('./pages/second-page/second-page.module').then(
@@ -37,7 +43,6 @@ export const routesApp: CustomRoute[] = [
   imports: [
     RouterModule.forRoot(routesApp, { scrollPositionRestoration: 'disabled' }),
   ],
-
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

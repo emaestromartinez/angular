@@ -49,11 +49,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
  -->
 <!-- 
   TODO:
-    - Componentizar almenos el formulario o un par de componentes.
-    - Form Responsiveness.
+    - Hacer que el boton redirija a la segunda page.
     - Limpiar todo y hacer una instalación limpia.
     - Asegurar que pasa todos los tests.
-    - Hacer que el boton redirija a la segunda page.
  -->
 <!-- 
   Soy consciente de que el diseño no es 100% fiel al diseño provisto, esto es a proposito y en el ambiente laboral no pasaría sin antes consultarlo con quien fuera responsable.

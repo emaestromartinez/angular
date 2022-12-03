@@ -7,7 +7,7 @@ const CAR_BRANDS_URL = 'https://www.doctori.com/coche/brands';
 @Injectable({
   providedIn: 'root',
 })
-export class HomeService {
+export class MainFormService {
   constructor(private _httpClient: HttpClient) {}
 
   getCardBrands(): Observable<any> {

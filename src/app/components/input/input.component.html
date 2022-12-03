@@ -12,4 +12,10 @@
   >
     Por favor, introduce tu {{ title }}.
   </p>
+  <p
+    *ngIf="inputFormControl.touched && !inputFormControl.errors?.['required'] && inputFormControl.errors?.['email']"
+    class="text-red-500 text-xs italic"
+  >
+    Por favor, introduce un email valido.
+  </p>
 </div>
