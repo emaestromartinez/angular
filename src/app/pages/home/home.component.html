@@ -2,22 +2,23 @@
   <div
     [ngClass]="{
       'bg-blue-400 shadow-md rounded p-2 m-4 ': true,
-      'sm:px-4 sm:pt-3 sm:pb-4 sm:mb-2': true,
-      'md:px-8 md:pt-6 md:pb-8 md:mb-4 md:w-1/2': true
+      'sm:px-4 sm:pt-3 sm:pb-4 sm:mb-2': true
     }"
   >
+    <!-- 'md:px-8 md:pt-6 md:pb-8 md:mb-4 md:w-1/2': true -->
     <h1 class="font-medium leading-tight text-5xl text-white">
       Tu seguro del coche al mejor precio
     </h1>
     <h3 class="leading-tight text-xl sm:pl-3 text-white">
       Buscamos por tí entre los mejores seguros y servicios
     </h3>
+    <!-- class="grid sm:grid-cols-2 gap-4 justify-center items-center mt-2 sm:m-4 lg:m-8" -->
     <form
       class="grid sm:grid-cols-2 gap-4 justify-center items-center mt-2 sm:m-4 lg:m-8"
       [formGroup]="form"
       (ngSubmit)="submit()"
     >
-      <div>
+      <div class="col-span-2 sm:col-span-1">
         <label class="block text-sm font-bold mb-2 text-white" for="username">
           Nombre
         </label>
@@ -36,7 +37,7 @@
         </p>
       </div>
 
-      <div>
+      <div class="col-span-2 sm:col-span-1">
         <label class="block text-sm font-bold mb-2 text-white" for="phone">
           Teléfono
         </label>
@@ -55,7 +56,7 @@
         </p>
       </div>
 
-      <div>
+      <div class="col-span-2 sm:col-span-1">
         <label class="block text-sm font-bold mb-2 text-white" for="email">
           Correo electrónico
         </label>
@@ -74,7 +75,7 @@
         </p>
       </div>
 
-      <div>
+      <div class="col-span-2 sm:col-span-1">
         <div class="relative">
           <div>
             <label
@@ -172,7 +173,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="col-span-2">
         <button
           class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >

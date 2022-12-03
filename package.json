@@ -1,9 +1,8 @@
 {
   "name": "doctori",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "install": "npm install",
     "start": "ng serve --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
