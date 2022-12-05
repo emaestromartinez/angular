@@ -1,74 +1,57 @@
 # Doctori
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
+Proyecto generado con [Angular CLI](https://github.com/angular/angular-cli) versión 15.0.2.
+Prueba técnica de nivel de Eduard Maestro para Frontend, con Doctori.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Ejecuta `ng serve` para lanzar el servidor de desarrollo. Navega a `http://localhost:4200/`.
+La aplicación se recarga automaticamente si cambias algún archivo fuente.
+Lanza `ng serve --open` para que se abra el localhost en el navegador automaticamente.
 
-## Code scaffolding
+## No he acabado la prueba
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  Primero de todo, me gustaría explicar por qué no he terminado la prueba.
+  La prueba queda a medias por dos motivos principales: he empleado todo el tiempo que yo mismo tenía reservado para la misma, y me he atascado al hacer la llamada HTTP a vuestro servidor, ya que me rechaza el cross origin request.
 
-## Build
+      Access to XMLHttpRequest at 'https://www.doctori.com/coche/brands' from origin 'http://localhost:4200' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  He estado indagando sobre este error, y por lo que parece, es trabajo del servidor configurar los permisos de acceso de las peticiones.
+  He hecho un par de pruebas de configuraciones del frontend para ver si encontraba algún workaround, pero parece claro que este tipo de configuraciones de seguridad pertenecen al backend.
 
-## Running unit tests
+  Así que a falta de tiempo, decido dejar de lado las peticiones y por ende la segunda página.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# doctori
-
-<!-- 
-  NO HE ACABADO LA PRUEBA
-  Primero de todo, me gustaría entrar un poco en detalle de por qué no he terminado la prueba.
-  La prueba queda a medias por dos motivos principales: he empleado todo el tiempo que tenía
-  reservado para la misma, y me he atascado al hacer la llamada HTTP a vuestro servidor, ya que me rechaza el cross origin request.
+## Filosofía al programar y tareas hechas
 
   Por otro lado, considero que en la prueba que os envío demuestro gran parte de la filosofía que tengo al programar. Este proyecto incluye:
-  - Proyecto angular última version.
-  - Usando tailwind css.
-  - La pagina principal conteniendo el formulario.
-  - Validaciones.
-  - Modularizado, con buena separación de comportamientos/componentes, el servicio también aparte.
-  - Responsive usando flex y grid.
-  - El texto de los terminos y condiciones es enriquecido y contiene enlaces web.
-  - Las llamadas a APIs publicas funcionan bien, aún así no conseguí acceder a la vuestra.
-  - He añadido una segunda pagina que es donde iría la tabla, para tener un ejemplo de rutas
+
+- Proyecto angular última version.
+- Configurado y usando tailwind css.
+- La pagina principal conteniendo el formulario.
+- Validaciones.
+- Modularizado, con buena separación de comportamientos/componentes, el servicio también aparte.
+    (He hecho solo los inputs de ejemplo, pero la idea sería modularizarlo todo).
+- Responsive usando flex y grid.
+- El texto de los terminos y condiciones es enriquecido y contiene enlaces web.
+- Las llamadas a APIs publicas funcionan bien, aún así no conseguí acceder a la vuestra.
+- He añadido una segunda pagina que es donde iría la tabla, para tener un ejemplo de rutas
     cargadas con lazy loading.
-  - Control de versiones en github, con commits cortos y explicados.
+- Control de versiones en github, con commits cortos y explicados.
+- Y mucho más que seguramente me he olvidado de incluír en esta lista.
 
- -->
-<!-- 
-  TODO:
-    - Hacer que el boton redirija a la segunda page.
-    - Limpiar todo y hacer una instalación limpia.
-    - Asegurar que pasa todos los tests.
- -->
-<!-- 
-  Soy consciente de que el diseño no es 100% fiel al diseño provisto, esto es a proposito y en el ambiente laboral no pasaría sin antes consultarlo con quien fuera responsable.
+## Diseño del formulario
+
+  Soy consciente de que el formulario no es 100% fiel al diseño provisto, esto es a propósito y en el ambiente laboral no pasaría sin antes consultarlo con quien fuera responsable.
   De la misma forma, he hecho que los campos sean requeridos para poder mostraros cómo trato un formulario invalido.
- -->
 
-<!-- 
-  Qué me ha faltado por hacer, por tiempo, por quedar fuera de scope, etc.
-    - Mapear interfaces con el contrato/respuesta de los endpoints.
-    - Configurar sistema de mock para poder probar el codigo en local. (Mock service worker mswjs).
-    - Tanto el telefono como el email deberían traer validaciones correctas.
-      He usado las propias de ReactiveForms pero lo suyo sería haberlas creado nuevas.
-    - Añadir soporte para traducir todos los textos. En otros proyectos he usado Lokalise.
-    - Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay
-      placeholder).
-    - Habría que haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
-    - La authenticacion usando headers, debería hacerse una vez al principio y no en la propia llamada.
-      Incluso se podría/debería crear un interceptor de llamadas http para manejar todas estas configuraciones.
+## Qué me ha faltado por hacer por tiempo, por quedar fuera de scope, etc
 
- -->
+- Mapear interfaces con el contrato/respuesta de los endpoints.
+- Configurar sistema de mock para poder probar el codigo en local. (Mock service worker mswjs).
+- Tanto el telefono como el email deberían traer validaciones correctas.
+    He usado las propias de html y/o ReactiveForms pero lo suyo sería haberlas creado nuevas.
+- Añadir soporte para traducir todos los textos. En otros proyectos he usado Lokalise.
+- Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay
+    placeholder).
+- Habría que haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
+- La authenticacion usando headers, debería hacerse una vez al principio y no en la propia llamada. Incluso se podría/debería crear un interceptor de llamadas http para manejar todas estas configuraciones.

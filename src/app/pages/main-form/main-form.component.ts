@@ -77,9 +77,7 @@ export class MainFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._homeService.getCardBrands().subscribe((carBrands) => {
-      console.log('carBrands', carBrands);
-    });
+    this._homeService.getCardBrands().subscribe((carBrands) => {});
   }
 
   selectedCarBrand(carBrand: CarBrand) {
@@ -91,11 +89,9 @@ export class MainFormComponent implements OnInit {
   }
 
   submit() {
-    console.log('subbmitting: ', this.form);
     this.submitted = true;
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      console.log('valid', this.form);
       this._router.navigate(['/second-page']);
     }
   }
