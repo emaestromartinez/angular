@@ -55,3 +55,4 @@ Lanza `ng serve --open` para que se abra el localhost en el navegador automatica
     placeholder).
 - Habría que haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
 - La authenticacion usando headers, debería hacerse una vez al principio y no en la propia llamada. Incluso se podría/debería crear un interceptor de llamadas http para manejar todas estas configuraciones.
+- Añadir componente para notificar visualmente al usuario que hay procesos en marcha, por ejemplo mientras esperamos la respuesta de las llamadas HTTP.
