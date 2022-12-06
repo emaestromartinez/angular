@@ -5,9 +5,12 @@ Prueba técnica de nivel de Eduard Maestro para Frontend, con Doctori.
 
 ## Development server
 
-Ejecuta `ng serve` para lanzar el servidor de desarrollo. Navega a `http://localhost:4200/`.
+Primer paso es ejecutar `npm install` en el path del proyecto para instalar las dependencias.
+Una vez instalado, podemos ejecutar `ng serve` para lanzar el servidor de desarrollo.
+Navega a `http://localhost:4200/` en el navegador para abrir la página.
 La aplicación se recarga automaticamente si cambias algún archivo fuente.
-Lanza `ng serve --open` para que se abra el localhost en el navegador automaticamente.
+
+Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 
 ## No he acabado la prueba
 
