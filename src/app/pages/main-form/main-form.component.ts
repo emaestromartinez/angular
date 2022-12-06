@@ -7,13 +7,10 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SelectOption } from 'src/app/components/select/select.component';
 import { MainFormService } from './main-form.service';
 
-interface CarBrand {
-  value: string;
-  name: string;
-}
-const MOCK_CAR_BRANDS: CarBrand[] = [
+const MOCK_CAR_BRANDS: SelectOption[] = [
   {
     value: 'peugeot',
     name: 'Peugeot',
@@ -35,10 +32,10 @@ const MOCK_CAR_BRANDS: CarBrand[] = [
 export class MainFormComponent implements OnInit {
   form: FormGroup;
   showCarBrands = false;
-  carBrandOptions: CarBrand[] = MOCK_CAR_BRANDS;
+  carBrandOptions: SelectOption[] = MOCK_CAR_BRANDS;
 
   submitted = false;
-  termsAndConditionsString =
+  termsAndConditionsText =
     `Tus datos son tratados por iSalud para prestarte los <u><a href="http://google.es">servicios</a></u> de <b>búsqueda</b> solicitados, ` +
     `<b>consistentes en</b> realizar acciones comerciales <b>en nombre propio</b> y en nombre de las <u><a href="http://google.es">entidades aseguradoras</a></u> ` +
     `y de las entidades de prestación de servicios con las que iSalud colabora, <b>sea de</b> productos propios y/o de ` +
@@ -78,14 +75,6 @@ export class MainFormComponent implements OnInit {
 
   ngOnInit() {
     this._homeService.getCardBrands().subscribe((carBrands) => {});
-  }
-
-  selectedCarBrand(carBrand: CarBrand) {
-    this.carBrand.setValue(carBrand);
-    this.toggleCarBrandSelect();
-  }
-  toggleCarBrandSelect() {
-    this.showCarBrands = !this.showCarBrands;
   }
 
   submit() {
