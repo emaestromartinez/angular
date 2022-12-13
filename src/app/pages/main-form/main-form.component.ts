@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SelectOption } from 'src/app/components/select/select.component';
+import { environment } from 'src/app/environments/environment';
 import { MainFormService } from './main-form.service';
 
 const MOCK_CAR_BRANDS: SelectOption[] = [
@@ -78,6 +79,7 @@ export class MainFormComponent implements OnInit {
   }
 
   submit() {
+    console.log('environment', environment);
     this.submitted = true;
     this.form.markAllAsTouched();
     if (this.form.valid) {
