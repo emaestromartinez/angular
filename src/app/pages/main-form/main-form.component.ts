@@ -74,9 +74,7 @@ export class MainFormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this._homeService.getCardBrands().subscribe((carBrands) => {});
-  }
+  ngOnInit() {}
 
   submit() {
     console.log('environment', environment);
