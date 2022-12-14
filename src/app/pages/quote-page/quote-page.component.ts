@@ -8,6 +8,7 @@ import { Quote, QuotePageService } from './quote-page.service';
 export class QuotePageComponent implements OnInit {
   constructor(private _quotePageService: QuotePageService) {}
   quoteOfTheDay: Quote;
+  quoteOfTheDayError: string;
 
   ngOnInit() {
     this._quotePageService.getQuoteOfTheDay().subscribe({
@@ -15,7 +16,7 @@ export class QuotePageComponent implements OnInit {
         this.quoteOfTheDay = quoteOfTheDay;
       },
       error: (error) => {
-        console.log(error);
+        this.quoteOfTheDayError = error.error.error.message;
       },
     });
   }
