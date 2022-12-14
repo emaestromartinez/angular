@@ -36,99 +36,18 @@
       </div>
 
       <div class="col-span-2 sm:col-span-1">
-        <div class="relative">
-          <div>
-            <label
-              class="block text-sm font-bold mb-2 text-white w-full"
-              for="email"
-            >
-              Marca de tu coche
-            </label>
-            <button
-              (click)="toggleCarBrandSelect()"
-              type="button"
-              [ngClass]="{
-                'inline-flex justify-end border-gray-300 bg-white text-sm font-medium': true,
-                'hover:bg-gray-50 shadow appearance-none border rounded w-full ': true,
-                'py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline': true
-              }"
-              id="menu-button"
-              aria-expanded="true"
-              aria-haspopup="true"
-            >
-              <div class="w-full text-left">
-                {{ carBrand.value.name || "Marca de tu coche" }}
-              </div>
-              <svg
-                class="-mr-1 ml-2 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </button>
-            <div *ngIf="carBrand.touched && carBrand.errors?.['required']">
-              <p class="text-red-500 text-xs italic">
-                Por favor, introduce la marca de tu coche.
-              </p>
-            </div>
-          </div>
-
-          <div
-            *ngIf="showCarBrands"
-            class="absolute right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-            tabindex="-1"
-          >
-            <div class="py-1" role="none">
-              <div
-                *ngFor="let carBrandOption of carBrandOptions; let i = index"
-                href="#"
-                [ngClass]="{
-                  'text-gray-600 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900': true,
-                  '!bg-gray-300 !text-gray-900':
-                    carBrandOption.value === carBrand.value.value
-                }"
-                role="menuitem"
-                (click)="selectedCarBrand(carBrandOption)"
-              >
-                {{ carBrandOption.name }}
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-select
+          title="Marca de tu coche"
+          [selectFormControl]="carBrand"
+          [options]="carBrandOptions"
+        ></app-select>
       </div>
 
-      <div class="col-span-2 grid grid-cols-1 gap-2">
-        <div class="flex gap-2">
-          <input
-            type="checkbox"
-            class="self-start top-5 mt-1 w-6 h-6"
-            [formControl]="termsAndConditions"
-            id="acceptTerms"
-            [ngClass]="{ 'is-invalid': submitted && termsAndConditions.errors }"
-          />
-          <div
-            for="acceptTerms"
-            class="text-white w-full"
-            [innerHTML]="termsAndConditionsString"
-          >
-            Accept Terms & Conditions
-          </div>
-        </div>
-        <div *ngIf="submitted && termsAndConditions.errors">
-          <p class="text-red-500 text-xs italic">
-            Es necesario aceptar los terminos y condiciones.
-          </p>
-        </div>
+      <div class="col-span-2">
+        <app-checkbox
+          [checkboxFormControl]="termsAndConditions"
+          [checkboxText]="termsAndConditionsText"
+        ></app-checkbox>
       </div>
 
       <div class="col-span-2">
