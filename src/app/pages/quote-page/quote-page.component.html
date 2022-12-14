@@ -1,0 +1,28 @@
+<div class="sm:m-8 m-1 flex flex-col justify-center">
+  <div *ngIf="quoteOfTheDay">
+    <div>
+      <h1 class="text-3xl">Quote of the day</h1>
+    </div>
+    <div>
+      <h4 class="text-xl">{{ quoteOfTheDay.quote }}</h4>
+    </div>
+  </div>
+  <div *ngIf="!quoteOfTheDay">
+    <div>
+      <h1 class="text-3xl">Quote of the day</h1>
+    </div>
+    <div>
+      <h4 class="text-xl">The daily quote is not available at this moment.</h4>
+    </div>
+  </div>
+
+  <div>
+    <a [href]="''">
+      <button
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Atrás!
+      </button>
+    </a>
+  </div>
+</div>

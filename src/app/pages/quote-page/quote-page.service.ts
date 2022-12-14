@@ -11,7 +11,7 @@ export interface Quote {
 @Injectable({
   providedIn: 'root',
 })
-export class SecondPageService {
+export class QuotePageService {
   constructor(private _apiQuotesService: ApiQuotesService) {}
 
   getQuoteOfTheDay(): Observable<Quote> {

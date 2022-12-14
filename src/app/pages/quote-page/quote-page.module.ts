@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SecondPageComponent } from './second-page.component';
-import { SecondPageRoutingModule } from './second-page-routing.module';
+import { QuotePageComponent } from './quote-page.component';
+import { QuotePageRoutingModule } from './quote-page-routing.module';
 import { RouterModule } from '@angular/router';
-import { SecondPageService } from './second-page.service';
+import { QuotePageService } from './quote-page.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiQuotesService } from 'src/app/api/quotes/qod.service';
 
@@ -12,9 +12,9 @@ import { ApiQuotesService } from 'src/app/api/quotes/qod.service';
     CommonModule,
     RouterModule,
     HttpClientModule,
-    SecondPageRoutingModule,
+    QuotePageRoutingModule,
   ],
-  declarations: [SecondPageComponent],
-  providers: [SecondPageService, ApiQuotesService],
+  declarations: [QuotePageComponent],
+  providers: [QuotePageService, ApiQuotesService],
 })
-export class SecondPageModule {}
+export class QuotePageModule {}

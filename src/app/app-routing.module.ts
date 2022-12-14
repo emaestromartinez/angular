@@ -26,10 +26,10 @@ export const routesApp: CustomRoute[] = [
           ),
       },
       {
-        path: 'second-page',
+        path: 'quotes',
         loadChildren: () =>
-          import('./pages/second-page/second-page.module').then(
-            (m) => m.SecondPageModule
+          import('./pages/quote-page/quote-page.module').then(
+            (m) => m.QuotePageModule
           ),
       },
       { path: '**', component: NotFoundComponent },
