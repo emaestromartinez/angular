@@ -1,3 +1,5 @@
+import { MainFormModule } from './../main-form/main-form.module';
+import { MainFormComponent } from './../main-form/main-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarWarsMoviesPageComponent } from './star-wars-movies-page.component';
@@ -13,6 +15,7 @@ import { ApiQuotesService } from 'src/app/api/quotes/qod.service';
     RouterModule,
     HttpClientModule,
     StarWarsMoviesPageRoutingModule,
+    MainFormModule,
   ],
   declarations: [StarWarsMoviesPageComponent],
   providers: [StarWarsMoviesPageService, ApiQuotesService],

@@ -2,7 +2,13 @@ import { StarWarsMoviesPageComponent } from './star-wars-movies-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [{ path: '', component: StarWarsMoviesPageComponent }];
+const routes: Routes = [
+  { path: '', component: StarWarsMoviesPageComponent },
+  {
+    path: ':slug',
+    component: StarWarsMoviesPageComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

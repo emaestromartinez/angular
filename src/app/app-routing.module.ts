@@ -26,6 +26,13 @@ export const routesApp: CustomRoute[] = [
           ),
       },
       {
+        path: 'star-wars-movies',
+        loadChildren: () =>
+          import('./pages/star-wars-movies/star-wars-movies-page.module').then(
+            (m) => m.StarWarsMoviesPageModule
+          ),
+      },
+      {
         path: 'form',
         loadChildren: () =>
           import('./pages/main-form/main-form.module').then(

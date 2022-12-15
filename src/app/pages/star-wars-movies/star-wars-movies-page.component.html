@@ -1,1 +1,21 @@
-<div class="sm:m-8 m-1 flex flex-col justify-center"></div>
+<div class="sm:m-8 m-1 flex flex-col justify-center gap-2">
+  <div
+    class="flex gap-2 flex-row border-solid border-2 border-gray-700 rounded-xl p-2"
+  >
+    <a [routerLink]="'/star-wars-movies/films'">Films</a>
+    <a [routerLink]="'/star-wars-movies/people'">People</a>
+    <a [routerLink]="'/star-wars-movies/planets'">Planets</a>
+    <a [routerLink]="'/star-wars-movies/species'">Species</a>
+    <a [routerLink]="'/star-wars-movies/starships'">Starships</a>
+    <a [routerLink]="'/star-wars-movies/vehicles'">Vehicles</a>
+  </div>
+  <div class="border-solid border-2 border-gray-700 rounded-xl p-2">
+    <div [ngSwitch]="currentUrl">
+      <div *ngSwitchCase="'films'">FILMS</div>
+      <div *ngSwitchCase="'people'">PEOPLE</div>
+
+      <!--default case when there are no matches -->
+      <div *ngSwitchDefault>ALL ELSE</div>
+    </div>
+  </div>
+</div>
