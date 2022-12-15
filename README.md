@@ -29,6 +29,7 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 - Y mucho más que seguramente me he olvidado de incluír en esta lista.
 - Separación de las llamadas a las apis en su propia carpeta.
 - Interfaces mapeadas con el contrato/respuesta de los endpoints.
+- Aunque en este proyecto no me ha hecho falta por estar trabajando solo, conozco como usar las ramas de git y trabajar correctamente tanto en equipos grandaes como pequeños
 
 ## Qué me ha faltado por hacer por tiempo, por quedar fuera de scope, etc
 
