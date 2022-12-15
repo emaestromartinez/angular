@@ -26,6 +26,13 @@ export const routesApp: CustomRoute[] = [
           ),
       },
       {
+        path: 'form',
+        loadChildren: () =>
+          import('./pages/main-form/main-form.module').then(
+            (m) => m.MainFormModule
+          ),
+      },
+      {
         path: 'quotes',
         loadChildren: () =>
           import('./pages/quote-page/quote-page.module').then(

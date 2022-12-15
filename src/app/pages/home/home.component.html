@@ -1,3 +1,51 @@
-<div>
-  <router-outlet></router-outlet>
+<div #appHeader class="sticky-top top-0 z-40">
+  <app-header id="app-header">
+    <!-- <elma-option
+      slot="languages"
+      title="Español"
+      link="/es/cuadro-medico"
+    ></elma-option>
+    <elma-wp-anchors
+      slot="options"
+      [text]="'MAIN.PARTICULARES.TITLE' | translate"
+      [link]="'MAIN.PARTICULARES.LINK' | translate"
+      header
+    ></elma-wp-anchors>
+    <elma-wp-anchors
+      slot="options"
+      [text]="'MAIN.COMPANIES.TITLE' | translate"
+      [link]="'MAIN.COMPANIES.LINK' | translate"
+      header
+    ></elma-wp-anchors>
+    <elma-wp-anchors
+      slot="options"
+      [text]="'MAIN.CUADRO_MEDICO' | translate"
+      [link]="'/es/cuadro-medico/'"
+      header
+      active
+    ></elma-wp-anchors>
+    <elma-wp-anchors
+      slot="options-mobile"
+      [text]="'MAIN.PARTICULARES.TITLE' | translate"
+      [link]="'MAIN.PARTICULARES.LINK' | translate"
+      header
+    ></elma-wp-anchors>
+    <elma-wp-anchors
+      slot="options-mobile"
+      [text]="'MAIN.COMPANIES.TITLE' | translate"
+      [link]="'MAIN.COMPANIES.LINK' | translate"
+      header
+    ></elma-wp-anchors>
+    <elma-wp-anchors
+      slot="options-mobile"
+      [text]="'MAIN.CUADRO_MEDICO' | translate"
+      [link]="'/es/cuadro-medico/'"
+      header
+      active
+    ></elma-wp-anchors> -->
+  </app-header>
 </div>
+
+<main id="main-content" class="mb-12">
+  <router-outlet></router-outlet>
+</main>
