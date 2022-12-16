@@ -29,16 +29,18 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 - Y mucho más que seguramente me he olvidado de incluír en esta lista.
 - Separación de las llamadas a las apis en su propia carpeta.
 - Interfaces mapeadas con el contrato/respuesta de los endpoints.
-- Aunque en este proyecto no me ha hecho falta por estar trabajando solo, conozco como usar las ramas de git y trabajar correctamente tanto en equipos grandaes como pequeños
+
+## Control de versiones
+
+Aunque en este proyecto no me ha hecho falta por estar trabajando solo, conozco como usar las ramas de git y trabajar correctamente tanto en equipos grandaes como pequeños.
+Sé que debería, y en un entorno profesional todo estaría hecho con ramas, para asegurar que sea fácil mantener el entorno limpio y poder usar correctamente el control de versiones.
 
 ## Qué me ha faltado por hacer por tiempo, por quedar fuera de scope, etc
 
 - Configurar sistema de mock para poder probar el codigo en local. (Mock service worker mswjs).
-- Tanto el telefono como el email deberían traer validaciones correctas.
-    He usado las propias de html y/o ReactiveForms pero lo suyo sería haberlas creado nuevas.
+- Tanto el telefono como el email deberían traer validaciones correctas. He usado las propias de html y/o ReactiveForms pero lo suyo sería haberlas creado nuevas.
 - Añadir soporte para traducir todos los textos. En otros proyectos he usado Lokalise.
-- Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay
-    placeholder).
+- Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay placeholder).
 - Habría que haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
 - La authenticacion usando headers, debería hacerse una vez al principio y no en la propia llamada. Incluso se podría/debería crear un interceptor de llamadas http para manejar todas estas configuraciones.
 - Añadir componente para notificar visualmente al usuario que hay procesos en marcha, por ejemplo mientras esperamos la respuesta de las llamadas HTTP.
