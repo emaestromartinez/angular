@@ -7,6 +7,12 @@ const routes: Routes = [
   {
     path: ':slug',
     component: StarWarsMoviesPageComponent,
+    children: [
+      {
+        path: ':id',
+        component: StarWarsMoviesPageComponent,
+      },
+    ],
   },
 ];
 

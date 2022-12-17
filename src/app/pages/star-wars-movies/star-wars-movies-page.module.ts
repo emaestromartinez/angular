@@ -1,5 +1,5 @@
+import { ApiStarWarsFilmsService } from './../../api/star-wars/films.service';
 import { MainFormModule } from './../main-form/main-form.module';
-import { MainFormComponent } from './../main-form/main-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarWarsMoviesPageComponent } from './star-wars-movies-page.component';
@@ -7,7 +7,6 @@ import { StarWarsMoviesPageRoutingModule } from './star-wars-movies-page-routing
 import { RouterModule } from '@angular/router';
 import { StarWarsMoviesPageService } from './star-wars-movies-page.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiQuotesService } from 'src/app/api/quotes/qod.service';
 
 @NgModule({
   imports: [
@@ -18,6 +17,6 @@ import { ApiQuotesService } from 'src/app/api/quotes/qod.service';
     MainFormModule,
   ],
   declarations: [StarWarsMoviesPageComponent],
-  providers: [StarWarsMoviesPageService, ApiQuotesService],
+  providers: [StarWarsMoviesPageService, ApiStarWarsFilmsService],
 })
 export class StarWarsMoviesPageModule {}

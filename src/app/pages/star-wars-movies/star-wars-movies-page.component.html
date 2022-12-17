@@ -2,20 +2,64 @@
   <div
     class="flex gap-2 flex-row border-solid border-2 border-gray-700 rounded-xl p-2"
   >
-    <a [routerLink]="'/star-wars-movies/films'">Films</a>
-    <a [routerLink]="'/star-wars-movies/people'">People</a>
-    <a [routerLink]="'/star-wars-movies/planets'">Planets</a>
-    <a [routerLink]="'/star-wars-movies/species'">Species</a>
-    <a [routerLink]="'/star-wars-movies/starships'">Starships</a>
-    <a [routerLink]="'/star-wars-movies/vehicles'">Vehicles</a>
+    <a
+      [routerLink]="'/star-wars-movies/films'"
+      routerLinkActive="font-black italic"
+      >Films</a
+    >
+    <a
+      [routerLink]="'/star-wars-movies/people'"
+      routerLinkActive="font-black italic"
+      >People</a
+    >
+    <a
+      [routerLink]="'/star-wars-movies/planets'"
+      routerLinkActive="font-black italic"
+      >Planets</a
+    >
+    <a
+      [routerLink]="'/star-wars-movies/species'"
+      routerLinkActive="font-black italic"
+      >Species</a
+    >
+    <a
+      [routerLink]="'/star-wars-movies/starships'"
+      routerLinkActive="font-black italic"
+      >Starships</a
+    >
+    <a
+      [routerLink]="'/star-wars-movies/vehicles'"
+      routerLinkActive="font-black italic"
+      >Vehicles</a
+    >
   </div>
   <div class="border-solid border-2 border-gray-700 rounded-xl p-2">
     <div [ngSwitch]="currentUrl">
-      <div *ngSwitchCase="'films'">FILMS</div>
-      <div *ngSwitchCase="'people'">PEOPLE</div>
+      <div *ngSwitchCase="'films'">
+        <div class="flx flxcol gap-">
+          <div
+            *ngFor="let film of films"
+            (click)="showFilmDetails(film)"
+            class="flex gap-4"
+          >
+            <div>{{ film.title }}</div>
+            -
+            <div>{{ film.director }}</div>
+            -
+            <div>{{ film.year }}</div>
+            -
+            <div>More details...</div>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchCase="'people'">
+        <div>People</div>
+      </div>
 
-      <!--default case when there are no matches -->
-      <div *ngSwitchDefault>ALL ELSE</div>
+      <!-- Default case when there are no matches -->
+      <div *ngSwitchDefault>
+        <div>Work in progress...</div>
+      </div>
     </div>
   </div>
 </div>

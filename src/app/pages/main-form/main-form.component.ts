@@ -77,7 +77,6 @@ export class MainFormComponent implements OnInit {
   ngOnInit() {}
 
   submit() {
-    console.log('environment', environment);
     this.submitted = true;
     this.form.markAllAsTouched();
     if (this.form.valid) {
