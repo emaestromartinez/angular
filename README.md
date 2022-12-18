@@ -12,7 +12,7 @@ La aplicación se recarga automaticamente si cambias algún archivo fuente.
 
 Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 
-## Filosofía al programar
+## Filosofía al programar y qué incluye este proyecto
 
   Por un lado, considero que en este repositorio demuestro gran parte de la filosofía que tengo al programar. Este proyecto incluye:
 
@@ -29,6 +29,7 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 - Y mucho más que seguramente me he olvidado de incluír en esta lista.
 - Separación de las llamadas a las apis en su propia carpeta.
 - Interfaces mapeadas con el contrato/respuesta de los endpoints.
+- Rutas modularizadas y dinámicas, con varios slug para no re-cargar los componentes (y evitar lanzar sus onInit si no es necesario). Ej: StarWarsPage
 
 ## Control de versiones
 
