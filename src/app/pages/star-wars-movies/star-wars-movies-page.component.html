@@ -36,11 +36,11 @@
   <div class="border-solid border-2 border-gray-700 rounded-xl p-2">
     <div [ngSwitch]="currentUrl">
       <div *ngSwitchCase="'films'">
-        <div class="flx flxcol gap-">
+        <div *ngIf="!detailsId" class="flex flex-col gap-2">
           <div
             *ngFor="let film of films"
             (click)="showFilmDetails(film)"
-            class="flex gap-4"
+            class="flex gap-4 cursor-pointer hover:underline"
           >
             <div>{{ film.title }}</div>
             -
@@ -48,11 +48,12 @@
             -
             <div>{{ film.year }}</div>
             -
-            <div class="cursor-pointer text-blue-700 hover:underline">
+            <div (click)="showFilmDetails(film)" class="text-blue-700">
               More details...
             </div>
           </div>
         </div>
+        <div *ngIf="detailsId">No details yet... go implement that, dude.</div>
       </div>
       <div *ngSwitchCase="'people'">
         <div>People</div>

@@ -24,7 +24,9 @@ export class StarWarsMoviesPageComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  showFilmDetails(film: Film) {}
+  showFilmDetails(film: Film) {
+    this._router.navigate([film.filmId], { relativeTo: this._route });
+  }
 
   ngOnInit(): void {
     this.updateCurrentRoute();
