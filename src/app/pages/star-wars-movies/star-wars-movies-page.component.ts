@@ -1,4 +1,3 @@
-import { NgSwitch } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -28,21 +27,21 @@ export class StarWarsMoviesPageComponent implements OnInit, OnDestroy {
   showFilmDetails(film: Film) {}
 
   ngOnInit(): void {
-    this.currentUrl = this._route.snapshot.params['slug'];
-    this.detailsId = this._route.snapshot.params['detailsId'];
-
-    console.log('slug', this._route.snapshot.params['slug']);
-    console.log('detailsId', this._route.snapshot.params['detailsId']);
-
+    this.updateCurrentRoute();
     this.getInformation();
     const routeChangeSub = this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log('slug2', this._route.snapshot.params['slug']);
-        console.log('detailsId2', this._route.snapshot.params['detailsId']);
         // this.currentUrl = fullUrlSplit.pop();
+        this.updateCurrentRoute();
+        this.getInformation();
       }
     });
     this.subscriptions.push(routeChangeSub);
+  }
+
+  updateCurrentRoute() {
+    this.currentUrl = this._route.snapshot.params['slug'];
+    this.detailsId = this._route.snapshot.params['detailsId'];
   }
 
   getInformation() {
