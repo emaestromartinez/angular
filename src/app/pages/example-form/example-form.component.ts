@@ -8,8 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SelectOption } from 'src/app/components/select/select.component';
-import { environment } from 'src/app/environments/environment';
-import { MainFormService } from './main-form.service';
+import { ExampleFormService } from './example-form.service';
 
 const MOCK_CAR_BRANDS: SelectOption[] = [
   {
@@ -27,10 +26,10 @@ const MOCK_CAR_BRANDS: SelectOption[] = [
 ];
 
 @Component({
-  selector: 'app-main-form',
-  templateUrl: './main-form.component.html',
+  selector: 'app-example-form',
+  templateUrl: './example-form.component.html',
 })
-export class MainFormComponent implements OnInit {
+export class ExampleFormComponent implements OnInit {
   form: FormGroup;
   showCarBrands = false;
   carBrandOptions: SelectOption[] = MOCK_CAR_BRANDS;
@@ -61,7 +60,7 @@ export class MainFormComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _homeService: MainFormService,
+    private _exampleformService: ExampleFormService,
     private _router: Router
   ) {
     this.form = this._fb.group({

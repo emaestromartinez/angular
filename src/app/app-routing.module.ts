@@ -1,4 +1,4 @@
-import { HomeComponent } from './pages/home/home.component';
+import { MainComponent } from './pages/main/main.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Route } from '@angular/router';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -16,14 +16,12 @@ export interface CustomRoute extends Route {
 export const routesApp: CustomRoute[] = [
   {
     path: '',
-    component: HomeComponent,
+    component: MainComponent,
     children: [
       {
         path: '',
         loadChildren: () =>
-          import('./pages/main-form/main-form.module').then(
-            (m) => m.MainFormModule
-          ),
+          import('./pages/home/home.module').then((m) => m.HomeModule),
       },
       {
         path: 'star-wars-movies',
@@ -35,8 +33,8 @@ export const routesApp: CustomRoute[] = [
       {
         path: 'form',
         loadChildren: () =>
-          import('./pages/main-form/main-form.module').then(
-            (m) => m.MainFormModule
+          import('./pages/example-form/example-form.module').then(
+            (m) => m.ExampleFormModule
           ),
       },
       {

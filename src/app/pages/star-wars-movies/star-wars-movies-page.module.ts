@@ -1,5 +1,4 @@
 import { ApiStarWarsFilmsService } from './../../api/star-wars/films.service';
-import { MainFormModule } from './../main-form/main-form.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarWarsMoviesPageComponent } from './star-wars-movies-page.component';
@@ -14,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     HttpClientModule,
     StarWarsMoviesPageRoutingModule,
-    MainFormModule,
   ],
   declarations: [StarWarsMoviesPageComponent],
   providers: [StarWarsMoviesPageService, ApiStarWarsFilmsService],
