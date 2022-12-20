@@ -15,7 +15,6 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 ## To do list
 
 
-- Loading Screen.
 - Test unitarios
 - Sonarqube
 - Cypress
@@ -53,6 +52,12 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 - Rutas modularizadas y dinámicas, con varios slug para no re-cargar los componentes (y evitar lanzar sus onInit si no es necesario). Ej: StarWarsPage.
 - Home screen redirigiendo a las diferentes rutas.
 
+- Componentes reutilizables:
+  - Header
+  - Input
+  - Select
+  - Checkbox
+  - Loading Spinner
 
 ## Control de versiones
 

@@ -39,25 +39,25 @@
       <div *ngSwitchCase="'films'">
         <div *ngIf="!detailsId">
           <div *ngIf="!loading" class="flex flex-col gap-2">
-            <div
-              *ngFor="let film of films"
-              (click)="showFilmDetails(film)"
-              class="flex gap-4 cursor-pointer hover:underline"
-            >
+            <div *ngFor="let film of films" class="flex gap-4 cursor-pointer">
               <div>{{ film.title }}</div>
               -
               <div>{{ film.director }}</div>
               -
               <div>{{ film.year }}</div>
               -
-              <div (click)="showFilmDetails(film)" class="text-blue-700">
+              <div
+                (click)="showFilmDetails(film)"
+                class="text-blue-700 hover:underline"
+              >
                 More details...
               </div>
             </div>
           </div>
           <div *ngIf="loading">
-            <div class="p-4">
+            <div class="p-4 flex flex-col gap-2">
               <app-loader></app-loader>
+              <div class="">Cargaaaando...</div>
             </div>
           </div>
         </div>
