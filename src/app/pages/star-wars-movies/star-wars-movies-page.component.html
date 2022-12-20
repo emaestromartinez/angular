@@ -37,20 +37,27 @@
     <div [ngSwitch]="currentUrl">
       <div *ngSwitchCase="">Selecciona una de las opciones arriba!</div>
       <div *ngSwitchCase="'films'">
-        <div *ngIf="!detailsId" class="flex flex-col gap-2">
-          <div
-            *ngFor="let film of films"
-            (click)="showFilmDetails(film)"
-            class="flex gap-4 cursor-pointer hover:underline"
-          >
-            <div>{{ film.title }}</div>
-            -
-            <div>{{ film.director }}</div>
-            -
-            <div>{{ film.year }}</div>
-            -
-            <div (click)="showFilmDetails(film)" class="text-blue-700">
-              More details...
+        <div *ngIf="!detailsId">
+          <div *ngIf="!loading" class="flex flex-col gap-2">
+            <div
+              *ngFor="let film of films"
+              (click)="showFilmDetails(film)"
+              class="flex gap-4 cursor-pointer hover:underline"
+            >
+              <div>{{ film.title }}</div>
+              -
+              <div>{{ film.director }}</div>
+              -
+              <div>{{ film.year }}</div>
+              -
+              <div (click)="showFilmDetails(film)" class="text-blue-700">
+                More details...
+              </div>
+            </div>
+          </div>
+          <div *ngIf="loading">
+            <div class="p-4">
+              <app-loader></app-loader>
             </div>
           </div>
         </div>

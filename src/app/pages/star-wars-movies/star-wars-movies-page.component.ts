@@ -22,6 +22,7 @@ export class StarWarsMoviesPageComponent implements OnInit, OnDestroy {
   currentUrl: string;
   detailsId: string;
 
+  loading = false;
   subscriptions: Subscription[] = [];
 
   showFilmDetails(film: Film) {
@@ -50,10 +51,12 @@ export class StarWarsMoviesPageComponent implements OnInit, OnDestroy {
     switch (this.currentUrl) {
       case 'films':
         if (!this.films) {
+          this.loading = true;
           const getFilmsSub = this._starWarsMoviesPageService
             .getFilms()
             .subscribe((films) => {
               this.films = films;
+              this.loading = false;
             });
           this.subscriptions.push(getFilmsSub);
         }

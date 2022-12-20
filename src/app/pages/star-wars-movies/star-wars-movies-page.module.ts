@@ -6,6 +6,7 @@ import { StarWarsMoviesPageRoutingModule } from './star-wars-movies-page-routing
 import { RouterModule } from '@angular/router';
 import { StarWarsMoviesPageService } from './star-wars-movies-page.service';
 import { HttpClientModule } from '@angular/common/http';
+import { LoaderModule } from 'src/app/components/loader/loader.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     HttpClientModule,
     StarWarsMoviesPageRoutingModule,
+    LoaderModule,
   ],
   declarations: [StarWarsMoviesPageComponent],
   providers: [StarWarsMoviesPageService, ApiStarWarsFilmsService],
