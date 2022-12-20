@@ -79,7 +79,7 @@ export class ExampleFormComponent implements OnInit {
     this.submitted = true;
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      this._router.navigate(['/second-page']);
+      this._router.navigate(['']);
     }
   }
 }
