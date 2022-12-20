@@ -7,8 +7,9 @@
   <div
     class="flex gap-2 flex-col border-solid border-2 border-gray-700 rounded-xl p-2"
   >
-    <div [routerLink]="'/star-wars-movies'">
+    <div>
       <button
+        [routerLink]="'/star-wars-movies'"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Star Wars API Project
@@ -16,13 +17,15 @@
     </div>
     <div>
       <button
+        [routerLink]="'/quotes'"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Quote of the day
       </button>
     </div>
-    <div [routerLink]="'/form'">
+    <div>
       <button
+        [routerLink]="'/form'"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Validated Form Project

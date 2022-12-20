@@ -14,7 +14,8 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 
 ## To do list
 
-- Home screen redirigiendo a las diferentes rutas.
+
+- Loading Screen.
 - Test unitarios
 - Sonarqube
 - Cypress
@@ -49,7 +50,9 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 - Y mucho más que seguramente me he olvidado de incluír en esta lista.
 - Separación de las llamadas a las apis en su propia carpeta.
 - Interfaces mapeadas con el contrato/respuesta de los endpoints.
-- Rutas modularizadas y dinámicas, con varios slug para no re-cargar los componentes (y evitar lanzar sus onInit si no es necesario). Ej: StarWarsPage
+- Rutas modularizadas y dinámicas, con varios slug para no re-cargar los componentes (y evitar lanzar sus onInit si no es necesario). Ej: StarWarsPage.
+- Home screen redirigiendo a las diferentes rutas.
+
 
 ## Control de versiones
 
