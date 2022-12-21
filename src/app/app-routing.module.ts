@@ -24,10 +24,10 @@ export const routesApp: CustomRoute[] = [
           import('./pages/home/home.module').then((m) => m.HomeModule),
       },
       {
-        path: 'star-wars-movies',
+        path: 'star-wars',
         loadChildren: () =>
-          import('./pages/star-wars-movies/star-wars-movies-page.module').then(
-            (m) => m.StarWarsMoviesPageModule
+          import('./pages/star-wars/star-wars-page.module').then(
+            (m) => m.StarWarsPageModule
           ),
       },
       {

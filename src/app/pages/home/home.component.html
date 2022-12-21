@@ -1,28 +1,30 @@
 <div class="sm:m-8 m-1 flex flex-col justify-center gap-2">
   <div
-    class="flex gap-2 flex-row border-solid border-2 border-gray-700 rounded-xl p-2"
+    class="flex gap-2 flex-col border-solid border-2 border-gray-700 rounded-xl p-2"
   >
-    Blablablaah
+    <div>Proyecto generado con Angular versión 15.0.2.</div>
+    <div>
+      Prueba técnica de nivel de
+      <b>Eduard Maestro</b>
+      para Frontend. (Portfolio)
+    </div>
   </div>
   <div
     class="flex gap-2 flex-col border-solid border-2 border-gray-700 rounded-xl p-2"
   >
     <div>
+      Cada botón redirige a una ruta donde se encuentra un pequeño proyecto.
+    </div>
+
+    <div>
       <button
-        [routerLink]="'/star-wars-movies'"
+        [routerLink]="'/star-wars'"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Star Wars API Project
       </button>
     </div>
-    <div>
-      <button
-        [routerLink]="'/quotes'"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Quote of the day
-      </button>
-    </div>
+
     <div>
       <button
         [routerLink]="'/form'"

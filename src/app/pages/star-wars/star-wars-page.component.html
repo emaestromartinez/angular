@@ -1,0 +1,87 @@
+<div class="sm:m-8 m-1 flex flex-col justify-center gap-2">
+  <div
+    class="flex gap-2 flex-row border-solid border-2 border-gray-700 rounded-xl p-2"
+  >
+    <a [routerLink]="'/star-wars/films'" routerLinkActive="font-black italic"
+      >Films</a
+    >
+    <a [routerLink]="'/star-wars/people'" routerLinkActive="font-black italic"
+      >People</a
+    >
+    <a [routerLink]="'/star-wars/planets'" routerLinkActive="font-black italic"
+      >Planets</a
+    >
+    <a [routerLink]="'/star-wars/species'" routerLinkActive="font-black italic"
+      >Species</a
+    >
+    <a
+      [routerLink]="'/star-wars/starships'"
+      routerLinkActive="font-black italic"
+      >Starships</a
+    >
+    <a [routerLink]="'/star-wars/vehicles'" routerLinkActive="font-black italic"
+      >Vehicles</a
+    >
+  </div>
+  <div class="border-solid border-2 border-gray-700 rounded-xl p-2">
+    <div [ngSwitch]="currentUrl">
+      <div *ngSwitchCase="">Pick one of the above options!</div>
+      <div *ngSwitchCase="'films'">
+        <div *ngIf="!detailsId">
+          <div *ngIf="!loading" class="flex flex-col gap-2">
+            <div *ngFor="let film of films; let i = index" class="flex gap-4">
+              <div>{{ film.title }}</div>
+              -
+              <div>{{ film.director }}</div>
+              -
+              <div
+                [routerLink]="'/star-wars/films/' + (i + 1)"
+                class="cursor-pointer text-blue-700 hover:underline"
+              >
+                More details...
+              </div>
+            </div>
+          </div>
+          <div *ngIf="loading">
+            <div class="p-4 flex flex-row gap-2 items-center">
+              <app-loader></app-loader>
+              <div class="">Loaaaading...</div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="detailsId && !loading" class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1">
+            <div class="font-bold text-xl">Title:</div>
+            <div class="ml-4">{{ selectedFilm.title }}</div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="font-bold text-xl">Director:</div>
+            <div class="ml-4">{{ selectedFilm.director }}</div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="font-bold text-xl">Producer:</div>
+            <div class="ml-4">{{ selectedFilm.producer }}</div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="font-bold text-xl">Release date:</div>
+            <div class="ml-4">{{ selectedFilm.release_date }}</div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="font-bold text-xl">Opening Crawl:</div>
+            <div class="ml-4 w-full md:w-1/2">
+              {{ selectedFilm.opening_crawl }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchCase="'people'">
+        <div>People</div>
+      </div>
+
+      <!-- Default case when there are no matches -->
+      <div *ngSwitchDefault>
+        <div>Work in progress...</div>
+      </div>
+    </div>
+  </div>
+</div>

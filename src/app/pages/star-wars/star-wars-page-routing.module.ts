@@ -1,16 +1,16 @@
-import { StarWarsMoviesPageComponent } from './star-wars-movies-page.component';
+import { StarWarsPageComponent } from './star-wars-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: StarWarsMoviesPageComponent },
+  { path: '', component: StarWarsPageComponent },
   {
     path: ':slug',
-    component: StarWarsMoviesPageComponent,
+    component: StarWarsPageComponent,
   },
   {
     path: ':slug/:detailsId',
-    component: StarWarsMoviesPageComponent,
+    component: StarWarsPageComponent,
   },
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class StarWarsMoviesPageRoutingModule {}
+export class StarWarsPageRoutingModule {}
