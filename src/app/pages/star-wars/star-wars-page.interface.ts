@@ -12,4 +12,17 @@ export interface FilmDetails {
   opening_crawl: string;
 }
 
-export interface People {}
+export interface People {
+  title: string;
+  gender: string;
+  homeworld: string;
+  height: string;
+}
+
+export interface PlanetDetails {
+  title: string;
+  population: string;
+  terrain: string;
+  climate: string;
+  diameter: string;
+}

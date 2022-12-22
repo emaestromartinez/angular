@@ -1,13 +1,28 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { ApiStarWarsFilmsService } from 'src/app/api/star-wars/films.service';
-import { Film, FilmDetails } from './star-wars-page.interface';
+import { ApiStarWarsPeople } from 'src/app/api/star-wars/people.interface';
+import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
+import { ApiStarWarsPlanets } from 'src/app/api/star-wars/planets.interface';
+import { ApiStarWarsPlanetsService } from 'src/app/api/star-wars/planets.service';
+import {
+  Film,
+  FilmDetails,
+  People,
+  PlanetDetails,
+} from './star-wars-page.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StarWarsPageService {
-  constructor(private _apiStarWarsFilmsService: ApiStarWarsFilmsService) {}
+  constructor(
+    private _http: HttpClient,
+    private _apiStarWarsFilmsService: ApiStarWarsFilmsService,
+    private _apiStarWarsPeopleService: ApiStarWarsPeopleService,
+    private _apiStarWarsPlanetsService: ApiStarWarsPlanetsService
+  ) {}
 
   getFilmDetails(detailsId: number): Observable<FilmDetails> {
     return this._apiStarWarsFilmsService.getFilmDetails(detailsId).pipe(
@@ -25,6 +40,23 @@ export class StarWarsPageService {
       })
     );
   }
+
+  getPlanetDetails(detailsId: number): Observable<PlanetDetails> {
+    return this._apiStarWarsPlanetsService.getPlanetDetails(detailsId).pipe(
+      map((result) => {
+        const planet = {
+          title: result.name,
+          population: result.population,
+          terrain: result.terrain,
+          climate: result.climate,
+          diameter: result.diameter,
+        } as PlanetDetails;
+
+        return planet;
+      })
+    );
+  }
+
   getFilms(): Observable<Film[]> {
     return this._apiStarWarsFilmsService.getFilms().pipe(
       map((result) => {
@@ -36,6 +68,44 @@ export class StarWarsPageService {
           } as Film;
         });
         return films;
+      })
+    );
+  }
+
+  getPeople(): Observable<People[]> {
+    return this._apiStarWarsPeopleService.getPeople().pipe(
+      mergeMap((result) => {
+        const homeworldSubscriptionArray = [];
+        for (let index = 0; index < result.results.length; index++) {
+          homeworldSubscriptionArray.push(
+            this._http.get<ApiStarWarsPlanets.Get.Response.Results>(
+              result.results[index].homeworld
+            )
+          );
+        }
+        return forkJoin(homeworldSubscriptionArray).pipe(
+          map((homeworld) => {
+            const people = result.results.map(
+              (
+                people: ApiStarWarsPeople.Get.Response.Results,
+                index: number
+              ) => {
+                return {
+                  title: people.name,
+                  gender: people.gender,
+                  homeworld: homeworld[index].name,
+                  height:
+                    +people.height > 200
+                      ? `High (${people.height})`
+                      : +people.height < 100
+                      ? `Low (${people.height})`
+                      : `Medium (${people.height})`,
+                } as People;
+              }
+            );
+            return people;
+          })
+        );
       })
     );
   }

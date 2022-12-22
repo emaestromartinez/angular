@@ -68,7 +68,24 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
             this.getFilmDetails(this.detailsId);
           }
         }
-
+        break;
+      case 'people':
+        if (!this.detailsId) {
+          if (!this.people) {
+            this.loading = true;
+            const getFilmsSub = this._starWarsPageService
+              .getPeople()
+              .subscribe((people) => {
+                this.people = people;
+                this.loading = false;
+              });
+            this.subscriptions.push(getFilmsSub);
+          }
+        } else if (this.detailsId) {
+          if (this.detailsId !== this.selectedFilm?.filmId) {
+            // this.getPeopleDetails(this.detailsId);
+          }
+        }
         break;
 
       default:
