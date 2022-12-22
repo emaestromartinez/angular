@@ -1,11 +1,14 @@
 <div class="topnav">
   <a [routerLink]="''">Home</a>
-  <a>Search 1</a>
-  <a>Search 2</a>
-  <a>Search 3</a>
+  <a *ngFor="let search of searchLog">{{ search }}</a>
   <div class="search-container">
-    <form>
-      <input type="text" placeholder="Search..." name="search" />
+    <form (submit)="onSubmit($event)">
+      <input
+        id="header-input"
+        type="text"
+        placeholder="Search..."
+        name="search"
+      />
     </form>
   </div>
 </div>
