@@ -22,8 +22,8 @@ export class HeaderComponent implements OnInit {
         this.searchLog.shift();
       }
       this.searchLog.push(searchString);
-      this._headerService.searchFilter$.next(searchString);
     }
+    this._headerService.searchFilter$.next(searchString);
   }
   onSubmit(event: SubmitEvent) {
     this.newSearch(this.input.value);

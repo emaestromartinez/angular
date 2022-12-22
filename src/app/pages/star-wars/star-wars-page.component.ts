@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { HeaderService } from 'src/app/components/header/header.service';
 import { Film, FilmDetails, People } from './star-wars-page.interface';
 import { StarWarsPageService } from './star-wars-page.service';
 
@@ -12,14 +13,18 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _starWarsPageService: StarWarsPageService
+    private _starWarsPageService: StarWarsPageService,
+    private _headerService: HeaderService
   ) {}
 
   initialCall = true;
 
+  lastSearch: string;
+
   films: Film[];
   selectedFilm: FilmDetails;
   people: People[];
+  isPeopleFiltered = false;
 
   currentUrl: string;
   detailsId: number;
@@ -35,6 +40,17 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     this.updateCurrentRoute();
     this.getInformation();
 
+    this._headerService.searchFilter$.subscribe((lastSearch) => {
+      console.log('lastSearch', lastSearch);
+
+      if (lastSearch) {
+        this.lastSearch = lastSearch;
+        this.filterList();
+      } else {
+        this.getInformation();
+      }
+    });
+
     const routeChangeSub = this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateCurrentRoute();
@@ -42,6 +58,26 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.push(routeChangeSub);
+  }
+  filterList() {
+    switch (this.currentUrl) {
+      case 'films':
+        break;
+
+      case 'people':
+        this.isPeopleFiltered = true;
+        this.people = this.people.filter((people) => {
+          if (
+            people.title.toUpperCase().includes(this.lastSearch.toUpperCase())
+          )
+            return true;
+          else return false;
+        });
+        break;
+
+      default:
+        break;
+    }
   }
 
   updateCurrentRoute() {
@@ -71,7 +107,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         break;
       case 'people':
         if (!this.detailsId) {
-          if (!this.people) {
+          if (!this.people || this.isPeopleFiltered) {
             this.loading = true;
             const getFilmsSub = this._starWarsPageService
               .getPeople()
