@@ -1,10 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, mergeMap, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable, of, tap } from 'rxjs';
 import { ApiStarWarsFilmsService } from 'src/app/api/star-wars/films.service';
-import { ApiStarWarsPeople } from 'src/app/api/star-wars/people.interface';
+import {
+  ApiStarWarsPeople,
+  ApiStarWarsPeopleDetails,
+} from 'src/app/api/star-wars/people.interface';
 import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
-import { ApiStarWarsPlanets } from 'src/app/api/star-wars/planets.interface';
+import {
+  ApiStarWarsPlanetDetails,
+  ApiStarWarsPlanets,
+} from 'src/app/api/star-wars/planets.interface';
 import { ApiStarWarsPlanetsService } from 'src/app/api/star-wars/planets.service';
 import {
   Film,
@@ -93,7 +99,6 @@ export class StarWarsPageService {
               ) => {
                 const personUrlSplit = people.url.split('/');
                 const personId = personUrlSplit[personUrlSplit.length - 2];
-                console.log('personId', personId);
                 return {
                   title: people.name,
                   gender: people.gender,
@@ -117,21 +122,47 @@ export class StarWarsPageService {
 
   getPeopleDetails(detailsId: number): Observable<PeopleDetails> {
     return this._apiStarWarsPeopleService.getPeopleDetails(detailsId).pipe(
-      map((result) => {
-        const person = {
-          title: result.name,
-          gender: result.gender,
-          birth_year: result.birth_year,
-          eye_color: result.eye_color,
-          hair_color: result.hair_color,
-          height: result.height,
-          skin_color: result.skin_color,
-          homeworld: result.homeworld,
-          personId: detailsId.toString(),
-        } as PeopleDetails;
+      mergeMap((result) => {
+        return this._http
+          .get<ApiStarWarsPlanetDetails.Get.Response.Body>(result.homeworld)
+          .pipe(
+            map((homeworld) => {
+              console.log('homeworld', homeworld);
+              const person = {
+                title: result.name,
+                gender: result.gender,
+                birth_year: result.birth_year,
+                eye_color: result.eye_color,
+                hair_color: result.hair_color,
+                height: result.height,
+                skin_color: result.skin_color,
+                homeworld: homeworld.name,
+                personId: detailsId.toString(),
+              } as PeopleDetails;
 
-        return person;
+              return person;
+            })
+          );
       })
     );
   }
+  // getPeopleDetails(detailsId: number): Observable<PeopleDetails> {
+  //   return this._apiStarWarsPeopleService.getPeopleDetails(detailsId).pipe(
+  //     map((result) => {
+  //       const person = {
+  //         title: result.name,
+  //         gender: result.gender,
+  //         birth_year: result.birth_year,
+  //         eye_color: result.eye_color,
+  //         hair_color: result.hair_color,
+  //         height: result.height,
+  //         skin_color: result.skin_color,
+  //         homeworld: result.homeworld,
+  //         personId: detailsId.toString(),
+  //       } as PeopleDetails;
+
+  //       return person;
+  //     })
+  //   );
+  // }
 }

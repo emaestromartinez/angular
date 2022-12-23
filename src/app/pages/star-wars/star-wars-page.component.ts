@@ -45,6 +45,8 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateCurrentRoute();
+    console.log('getInformation from ngoninit');
+
     this.getInformation();
 
     this._headerService.searchFilter$.subscribe((lastSearch) => {
@@ -52,6 +54,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         this.lastSearch = lastSearch;
         this.filterList();
       } else {
+        console.log('getInformation from filter subscription');
         this.getInformation();
       }
     });
@@ -59,6 +62,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     const routeChangeSub = this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateCurrentRoute();
+        console.log('getInformation from route change');
         this.getInformation();
       }
     });

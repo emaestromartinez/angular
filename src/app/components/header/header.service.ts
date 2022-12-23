@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeaderService {
-  searchFilter$ = new BehaviorSubject<string>('');
+  searchFilter$ = new Subject<string>();
 
   constructor() {}
 }
