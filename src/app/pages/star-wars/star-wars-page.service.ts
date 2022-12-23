@@ -1,11 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, mergeMap, Observable, of, tap } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { ApiStarWarsFilmsService } from 'src/app/api/star-wars/films.service';
-import {
-  ApiStarWarsPeople,
-  ApiStarWarsPeopleDetails,
-} from 'src/app/api/star-wars/people.interface';
+import { ApiStarWarsPeople } from 'src/app/api/star-wars/people.interface';
 import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
 import {
   ApiStarWarsPlanetDetails,
@@ -145,23 +142,4 @@ export class StarWarsPageService {
       })
     );
   }
-  // getPeopleDetails(detailsId: number): Observable<PeopleDetails> {
-  //   return this._apiStarWarsPeopleService.getPeopleDetails(detailsId).pipe(
-  //     map((result) => {
-  //       const person = {
-  //         title: result.name,
-  //         gender: result.gender,
-  //         birth_year: result.birth_year,
-  //         eye_color: result.eye_color,
-  //         hair_color: result.hair_color,
-  //         height: result.height,
-  //         skin_color: result.skin_color,
-  //         homeworld: result.homeworld,
-  //         personId: detailsId.toString(),
-  //       } as PeopleDetails;
-
-  //       return person;
-  //     })
-  //   );
-  // }
 }

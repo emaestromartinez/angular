@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   pastSearchClick(search: string) {
-    console.log('search', search);
+    this._headerService.searchFilter$.next(search.toUpperCase());
   }
 
   onSubmit(event: SubmitEvent) {

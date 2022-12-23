@@ -27,12 +27,12 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
   lastSearch: string;
 
   films: Film[];
-  filteredFilms: Film[];
+  filteredFilms: Film[] = [];
   selectedFilm: FilmDetails;
   isFilmsFiltered = false;
 
   people: People[];
-  filteredPeople: People[];
+  filteredPeople: People[] = [];
   selectedPerson: PeopleDetails;
   isPeopleFiltered = false;
 
