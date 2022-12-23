@@ -16,15 +16,26 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.input = document.getElementById('header-input');
   }
+
   newSearch(searchString: string) {
-    if (searchString) {
-      if (this.searchLog.length === 4) {
-        this.searchLog.shift();
+    if (searchString.length < 16) {
+      if (
+        searchString &&
+        !this.searchLog.includes(searchString.toUpperCase())
+      ) {
+        if (this.searchLog.length === 4) {
+          this.searchLog.shift();
+        }
+        this.searchLog.push(searchString.toUpperCase());
       }
-      this.searchLog.push(searchString);
+      this._headerService.searchFilter$.next(searchString.toUpperCase());
     }
-    this._headerService.searchFilter$.next(searchString);
   }
+
+  pastSearchClick(search: string) {
+    console.log('search', search);
+  }
+
   onSubmit(event: SubmitEvent) {
     this.newSearch(this.input.value);
     event.preventDefault();

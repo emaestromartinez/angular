@@ -10,6 +10,7 @@ import {
   Film,
   FilmDetails,
   People,
+  PeopleDetails,
   PlanetDetails,
 } from './star-wars-page.interface';
 
@@ -90,6 +91,9 @@ export class StarWarsPageService {
                 people: ApiStarWarsPeople.Get.Response.Results,
                 index: number
               ) => {
+                const personUrlSplit = people.url.split('/');
+                const personId = personUrlSplit[personUrlSplit.length - 2];
+                console.log('personId', personId);
                 return {
                   title: people.name,
                   gender: people.gender,
@@ -100,12 +104,33 @@ export class StarWarsPageService {
                       : +people.height < 100
                       ? `Low (${people.height})`
                       : `Medium (${people.height})`,
+                  personId: personId,
                 } as People;
               }
             );
             return people;
           })
         );
+      })
+    );
+  }
+
+  getPeopleDetails(detailsId: number): Observable<PeopleDetails> {
+    return this._apiStarWarsPeopleService.getPeopleDetails(detailsId).pipe(
+      map((result) => {
+        const person = {
+          title: result.name,
+          gender: result.gender,
+          birth_year: result.birth_year,
+          eye_color: result.eye_color,
+          hair_color: result.hair_color,
+          height: result.height,
+          skin_color: result.skin_color,
+          homeworld: result.homeworld,
+          personId: detailsId.toString(),
+        } as PeopleDetails;
+
+        return person;
       })
     );
   }

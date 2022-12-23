@@ -13,10 +13,23 @@ export interface FilmDetails {
 }
 
 export interface People {
+  personId: string;
+  url: string;
   title: string;
   gender: string;
   homeworld: string;
   height: string;
+}
+export interface PeopleDetails {
+  personId: string;
+  title: string;
+  gender: string;
+  birth_year: string;
+  eye_color: string;
+  hair_color: string;
+  height: string;
+  skin_color: string;
+  homeworld: string;
 }
 
 export interface PlanetDetails {

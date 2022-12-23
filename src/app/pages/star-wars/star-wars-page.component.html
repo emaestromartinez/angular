@@ -49,34 +49,40 @@
             </div>
           </div>
         </div>
-        <div *ngIf="detailsId && !loading" class="flex flex-col gap-3">
-          <div class="flex flex-col gap-1">
-            <div class="font-bold text-xl">Title:</div>
-            <div class="ml-4">{{ selectedFilm.title }}</div>
+        <div *ngIf="detailsId">
+          <div *ngIf="!loading" class="flex flex-col gap-3">
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Title:</div>
+              <div class="ml-4">{{ selectedFilm.title }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Director:</div>
+              <div class="ml-4">{{ selectedFilm.director }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Producer:</div>
+              <div class="ml-4">{{ selectedFilm.producer }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Release date:</div>
+              <div class="ml-4">{{ selectedFilm.release_date }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Opening Crawl:</div>
+              <div class="ml-4 w-full md:w-1/2">
+                {{ selectedFilm.opening_crawl }}
+              </div>
+            </div>
           </div>
-          <div class="flex flex-col gap-1">
-            <div class="font-bold text-xl">Director:</div>
-            <div class="ml-4">{{ selectedFilm.director }}</div>
-          </div>
-          <div class="flex flex-col gap-1">
-            <div class="font-bold text-xl">Producer:</div>
-            <div class="ml-4">{{ selectedFilm.producer }}</div>
-          </div>
-          <div class="flex flex-col gap-1">
-            <div class="font-bold text-xl">Release date:</div>
-            <div class="ml-4">{{ selectedFilm.release_date }}</div>
-          </div>
-          <div class="flex flex-col gap-1">
-            <div class="font-bold text-xl">Opening Crawl:</div>
-            <div class="ml-4 w-full md:w-1/2">
-              {{ selectedFilm.opening_crawl }}
+          <div *ngIf="loading">
+            <div class="p-4 flex flex-row gap-2 items-center">
+              <app-loader></app-loader>
+              <div class="">Loaaaading...</div>
             </div>
           </div>
         </div>
       </div>
       <div *ngSwitchCase="'people'">
-        <!--  -->
-        <!--  -->
         <div *ngIf="!detailsId">
           <div *ngIf="!loading" class="flex flex-col gap-2">
             <div
@@ -91,7 +97,7 @@
               -
               <div>{{ person.height }}</div>
               <div
-                [routerLink]="'/star-wars/people/' + (i + 1)"
+                [routerLink]="'/star-wars/people/' + person.personId"
                 class="cursor-pointer text-blue-700 hover:underline"
               >
                 More details...
@@ -106,10 +112,54 @@
           </div>
         </div>
         <div *ngIf="detailsId && !loading" class="flex flex-col gap-3">
-          Details list here here!
+          <!--  -->
+          <!--  -->
+
+          <div *ngIf="!loading" class="flex flex-col gap-3">
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Name:</div>
+              <div class="ml-4">{{ selectedPerson.title }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Gender:</div>
+              <div class="ml-4">{{ selectedPerson.gender }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Birth year:</div>
+              <div class="ml-4">{{ selectedPerson.birth_year }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Eye color:</div>
+              <div class="ml-4">{{ selectedPerson.eye_color }}</div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Height:</div>
+              <div class="ml-4 w-full md:w-1/2">
+                {{ selectedPerson.height }}
+              </div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Hair color:</div>
+              <div class="ml-4 w-full md:w-1/2">
+                {{ selectedPerson.hair_color }}
+              </div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Skin color:</div>
+              <div class="ml-4 w-full md:w-1/2">
+                {{ selectedPerson.skin_color }}
+              </div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="font-bold text-xl">Planet:</div>
+              <div class="ml-4 w-full md:w-1/2">
+                {{ selectedPerson.homeworld }}
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <!--  -->
         </div>
-        <!--  -->
-        <!--  -->
       </div>
 
       <!-- Default case when there are no matches -->

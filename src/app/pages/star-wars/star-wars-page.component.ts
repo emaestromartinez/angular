@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HeaderService } from 'src/app/components/header/header.service';
-import { Film, FilmDetails, People } from './star-wars-page.interface';
+import {
+  Film,
+  FilmDetails,
+  People,
+  PeopleDetails,
+} from './star-wars-page.interface';
 import { StarWarsPageService } from './star-wars-page.service';
 
 @Component({
@@ -23,7 +28,9 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
 
   films: Film[];
   selectedFilm: FilmDetails;
+
   people: People[];
+  selectedPerson: PeopleDetails;
   isPeopleFiltered = false;
 
   currentUrl: string;
@@ -41,8 +48,6 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     this.getInformation();
 
     this._headerService.searchFilter$.subscribe((lastSearch) => {
-      console.log('lastSearch', lastSearch);
-
       if (lastSearch) {
         this.lastSearch = lastSearch;
         this.filterList();
@@ -65,14 +70,16 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         break;
 
       case 'people':
-        this.isPeopleFiltered = true;
-        this.people = this.people.filter((people) => {
-          if (
-            people.title.toUpperCase().includes(this.lastSearch.toUpperCase())
-          )
-            return true;
-          else return false;
-        });
+        if (!this.detailsId) {
+          this.isPeopleFiltered = true;
+          this.people = this.people.filter((people) => {
+            if (
+              people.title.toUpperCase().includes(this.lastSearch.toUpperCase())
+            )
+              return true;
+            else return false;
+          });
+        }
         break;
 
       default:
@@ -109,17 +116,17 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         if (!this.detailsId) {
           if (!this.people || this.isPeopleFiltered) {
             this.loading = true;
-            const getFilmsSub = this._starWarsPageService
+            const getPeopleSub = this._starWarsPageService
               .getPeople()
               .subscribe((people) => {
                 this.people = people;
                 this.loading = false;
               });
-            this.subscriptions.push(getFilmsSub);
+            this.subscriptions.push(getPeopleSub);
           }
         } else if (this.detailsId) {
-          if (this.detailsId !== this.selectedFilm?.filmId) {
-            // this.getPeopleDetails(this.detailsId);
+          if (this.detailsId !== +this.selectedPerson?.personId) {
+            this.getPeopleDetails(this.detailsId);
           }
         }
         break;
@@ -138,6 +145,16 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         this.loading = false;
       });
     this.subscriptions.push(getFilmsSub);
+  }
+  getPeopleDetails(detailsId: number) {
+    this.loading = true;
+    const getPersonSub = this._starWarsPageService
+      .getPeopleDetails(detailsId)
+      .subscribe((person) => {
+        this.selectedPerson = person;
+        this.loading = false;
+      });
+    this.subscriptions.push(getPersonSub);
   }
 
   ngOnDestroy(): void {

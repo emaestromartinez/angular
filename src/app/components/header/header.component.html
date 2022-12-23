@@ -1,6 +1,8 @@
 <div class="topnav">
   <a [routerLink]="''">Home</a>
-  <a *ngFor="let search of searchLog">{{ search }}</a>
+  <a (click)="pastSearchClick(search)" *ngFor="let search of searchLog">{{
+    search
+  }}</a>
   <div class="search-container">
     <form (submit)="onSubmit($event)">
       <input
