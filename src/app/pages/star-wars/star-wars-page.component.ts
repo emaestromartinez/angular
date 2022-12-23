@@ -28,6 +28,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
 
   films: Film[];
   selectedFilm: FilmDetails;
+  isFilmsFiltered = false;
 
   people: People[];
   selectedPerson: PeopleDetails;
@@ -71,6 +72,16 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
   filterList() {
     switch (this.currentUrl) {
       case 'films':
+        if (!this.detailsId) {
+          this.isFilmsFiltered = true;
+          this.films = this.films.filter((film) => {
+            if (
+              film.title.toUpperCase().includes(this.lastSearch.toUpperCase())
+            )
+              return true;
+            else return false;
+          });
+        }
         break;
 
       case 'people':
@@ -100,7 +111,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     switch (this.currentUrl) {
       case 'films':
         if (!this.detailsId) {
-          if (!this.films) {
+          if (!this.films || this.isFilmsFiltered) {
             this.loading = true;
             const getFilmsSub = this._starWarsPageService
               .getFilms()
