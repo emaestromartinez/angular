@@ -119,17 +119,8 @@
           <div *ngIf="!loading && filteredPeople.length === 0">
             The filtering did not find any results.
           </div>
-          <div *ngIf="loading">
-            <div class="p-4 flex flex-row gap-2 items-center">
-              <app-loader></app-loader>
-              <div class="">Loaaaading...</div>
-            </div>
-          </div>
         </div>
         <div *ngIf="detailsId && !loading" class="flex flex-col gap-3">
-          <!--  -->
-          <!--  -->
-
           <div *ngIf="!loading" class="flex flex-col gap-3">
             <div class="flex flex-col gap-1">
               <div class="font-bold text-xl">Name:</div>
@@ -171,9 +162,21 @@
                 {{ selectedPerson.homeworld }}
               </div>
             </div>
+            <div>
+              <button
+                [routerLink]="'../'"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Back to the List!
+              </button>
+            </div>
           </div>
-          <!--  -->
-          <!--  -->
+        </div>
+        <div *ngIf="loading">
+          <div class="p-4 flex flex-row gap-2 items-center">
+            <app-loader></app-loader>
+            <div class="">Loaaaading...</div>
+          </div>
         </div>
       </div>
 
