@@ -127,7 +127,6 @@ export class StarWarsPageService {
           .get<ApiStarWarsPlanetDetails.Get.Response.Body>(result.homeworld)
           .pipe(
             map((homeworld) => {
-              console.log('homeworld', homeworld);
               const person = {
                 title: result.name,
                 gender: result.gender,

@@ -27,10 +27,12 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
   lastSearch: string;
 
   films: Film[];
+  filteredFilms: Film[];
   selectedFilm: FilmDetails;
   isFilmsFiltered = false;
 
   people: People[];
+  filteredPeople: People[];
   selectedPerson: PeopleDetails;
   isPeopleFiltered = false;
 
@@ -46,7 +48,6 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateCurrentRoute();
-    console.log('getInformation from ngoninit');
 
     this.getInformation();
 
@@ -55,15 +56,13 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         this.lastSearch = lastSearch;
         this.filterList();
       } else {
-        console.log('getInformation from filter subscription');
-        this.getInformation();
+        this.refreshInformation();
       }
     });
 
     const routeChangeSub = this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateCurrentRoute();
-        console.log('getInformation from route change');
         this.getInformation();
       }
     });
@@ -74,7 +73,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       case 'films':
         if (!this.detailsId) {
           this.isFilmsFiltered = true;
-          this.films = this.films.filter((film) => {
+          this.filteredFilms = this.films.filter((film) => {
             if (
               film.title.toUpperCase().includes(this.lastSearch.toUpperCase())
             )
@@ -87,7 +86,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       case 'people':
         if (!this.detailsId) {
           this.isPeopleFiltered = true;
-          this.people = this.people.filter((people) => {
+          this.filteredPeople = this.people.filter((people) => {
             if (
               people.title.toUpperCase().includes(this.lastSearch.toUpperCase())
             )
@@ -117,6 +116,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
               .getFilms()
               .subscribe((films) => {
                 this.films = films;
+                this.filteredFilms = films;
                 this.loading = false;
               });
             this.subscriptions.push(getFilmsSub);
@@ -135,6 +135,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
               .getPeople()
               .subscribe((people) => {
                 this.people = people;
+                this.filteredPeople = people;
                 this.loading = false;
               });
             this.subscriptions.push(getPeopleSub);
@@ -149,6 +150,10 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+  }
+  refreshInformation() {
+    this.filteredFilms = this.films;
+    this.filteredPeople = this.people;
   }
 
   getFilmDetails(detailsId: number) {
