@@ -7,7 +7,7 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SelectOption } from 'src/app/components/select/select.component';
+import { SelectOption } from 'src/app/components/shared/checkbox/checkbox.component';
 import { ExampleFormService } from './example-form.service';
 
 const MOCK_CAR_BRANDS: SelectOption[] = [

@@ -65,10 +65,12 @@ export class StarWarsPageService {
     return this._apiStarWarsFilmsService.getFilms().pipe(
       map((result) => {
         const films = result.results.map((film) => {
+          const filmUrlSplit = film.url.split('/');
+          const filmId = filmUrlSplit[filmUrlSplit.length - 2];
           return {
             title: film.title,
             director: film.director,
-            filmId: film.episode_id,
+            filmId: filmId,
           } as Film;
         });
         return films;

@@ -1,9 +1,9 @@
-import { InputModule } from 'src/app/components/input/input.module';
 import { HeaderService } from './header.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
 import { RouterModule } from '@angular/router';
+import { InputModule } from '../input/input.module';
 
 @NgModule({
   declarations: [HeaderComponent],

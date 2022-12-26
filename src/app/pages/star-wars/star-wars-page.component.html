@@ -2,24 +2,34 @@
   <div
     class="flex gap-2 flex-row border-solid border-2 border-gray-700 rounded-xl p-2"
   >
-    <a [routerLink]="'/star-wars/films'" routerLinkActive="font-black italic"
+    <a
+      [routerLink]="starWarsRoutesURL.films"
+      routerLinkActive="font-black italic"
       >Films</a
     >
-    <a [routerLink]="'/star-wars/people'" routerLinkActive="font-black italic"
+    <a
+      [routerLink]="starWarsRoutesURL.people"
+      routerLinkActive="font-black italic"
       >People</a
     >
-    <a [routerLink]="'/star-wars/planets'" routerLinkActive="font-black italic"
+    <a
+      [routerLink]="starWarsRoutesURL.planets"
+      routerLinkActive="font-black italic"
       >Planets</a
     >
-    <a [routerLink]="'/star-wars/species'" routerLinkActive="font-black italic"
+    <a
+      [routerLink]="starWarsRoutesURL.species"
+      routerLinkActive="font-black italic"
       >Species</a
     >
     <a
-      [routerLink]="'/star-wars/starships'"
+      [routerLink]="starWarsRoutesURL.starships"
       routerLinkActive="font-black italic"
       >Starships</a
     >
-    <a [routerLink]="'/star-wars/vehicles'" routerLinkActive="font-black italic"
+    <a
+      [routerLink]="starWarsRoutesURL.vehicles"
+      routerLinkActive="font-black italic"
       >Vehicles</a
     >
   </div>
@@ -41,7 +51,7 @@
               <div>{{ film.director }}</div>
               -
               <div
-                [routerLink]="'/star-wars/films/' + (i + 1)"
+                [routerLink]="starWarsRoutesURL.films + film.filmId"
                 class="cursor-pointer text-blue-700 hover:underline"
               >
                 More details...
@@ -109,7 +119,7 @@
               -
               <div>{{ person.height }}</div>
               <div
-                [routerLink]="'/star-wars/people/' + person.personId"
+                [routerLink]="starWarsRoutesURL.people + person.personId"
                 class="cursor-pointer text-blue-700 hover:underline"
               >
                 More details...

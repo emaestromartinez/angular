@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { HeaderService } from 'src/app/components/header/header.service';
+import { HeaderService } from 'src/app/components/shared/header/header.service';
+import { STAR_WARS_ROUTES_URL } from './star-wars-page.constants';
 import {
   Film,
   FilmDetails,
@@ -22,6 +23,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     private _headerService: HeaderService
   ) {}
 
+  starWarsRoutesURL = STAR_WARS_ROUTES_URL;
   initialCall = true;
 
   lastSearch: string;
@@ -73,7 +75,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       case 'films':
         if (!this.detailsId) {
           this.isFilmsFiltered = true;
-          this.filteredFilms = this.films.filter((film) => {
+          this.filteredFilms = this.films?.filter((film) => {
             if (
               film.title.toUpperCase().includes(this.lastSearch.toUpperCase())
             )
@@ -86,7 +88,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       case 'people':
         if (!this.detailsId) {
           this.isPeopleFiltered = true;
-          this.filteredPeople = this.people.filter((people) => {
+          this.filteredPeople = this.people?.filter((people) => {
             if (
               people.title.toUpperCase().includes(this.lastSearch.toUpperCase())
             )

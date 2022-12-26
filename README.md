@@ -41,6 +41,7 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 
 ## To do list
 
+- Componentizar PeopleDetail, PeopleList, FilmList, FilmDetail en ese orden de prio.
 
 - Configurar sistema de mock para poder probar el codigo en local. (Mock service worker mswjs).
 - Tanto el telefono como el email deberían traer validaciones correctas. He usado las propias de html y/o ReactiveForms pero lo suyo sería haberlas creado nuevas.
