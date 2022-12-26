@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
 import { ApiStarWarsPlanetsService } from 'src/app/api/star-wars/planets.service';
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
+import { StarWarsPeopleDetailsModule } from './star-wars-people-detail/star-wars-people-details/star-wars-people-details.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
     HttpClientModule,
     StarWarsPageRoutingModule,
     LoaderModule,
+    StarWarsPeopleDetailsModule,
   ],
   declarations: [StarWarsPageComponent],
   providers: [
