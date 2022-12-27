@@ -42,21 +42,9 @@
             *ngIf="!loading && filteredFilms.length"
             class="flex flex-col gap-2"
           >
-            <div
-              *ngFor="let film of filteredFilms; let i = index"
-              class="flex gap-4"
-            >
-              <div>{{ film.title }}</div>
-              -
-              <div>{{ film.director }}</div>
-              -
-              <div
-                [routerLink]="starWarsRoutesURL.films + film.filmId"
-                class="cursor-pointer text-blue-700 hover:underline"
-              >
-                More details...
-              </div>
-            </div>
+            <app-star-wars-film-list
+              [filmList]="filteredFilms"
+            ></app-star-wars-film-list>
           </div>
           <div *ngIf="!loading && filteredFilms.length === 0">
             The filtering did not find any results.
@@ -70,28 +58,8 @@
         </div>
         <div *ngIf="detailsId">
           <div *ngIf="!loading" class="flex flex-col gap-3">
-            <div class="flex flex-col gap-1">
-              <div class="font-bold text-xl">Title:</div>
-              <div class="ml-4">{{ selectedFilm.title }}</div>
-            </div>
-            <div class="flex flex-col gap-1">
-              <div class="font-bold text-xl">Director:</div>
-              <div class="ml-4">{{ selectedFilm.director }}</div>
-            </div>
-            <div class="flex flex-col gap-1">
-              <div class="font-bold text-xl">Producer:</div>
-              <div class="ml-4">{{ selectedFilm.producer }}</div>
-            </div>
-            <div class="flex flex-col gap-1">
-              <div class="font-bold text-xl">Release date:</div>
-              <div class="ml-4">{{ selectedFilm.release_date }}</div>
-            </div>
-            <div class="flex flex-col gap-1">
-              <div class="font-bold text-xl">Opening Crawl:</div>
-              <div class="ml-4 w-full md:w-1/2">
-                {{ selectedFilm.opening_crawl }}
-              </div>
-            </div>
+            <app-star-wars-film-details [selectedFilm]="this.selectedFilm">
+            </app-star-wars-film-details>
           </div>
           <div *ngIf="loading">
             <div class="p-4 flex flex-row gap-2 items-center">

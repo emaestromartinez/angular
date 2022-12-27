@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
 import { ApiStarWarsPlanetsService } from 'src/app/api/star-wars/planets.service';
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
+import { StarWarsFilmListComponent } from './star-wars-film-list/star-wars-people-details/star-wars-film-list.component';
+import { StarWarsFilmDetailsComponent } from './star-wars-film-details/star-wars-people-details/star-wars-film-details.component';
 
 @NgModule({
   imports: [
@@ -22,6 +24,8 @@ import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
   ],
   declarations: [
     StarWarsPageComponent,
+    StarWarsFilmListComponent,
+    StarWarsFilmDetailsComponent,
     StarWarsPeopleDetailsComponent,
     StarWarsPeopleListComponent,
   ],

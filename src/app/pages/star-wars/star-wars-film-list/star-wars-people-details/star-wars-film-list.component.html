@@ -1,0 +1,14 @@
+<div class="flex flex-col gap-2">
+  <div *ngFor="let film of filmList; let i = index" class="flex gap-4">
+    <div>{{ film.title }}</div>
+    -
+    <div>{{ film.director }}</div>
+    -
+    <div
+      [routerLink]="starWarsRoutesURL.films + film.filmId"
+      class="cursor-pointer text-blue-700 hover:underline"
+    >
+      More details...
+    </div>
+  </div>
+</div>
