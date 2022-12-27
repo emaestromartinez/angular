@@ -65,7 +65,10 @@ export class ExampleFormComponent implements OnInit {
   ) {
     this.form = this._fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [Validators.required, this._exampleformService.createEmailValidator()],
+      ],
       phone: ['', Validators.required],
       carBrand: ['', Validators.required],
 

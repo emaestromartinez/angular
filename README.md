@@ -40,6 +40,11 @@ Lanzando `ng serve --open` se abre el localhost en el navegador automaticamente.
 
 - Y mucho más que seguramente me he olvidado de incluír en esta lista.
 
+Form:
+
+- Created custom validator.
+- Created custom async validator.
+
 ## To do list
 
 - Configurar sistema de mock para poder probar el codigo en local. (Mock service worker mswjs).
