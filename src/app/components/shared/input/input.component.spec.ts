@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { InputComponent } from './input.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -11,9 +11,9 @@ describe('InputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputComponent ]
-    })
-    .compileComponents();
+      declarations: [InputComponent],
+      imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

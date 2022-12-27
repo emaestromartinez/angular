@@ -1,7 +1,4 @@
-import { IfStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { HeaderService } from './header.service';
 
 @Component({
