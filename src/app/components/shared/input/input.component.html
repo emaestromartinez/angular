@@ -1,5 +1,14 @@
 <div *ngIf="inputFormControl">
-  <label class="block text-sm font-bold mb-2 text-white"> {{ title }} </label>
+  <div class="flex flex-row gap-4">
+    <label class="block text-sm font-bold mb-2 text-white"> {{ title }} </label>
+    <label
+      *ngIf="type === 'postal'"
+      class="block text-sm font-bold mb-2 text-white"
+    >
+      Prueba '00000'
+    </label>
+  </div>
+
   <input
     [formControl]="inputFormControl"
     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -23,5 +32,42 @@
     class="text-red-500 text-xs italic"
   >
     Por favor, introduce un número de teléfono valido.
+  </p>
+  <p
+    *ngIf="(inputFormControl.touched && !inputFormControl.errors?.['required'] && type ==='postal')
+    && (inputFormControl.errors?.['minlength']
+    || inputFormControl.errors?.['maxlength'])"
+    class="text-red-500 text-xs italic"
+  >
+    Por favor, el código postal debe tener 5 dígitos.
+  </p>
+  <p
+    *ngIf="(inputFormControl.touched && !inputFormControl.errors?.['required'] && type ==='postal')
+    && !inputFormControl.errors?.['minlength']
+    && !inputFormControl.errors?.['maxlength']
+    && inputFormControl.errors?.['invalidPostalCode']"
+    class="text-red-500 text-xs italic"
+  >
+    Por favor, introduce un código postal válido.
+  </p>
+  <p
+    *ngIf="inputFormControl.touched && !inputFormControl.errors?.['required'] && type ==='postal'
+    && !inputFormControl.errors?.['minlength']
+    && !inputFormControl.errors?.['maxlength']
+    && !inputFormControl.errors?.['invalidPostalCode']
+    && !inputFormControl.pending"
+    class="text-white text-xs italic"
+  >
+    El código postal ha sido comprobado de manera correcta.
+  </p>
+  <p
+    *ngIf="inputFormControl.touched && !inputFormControl.errors?.['required'] && type ==='postal'
+    && !inputFormControl.errors?.['minlength']
+    && !inputFormControl.errors?.['maxlength']
+    && !inputFormControl.errors?.['invalidPostalCode']
+    && inputFormControl.pending"
+    class="text-white text-xs italic"
+  >
+    Comprobando el codigo postal...
   </p>
 </div>

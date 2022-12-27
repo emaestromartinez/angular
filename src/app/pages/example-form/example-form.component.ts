@@ -48,6 +48,9 @@ export class ExampleFormComponent implements OnInit {
   get email() {
     return this.form?.get('email') as FormControl;
   }
+  get postalCode() {
+    return this.form?.get('postalCode') as FormControl;
+  }
   get phone() {
     return this.form?.get('phone') as FormControl;
   }
@@ -72,6 +75,11 @@ export class ExampleFormComponent implements OnInit {
       phone: [
         '',
         [Validators.required, this._exampleformService.createPhoneValidator()],
+      ],
+      postalCode: [
+        '',
+        [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
+        [this._exampleformService.createPostalCodeValidator()],
       ],
       carBrand: ['', Validators.required],
 

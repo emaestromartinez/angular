@@ -30,6 +30,13 @@
 
       <div class="col-span-2 sm:col-span-1">
         <app-input
+          [inputFormControl]="postalCode"
+          type="postal"
+          title="Código Postal"
+        ></app-input>
+      </div>
+      <div class="col-span-2 sm:col-span-1">
+        <app-input
           [inputFormControl]="email"
           title="Correo electrónico"
         ></app-input>
