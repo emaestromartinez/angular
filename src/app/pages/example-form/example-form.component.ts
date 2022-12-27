@@ -69,7 +69,10 @@ export class ExampleFormComponent implements OnInit {
         '',
         [Validators.required, this._exampleformService.createEmailValidator()],
       ],
-      phone: ['', Validators.required],
+      phone: [
+        '',
+        [Validators.required, this._exampleformService.createPhoneValidator()],
+      ],
       carBrand: ['', Validators.required],
 
       termsAndConditions: [false, Validators.requiredTrue],

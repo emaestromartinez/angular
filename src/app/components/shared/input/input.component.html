@@ -1,4 +1,4 @@
-<div *ngIf="inputFormControl" class="">
+<div *ngIf="inputFormControl">
   <label class="block text-sm font-bold mb-2 text-white"> {{ title }} </label>
   <input
     [formControl]="inputFormControl"
@@ -17,5 +17,11 @@
     class="text-red-500 text-xs italic"
   >
     Por favor, introduce un email valido.
+  </p>
+  <p
+    *ngIf="inputFormControl.touched && !inputFormControl.errors?.['required'] && inputFormControl.errors?.['phoneIsInvalid']"
+    class="text-red-500 text-xs italic"
+  >
+    Por favor, introduce un número de teléfono valido.
   </p>
 </div>
