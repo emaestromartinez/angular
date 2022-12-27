@@ -1,7 +1,12 @@
 /* tslint:disable:no-unused-variable */
 import { CommonModule } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CheckboxComponent } from './checkbox.component';
 
 describe('CheckboxComponent', () => {
@@ -18,6 +23,10 @@ describe('CheckboxComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckboxComponent);
     component = fixture.componentInstance;
+    component.checkboxFormControl = new FormControl(
+      false,
+      Validators.requiredTrue
+    );
     fixture.detectChanges();
   });
 

@@ -9,9 +9,11 @@
         'is-invalid': checkboxFormControl.touched && checkboxFormControl.errors
       }"
     />
-    <div for="acceptTerms" class="text-white w-full" [innerHTML]="checkboxText">
-      Accept Terms & Conditions
-    </div>
+    <div
+      for="acceptTerms"
+      class="text-white w-full"
+      [innerHTML]="checkboxText"
+    ></div>
   </div>
   <div *ngIf="checkboxFormControl.touched && checkboxFormControl.errors">
     <p class="text-red-500 text-xs italic">
