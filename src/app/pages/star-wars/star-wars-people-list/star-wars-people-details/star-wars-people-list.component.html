@@ -1,0 +1,17 @@
+<div class="flex flex-col gap-2">
+  <div *ngFor="let person of peopleList; let i = index" class="flex gap-4">
+    <div>{{ person.title }}</div>
+    -
+    <div>{{ person.gender }}</div>
+    -
+    <div>{{ person.homeworld }}</div>
+    -
+    <div>{{ person.height }}</div>
+    <div
+      [routerLink]="starWarsRoutesURL.people + person.personId"
+      class="cursor-pointer text-blue-700 hover:underline"
+    >
+      More details...
+    </div>
+  </div>
+</div>
