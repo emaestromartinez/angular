@@ -9,6 +9,7 @@ import { ExampleFormComponent } from './example-form.component';
 import { ExampleFormRoutingModule } from './example-form-routing.module';
 import { InputModule } from 'src/app/components/shared/input/input.module';
 import { SelectModule } from 'src/app/components/shared/select/select.module';
+import { InputEmailModule } from 'src/app/components/shared/input-email/input-email.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { SelectModule } from 'src/app/components/shared/select/select.module';
     FormsModule,
     ReactiveFormsModule,
     InputModule,
+    InputEmailModule,
     SelectModule,
     CheckboxModule,
   ],
