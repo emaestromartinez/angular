@@ -85,12 +85,7 @@ describe('ExampleFormComponent', () => {
     fixture.detectChanges();
     tick(3300);
     fixture.detectChanges();
-    console.log(component.username.valid);
-    console.log(component.email.valid);
-    console.log(component.phone.valid);
-    console.log(component.postalCode.valid);
-    console.log(component.carBrand.valid);
-    console.log(component.termsAndConditions.valid);
+
     expect(component.postalCode.valid).toEqual(true);
   }));
 
@@ -137,6 +132,8 @@ describe('ExampleFormComponent', () => {
     component.phone.setValue('+34 645645645');
     expect(component.phone.valid).toEqual(true);
     component.phone.setValue('+34 (127) 645645645');
+    expect(component.phone.valid).toEqual(true);
+    component.phone.setValue('+34 654 65 46 54');
     expect(component.phone.valid).toEqual(true);
   });
 
