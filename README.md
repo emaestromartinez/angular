@@ -44,21 +44,18 @@ Form:
 
 - Created custom validator.
 - Created custom async validator.
+- Test unitarios
 
 ## To do list
 
-- Separar el input component en varios inputs para cada type.
+- Rutas protegidas con login.
+- Hacer que el header solo aplique a la de starwars!
 - Configurar sistema de mock para poder probar el codigo en local. (Mock service worker mswjs).
 - Tanto el telefono como el email deberían traer validaciones correctas. He usado las propias de html y/o ReactiveForms pero lo suyo sería haberlas creado nuevas.
 - Añadir soporte para traducir todos los textos. En otros proyectos he usado Lokalise.
-- Hacer dinámico el label de cada input para que se mostrase cuando hay algo escrito (cuando no hay placeholder).
-- Habría que haber reservado el espacio para el mensaje de error de manera que no se movieran los formularios al mostrarse.
-- La authenticacion usando headers, debería hacerse una vez al principio y no en la propia llamada. Incluso se podría/debería crear un interceptor de llamadas http para manejar todas estas configuraciones.
-
-- Test unitarios
+- Añadir un http interceptor y estudiar para qué.
 - Sonarqube
 - Cypress
-- Rutas con login
 - Local Storage
 
 ## Control de versiones

@@ -44,6 +44,20 @@ export const routesApp: CustomRoute[] = [
             (m) => m.QuotePageModule
           ),
       },
+      {
+        path: 'routes',
+        loadChildren: () =>
+          import('./pages/routes-page/routes-page.module').then(
+            (m) => m.RoutesPageModule
+          ),
+      },
+      {
+        path: 'forbidden',
+        loadChildren: () =>
+          import('./pages/forbidden-page/forbidden-page.module').then(
+            (m) => m.ForbiddenPageModule
+          ),
+      },
       { path: '**', component: NotFoundComponent },
     ],
   },
