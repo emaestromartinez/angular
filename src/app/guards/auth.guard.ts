@@ -37,16 +37,6 @@ export class AuthGuard implements CanActivate {
     // provides the path of the route.
     const { path } = routeConfig as Route;
 
-    if (path?.includes('admin') && role === 'admin') {
-      // if user is administrator and is trying to access admin routes, allow access.
-      return true;
-    }
-
-    if (path?.includes('customer') && role === 'customer') {
-      // if user is customer and is accessing customer route, allow access.
-      return true;
-    }
-
     if (
       (path?.includes('guest') || path?.includes('home')) &&
       (role === 'customer' || role === 'administrator')

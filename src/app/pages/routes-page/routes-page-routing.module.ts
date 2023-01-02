@@ -1,6 +1,7 @@
 import { RoutesPageComponent } from './routes-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: RoutesPageComponent },
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: 'protected',
     component: RoutesPageComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

@@ -48,7 +48,8 @@ Form:
 
 ## To do list
 
-- Rutas protegidas con login.
+- Convertir SWDetails en mat table.
+- Hacer la paginacion.
 - Hacer que el header solo aplique a la de starwars!
 - Configurar sistema de mock para poder probar el codigo en local. (Mock service worker mswjs).
 - Tanto el telefono como el email deberían traer validaciones correctas. He usado las propias de html y/o ReactiveForms pero lo suyo sería haberlas creado nuevas.

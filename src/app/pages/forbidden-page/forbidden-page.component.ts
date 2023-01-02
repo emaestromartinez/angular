@@ -13,5 +13,9 @@ export class ForbiddenPageComponent implements OnInit {
     private _router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => {
+      this._router.navigateByUrl('');
+    }, 5100);
+  }
 }
