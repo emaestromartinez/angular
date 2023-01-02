@@ -13,6 +13,8 @@ import { ApiStarWarsPlanetsService } from 'src/app/api/star-wars/planets.service
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
 import { StarWarsFilmListComponent } from './star-wars-film-list/star-wars-people-details/star-wars-film-list.component';
 import { StarWarsFilmDetailsComponent } from './star-wars-film-details/star-wars-people-details/star-wars-film-details.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { StarWarsFilmDetailsComponent } from './star-wars-film-details/star-wars
     HttpClientModule,
     StarWarsPageRoutingModule,
     LoaderModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   declarations: [
     StarWarsPageComponent,

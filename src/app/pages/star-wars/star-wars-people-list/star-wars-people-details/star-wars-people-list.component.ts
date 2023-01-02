@@ -9,6 +9,8 @@ import { People } from '../../star-wars-page.interface';
 export class StarWarsPeopleListComponent implements OnInit {
   @Input() peopleList: People[];
 
+  columnsToDisplay = ['title', 'gender', 'homeworld', 'height'];
+
   starWarsRoutesURL = STAR_WARS_ROUTES_URL;
 
   constructor() {}
