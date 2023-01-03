@@ -24,8 +24,8 @@ export class StarWarsPeopleListComponent implements OnInit, AfterViewInit {
   // Pagination
   pageEvent: PageEvent;
 
-  length = 5;
-  pageSize = 5;
+  length: number;
+  pageSize = 10;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
 
@@ -46,6 +46,7 @@ export class StarWarsPeopleListComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngOnInit() {
+    this.length = this.peopleList.length;
     this.dataSource = new MatTableDataSource<People>(this.peopleList.slice());
   }
 

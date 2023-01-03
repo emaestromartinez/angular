@@ -1,19 +1,25 @@
 <div *ngIf="peopleList">
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>Title</th>
       <td mat-cell *matCellDef="let user">{{ user.title }}</td>
     </ng-container>
     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef>Gender</th>
+      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
+        Gender
+      </th>
       <td mat-cell *matCellDef="let user">{{ user.gender }}</td>
     </ng-container>
     <ng-container matColumnDef="homeworld">
-      <th mat-header-cell *matHeaderCellDef>Homeworld</th>
+      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
+        Homeworld
+      </th>
       <td mat-cell *matCellDef="let user">{{ user.homeworld }}</td>
     </ng-container>
     <ng-container matColumnDef="height">
-      <th mat-header-cell *matHeaderCellDef>Height</th>
+      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
+        Height
+      </th>
       <td mat-cell *matCellDef="let user">{{ user.height }}</td>
     </ng-container>
 

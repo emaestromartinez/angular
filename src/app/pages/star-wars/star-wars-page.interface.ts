@@ -19,6 +19,7 @@ export interface People {
   gender: string;
   homeworld: string;
   height: string;
+  pagination: SWPagination;
 }
 export interface PeopleDetails {
   personId: string;
@@ -38,4 +39,10 @@ export interface PlanetDetails {
   terrain: string;
   climate: string;
   diameter: string;
+}
+
+export interface SWPagination {
+  count: number;
+  next: string;
+  previous: string;
 }
