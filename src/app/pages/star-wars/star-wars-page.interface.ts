@@ -12,6 +12,11 @@ export interface FilmDetails {
   opening_crawl: string;
 }
 
+export interface PeopleList {
+  pagination: SWPagination;
+  people: People[];
+}
+
 export interface People {
   personId: string;
   url: string;
@@ -19,8 +24,8 @@ export interface People {
   gender: string;
   homeworld: string;
   height: string;
-  pagination: SWPagination;
 }
+
 export interface PeopleDetails {
   personId: string;
   title: string;

@@ -7,15 +7,16 @@ import {
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Router, ActivatedRoute } from '@angular/router';
 import { STAR_WARS_ROUTES_URL } from '../../star-wars-page.constants';
-import { People } from '../../star-wars-page.interface';
+import { People, PeopleList } from '../../star-wars-page.interface';
 
 @Component({
   selector: 'app-star-wars-people-list',
   templateUrl: './star-wars-people-list.component.html',
 })
 export class StarWarsPeopleListComponent implements OnInit, AfterViewInit {
-  @Input() peopleList: People[];
+  @Input() peopleList: PeopleList;
 
   columnsToDisplay = ['title', 'gender', 'homeworld', 'height'];
 
@@ -43,11 +44,17 @@ export class StarWarsPeopleListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor() {}
+  constructor(private _router: Router, private _route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.length = this.peopleList.length;
-    this.dataSource = new MatTableDataSource<People>(this.peopleList.slice());
+    this.length = this.peopleList?.people.length;
+    this.dataSource = new MatTableDataSource<People>(
+      this.peopleList?.people.slice()
+    );
+  }
+
+  showPersonDetails(person: People) {
+    this._router.navigate([person.personId], { relativeTo: this._route });
   }
 
   handlePageEvent(event: PageEvent) {

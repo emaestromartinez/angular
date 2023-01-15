@@ -24,12 +24,17 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: columnsToDisplay"
+      (click)="showPersonDetails(row)"
+    ></tr>
+    <!-- [routerLink]="starWarsRoutesURL.people + row..personId" -->
   </table>
   <mat-paginator
     #paginator
     (page)="handlePageEvent($event)"
-    [length]="peopleList.length"
+    [length]="peopleList.people.length"
     [disabled]="false"
     [pageSize]="pageSize"
     [pageSizeOptions]="pageSizeOptions"
@@ -40,8 +45,9 @@
   ></mat-paginator>
 </div>
 
-<!-- <div class="flex flex-col gap-2">
-  <div *ngFor="let person of peopleList; let i = index" class="flex gap-4">
+<!--
+<div class="flex flex-col gap-2">
+  <div *ngFor="let person of people; let i = index" class="flex gap-4">
     <div>{{ person.title }}</div>
     -
     <div>{{ person.gender }}</div>

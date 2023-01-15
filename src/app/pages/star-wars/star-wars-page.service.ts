@@ -14,6 +14,7 @@ import {
   FilmDetails,
   People,
   PeopleDetails,
+  PeopleList,
   PlanetDetails,
 } from './star-wars-page.interface';
 
@@ -78,7 +79,7 @@ export class StarWarsPageService {
     );
   }
 
-  getPeople(): Observable<People[]> {
+  getPeople(): Observable<PeopleList> {
     return this._apiStarWarsPeopleService.getPeople().pipe(
       mergeMap((result) => {
         const homeworldSubscriptionArray = [];
@@ -112,7 +113,15 @@ export class StarWarsPageService {
                 } as People;
               }
             );
-            return people;
+            const peopleList = {
+              people: people,
+              pagination: {
+                count: result.count,
+                next: result.next,
+                previous: result.previous,
+              },
+            };
+            return peopleList;
           })
         );
       })

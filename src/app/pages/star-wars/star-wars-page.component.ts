@@ -8,6 +8,7 @@ import {
   FilmDetails,
   People,
   PeopleDetails,
+  PeopleList,
 } from './star-wars-page.interface';
 import { StarWarsPageService } from './star-wars-page.service';
 
@@ -33,8 +34,8 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
   selectedFilm: FilmDetails;
   isFilmsFiltered = false;
 
-  people: People[];
-  filteredPeople: People[] = [];
+  peopleList: PeopleList;
+  filteredPeople: PeopleList;
   selectedPerson: PeopleDetails;
   isPeopleFiltered = false;
 
@@ -88,13 +89,18 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       case 'people':
         if (!this.detailsId) {
           this.isPeopleFiltered = true;
-          this.filteredPeople = this.people?.filter((people) => {
-            if (
-              people.title.toUpperCase().includes(this.lastSearch.toUpperCase())
-            )
-              return true;
-            else return false;
-          });
+          this.filteredPeople.people = this.peopleList?.people?.filter(
+            (people) => {
+              if (
+                people.title
+                  .toUpperCase()
+                  .includes(this.lastSearch.toUpperCase())
+              )
+                return true;
+              else return false;
+            }
+          );
+          this.filteredPeople.pagination = this.peopleList?.pagination;
         }
         break;
 
@@ -131,13 +137,18 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         break;
       case 'people':
         if (!this.detailsId) {
-          if (!this.people || this.isPeopleFiltered) {
+          if (!this.peopleList?.people || this.isPeopleFiltered) {
             this.loading = true;
             const getPeopleSub = this._starWarsPageService
               .getPeople()
-              .subscribe((people) => {
-                this.people = people;
-                this.filteredPeople = people;
+              .subscribe((peopleList) => {
+                this.peopleList = peopleList;
+
+                this.filteredPeople = {
+                  people: peopleList.people,
+                  pagination: peopleList.pagination,
+                };
+
                 this.loading = false;
               });
             this.subscriptions.push(getPeopleSub);
@@ -155,7 +166,8 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
   }
   refreshInformation() {
     this.filteredFilms = this.films;
-    this.filteredPeople = this.people;
+    this.filteredPeople.people = this.peopleList?.people;
+    this.filteredPeople.pagination = this.peopleList?.pagination;
   }
 
   getFilmDetails(detailsId: number) {
@@ -168,6 +180,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       });
     this.subscriptions.push(getFilmsSub);
   }
+
   getPeopleDetails(detailsId: number) {
     this.loading = true;
     const getPersonSub = this._starWarsPageService

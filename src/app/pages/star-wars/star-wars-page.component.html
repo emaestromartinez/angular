@@ -79,12 +79,12 @@
       </div>
       <div *ngSwitchCase="'people'">
         <div *ngIf="!detailsId">
-          <div *ngIf="!loading && filteredPeople.length">
+          <div *ngIf="!loading && filteredPeople?.people?.length">
             <app-star-wars-people-list
               [peopleList]="filteredPeople"
             ></app-star-wars-people-list>
           </div>
-          <div *ngIf="!loading && filteredPeople.length === 0">
+          <div *ngIf="!loading && filteredPeople?.people?.length === 0">
             The filtering did not find any results.
           </div>
         </div>
