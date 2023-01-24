@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, mergeMap, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  first,
+  forkJoin,
+  map,
+  mergeMap,
+  Observable,
+} from 'rxjs';
 import { ApiStarWarsFilmsService } from 'src/app/api/star-wars/films.service';
 import { ApiStarWarsPeople } from 'src/app/api/star-wars/people.interface';
 import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
@@ -16,18 +23,29 @@ import {
   PeopleDetails,
   PeopleList,
   PlanetDetails,
+  SWPagination,
 } from './star-wars-page.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StarWarsPageService {
+  pagination = new BehaviorSubject<SWPagination>({
+    count: 0,
+    next: 0,
+    previous: 0,
+  });
+
   constructor(
     private _http: HttpClient,
     private _apiStarWarsFilmsService: ApiStarWarsFilmsService,
     private _apiStarWarsPeopleService: ApiStarWarsPeopleService,
     private _apiStarWarsPlanetsService: ApiStarWarsPlanetsService
   ) {}
+
+  getNewPagePeople(): Observable<PeopleList> {
+    return this.getPeople();
+  }
 
   getFilmDetails(detailsId: number): Observable<FilmDetails> {
     return this._apiStarWarsFilmsService.getFilmDetails(detailsId).pipe(
@@ -46,20 +64,56 @@ export class StarWarsPageService {
     );
   }
 
-  getPlanetDetails(detailsId: number): Observable<PlanetDetails> {
-    return this._apiStarWarsPlanetsService.getPlanetDetails(detailsId).pipe(
-      map((result) => {
-        const planet = {
-          title: result.name,
-          population: result.population,
-          terrain: result.terrain,
-          climate: result.climate,
-          diameter: result.diameter,
-        } as PlanetDetails;
-
-        return planet;
-      })
-    );
+  getPeople(): Observable<PeopleList> {
+    return this._apiStarWarsPeopleService
+      .getPeople({ page: this.pagination.value.next + 1 || 1 })
+      .pipe(
+        first(),
+        mergeMap((result) => {
+          const homeworldSubscriptionArray = [];
+          for (let index = 0; index < result.results.length; index++) {
+            homeworldSubscriptionArray.push(
+              this._http.get<ApiStarWarsPlanets.Get.Response.Results>(
+                result.results[index].homeworld
+              )
+            );
+          }
+          return forkJoin(homeworldSubscriptionArray).pipe(
+            map((homeworld) => {
+              const people = result.results.map(
+                (
+                  people: ApiStarWarsPeople.Get.Response.Results,
+                  index: number
+                ) => {
+                  const personUrlSplit = people.url.split('/');
+                  const personId = personUrlSplit[personUrlSplit.length - 2];
+                  return {
+                    title: people.name,
+                    gender: people.gender,
+                    homeworld: homeworld[index].name,
+                    height:
+                      +people.height > 200
+                        ? `High (${people.height})`
+                        : +people.height < 100
+                        ? `Low (${people.height})`
+                        : `Medium (${people.height})`,
+                    personId: personId,
+                  } as People;
+                }
+              );
+              const peopleList = {
+                people: people,
+                pagination: {
+                  count: +result.count,
+                  next: +result.next,
+                  previous: +result.previous,
+                },
+              };
+              return peopleList;
+            })
+          );
+        })
+      );
   }
 
   getFilms(): Observable<Film[]> {
@@ -75,55 +129,6 @@ export class StarWarsPageService {
           } as Film;
         });
         return films;
-      })
-    );
-  }
-
-  getPeople(): Observable<PeopleList> {
-    return this._apiStarWarsPeopleService.getPeople().pipe(
-      mergeMap((result) => {
-        const homeworldSubscriptionArray = [];
-        for (let index = 0; index < result.results.length; index++) {
-          homeworldSubscriptionArray.push(
-            this._http.get<ApiStarWarsPlanets.Get.Response.Results>(
-              result.results[index].homeworld
-            )
-          );
-        }
-        return forkJoin(homeworldSubscriptionArray).pipe(
-          map((homeworld) => {
-            const people = result.results.map(
-              (
-                people: ApiStarWarsPeople.Get.Response.Results,
-                index: number
-              ) => {
-                const personUrlSplit = people.url.split('/');
-                const personId = personUrlSplit[personUrlSplit.length - 2];
-                return {
-                  title: people.name,
-                  gender: people.gender,
-                  homeworld: homeworld[index].name,
-                  height:
-                    +people.height > 200
-                      ? `High (${people.height})`
-                      : +people.height < 100
-                      ? `Low (${people.height})`
-                      : `Medium (${people.height})`,
-                  personId: personId,
-                } as People;
-              }
-            );
-            const peopleList = {
-              people: people,
-              pagination: {
-                count: result.count,
-                next: result.next,
-                previous: result.previous,
-              },
-            };
-            return peopleList;
-          })
-        );
       })
     );
   }
@@ -150,6 +155,22 @@ export class StarWarsPageService {
               return person;
             })
           );
+      })
+    );
+  }
+
+  getPlanetDetails(detailsId: number): Observable<PlanetDetails> {
+    return this._apiStarWarsPlanetsService.getPlanetDetails(detailsId).pipe(
+      map((result) => {
+        const planet = {
+          title: result.name,
+          population: result.population,
+          terrain: result.terrain,
+          climate: result.climate,
+          diameter: result.diameter,
+        } as PlanetDetails;
+
+        return planet;
       })
     );
   }

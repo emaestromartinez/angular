@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-type QueryParams = '' | '';
+type QueryParams = 'page' | 'count';
 
 type FiltersType = {
-  [key in QueryParams]?: string | string[];
+  [key in QueryParams]?: number | number[];
 };
 
 export namespace ApiStarWarsPeople {

@@ -89,6 +89,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
       case 'people':
         if (!this.detailsId) {
           this.isPeopleFiltered = true;
+          this.filteredPeople.pagination = this.peopleList?.pagination;
           this.filteredPeople.people = this.peopleList?.people?.filter(
             (people) => {
               if (
@@ -100,7 +101,6 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
               else return false;
             }
           );
-          this.filteredPeople.pagination = this.peopleList?.pagination;
         }
         break;
 

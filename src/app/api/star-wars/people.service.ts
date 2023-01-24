@@ -14,6 +14,24 @@ import { starWarsBaseUrl } from './commons';
 export class ApiStarWarsPeopleService {
   constructor(private _http: HttpClient) {}
 
+  getPeople(
+    params?: ApiStarWarsPeople.Get.Request.Params
+  ): Observable<ApiStarWarsPeople.Get.Response.Body> {
+    const dataParams = {
+      ...params,
+    };
+    let httpParams = new HttpParams({
+      fromObject: dataParams as {
+        [param: string]: string | ReadonlyArray<string>;
+      },
+    });
+    return this._http
+      .get<ApiStarWarsPeople.Get.Response.Body>(`${starWarsBaseUrl}/people`, {
+        params: httpParams,
+      })
+      .pipe(catchError((error) => throwError(error)));
+  }
+
   getPeopleDetails(
     peopleId: number,
     params?: ApiStarWarsPeople.Get.Request.Params
@@ -33,24 +51,6 @@ export class ApiStarWarsPeopleService {
           params: httpParams,
         }
       )
-      .pipe(catchError((error) => throwError(error)));
-  }
-
-  getPeople(
-    params?: ApiStarWarsPeople.Get.Request.Params
-  ): Observable<ApiStarWarsPeople.Get.Response.Body> {
-    const dataParams = {
-      ...params,
-    };
-    let httpParams = new HttpParams({
-      fromObject: dataParams as {
-        [param: string]: string | ReadonlyArray<string>;
-      },
-    });
-    return this._http
-      .get<ApiStarWarsPeople.Get.Response.Body>(`${starWarsBaseUrl}/people`, {
-        params: httpParams,
-      })
       .pipe(catchError((error) => throwError(error)));
   }
 }

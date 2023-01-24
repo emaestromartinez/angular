@@ -48,6 +48,6 @@ export interface PlanetDetails {
 
 export interface SWPagination {
   count: number;
-  next: string;
-  previous: string;
+  next: number;
+  previous: number;
 }

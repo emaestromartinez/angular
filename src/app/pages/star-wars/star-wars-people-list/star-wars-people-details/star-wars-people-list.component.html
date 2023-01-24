@@ -1,41 +1,51 @@
-<div *ngIf="peopleList">
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="title">
-      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>Title</th>
-      <td mat-cell *matCellDef="let user">{{ user.title }}</td>
-    </ng-container>
-    <ng-container matColumnDef="gender">
-      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
-        Gender
-      </th>
-      <td mat-cell *matCellDef="let user">{{ user.gender }}</td>
-    </ng-container>
-    <ng-container matColumnDef="homeworld">
-      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
-        Homeworld
-      </th>
-      <td mat-cell *matCellDef="let user">{{ user.homeworld }}</td>
-    </ng-container>
-    <ng-container matColumnDef="height">
-      <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
-        Height
-      </th>
-      <td mat-cell *matCellDef="let user">{{ user.height }}</td>
-    </ng-container>
+<div>
+  <div
+    [ngClass]="{
+      'opacity-40': isLoading
+    }"
+  >
+    <table mat-table [dataSource]="dataSource">
+      <ng-container>
+        <ng-container matColumnDef="title">
+          <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
+            Title
+          </th>
+          <td mat-cell *matCellDef="let user">{{ user.title }}</td>
+        </ng-container>
+        <ng-container matColumnDef="gender">
+          <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
+            Gender
+          </th>
+          <td mat-cell *matCellDef="let user">{{ user.gender }}</td>
+        </ng-container>
+        <ng-container matColumnDef="homeworld">
+          <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
+            Homeworld
+          </th>
+          <td mat-cell *matCellDef="let user">{{ user.homeworld }}</td>
+        </ng-container>
+        <ng-container matColumnDef="height">
+          <th class="font-bold text-lg" mat-header-cell *matHeaderCellDef>
+            Height
+          </th>
+          <td mat-cell *matCellDef="let user">{{ user.height }}</td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: columnsToDisplay"
-      (click)="showPersonDetails(row)"
-    ></tr>
-    <!-- [routerLink]="starWarsRoutesURL.people + row..personId" -->
-  </table>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: columnsToDisplay"
+          (click)="showPersonDetails(row)"
+        ></tr>
+      </ng-container>
+    </table>
+  </div>
+
   <mat-paginator
     #paginator
     (page)="handlePageEvent($event)"
-    [length]="peopleList.people.length"
-    [disabled]="false"
+    [length]="length"
+    [disabled]="isLoading"
     [pageSize]="pageSize"
     [pageSizeOptions]="pageSizeOptions"
     [showFirstLastButtons]="showFirstLastButtons"
@@ -44,22 +54,3 @@
     aria-label="Select page"
   ></mat-paginator>
 </div>
-
-<!--
-<div class="flex flex-col gap-2">
-  <div *ngFor="let person of people; let i = index" class="flex gap-4">
-    <div>{{ person.title }}</div>
-    -
-    <div>{{ person.gender }}</div>
-    -
-    <div>{{ person.homeworld }}</div>
-    -
-    <div>{{ person.height }}</div>
-    <div
-      [routerLink]="starWarsRoutesURL.people + person.personId"
-      class="cursor-pointer text-blue-700 hover:underline"
-    >
-      More details...
-    </div>
-  </div>
-</div> -->
