@@ -36,6 +36,11 @@ export class StarWarsPageService {
     previous: 0,
   });
 
+  homeworlds: Map<string, ApiStarWarsPlanets.Get.Response.Results> = new Map<
+    string,
+    ApiStarWarsPlanets.Get.Response.Results
+  >();
+
   constructor(
     private _http: HttpClient,
     private _apiStarWarsFilmsService: ApiStarWarsFilmsService,
@@ -85,6 +90,12 @@ export class StarWarsPageService {
                   people: ApiStarWarsPeople.Get.Response.Results,
                   index: number
                 ) => {
+                  // We add the already mapped homeworld to the homeworlds map, which will allow for a cheap search later.
+                  this.homeworlds.set(
+                    homeworld[index]['url'],
+                    homeworld[index]
+                  );
+
                   const personUrlSplit = people.url.split('/');
                   const personId = personUrlSplit[personUrlSplit.length - 2];
                   return {
