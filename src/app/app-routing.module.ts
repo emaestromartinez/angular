@@ -31,6 +31,13 @@ export const routesApp: CustomRoute[] = [
           ),
       },
       {
+        path: 'pokemon',
+        loadChildren: () =>
+          import('./pages/pokemon/pokemon-page.module').then(
+            (m) => m.PokemonPageModule
+          ),
+      },
+      {
         path: 'form',
         loadChildren: () =>
           import('./pages/example-form/example-form.module').then(
