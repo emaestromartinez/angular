@@ -1,3 +1,4 @@
+import { HeaderModule } from './../../components/shared/header/header.module';
 import { StarWarsPeopleListComponent } from './star-wars-people-list/star-wars-people-details/star-wars-people-list.component';
 import { StarWarsPeopleDetailsComponent } from './star-wars-people-detail/star-wars-people-details/star-wars-people-details.component';
 import { ApiStarWarsFilmsService } from '../../api/star-wars/films.service';
@@ -25,6 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     LoaderModule,
     MatTableModule,
     MatPaginatorModule,
+    HeaderModule,
   ],
   declarations: [
     StarWarsPageComponent,
