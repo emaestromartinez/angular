@@ -1,14 +1,14 @@
-import { HeaderService } from './header.service';
+import { SWHeaderService } from './sw-header.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
+import { SWHeaderComponent } from './sw-header.component';
 import { RouterModule } from '@angular/router';
 import { InputModule } from '../input/input.module';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [SWHeaderComponent],
   imports: [CommonModule, RouterModule, InputModule],
-  providers: [HeaderService],
-  exports: [HeaderComponent],
+  providers: [SWHeaderService],
+  exports: [SWHeaderComponent],
 })
-export class HeaderModule {}
+export class SWHeaderModule {}

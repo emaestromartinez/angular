@@ -1,17 +1,10 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
-import { STAR_WARS_ROUTES_URL } from '../../star-wars-page.constants';
-import { People, PeopleList } from '../../star-wars-page.interface';
-import { StarWarsPageService } from '../../star-wars-page.service';
+import { STAR_WARS_ROUTES_URL } from '../star-wars-page.constants';
+import { PeopleList, People } from '../star-wars-page.interface';
+import { StarWarsPageService } from '../star-wars-page.service';
 
 @Component({
   selector: 'app-star-wars-people-list',

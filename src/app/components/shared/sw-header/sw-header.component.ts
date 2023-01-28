@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderService } from './header.service';
+import { SWHeaderService } from './sw-header.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
+  selector: 'app-sw-header',
+  templateUrl: './sw-header.component.html',
 })
-export class HeaderComponent implements OnInit {
-  constructor(private _headerService: HeaderService) {}
+export class SWHeaderComponent implements OnInit {
+  constructor(private _SWHeaderService: SWHeaderService) {}
 
   input: any;
   searchLog: string[] = [];
 
   ngOnInit() {
-    this.input = document.getElementById('header-input');
+    this.input = document.getElementById('SWHeader-input');
   }
 
   newSearch(searchString: string) {
@@ -26,12 +26,12 @@ export class HeaderComponent implements OnInit {
         }
         this.searchLog.push(searchString.toUpperCase());
       }
-      this._headerService.searchFilter$.next(searchString.toUpperCase());
+      this._SWHeaderService.searchFilter$.next(searchString.toUpperCase());
     }
   }
 
   pastSearchClick(search: string) {
-    this._headerService.searchFilter$.next(search.toUpperCase());
+    this._SWHeaderService.searchFilter$.next(search.toUpperCase());
   }
 
   onSubmit(event: SubmitEvent) {

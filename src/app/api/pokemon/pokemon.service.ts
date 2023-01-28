@@ -1,13 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { ApiPokemonPeopleDetails, ApiPokemonPeople } from './pokemon.interface';
+import { Observable, catchError, throwError } from 'rxjs';
 import { pokemonBaseUrl } from './commons';
+import { ApiPokemonList } from './pokemon.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiPokemonPeopleService {
+export class ApiPokemonService {
   constructor(private _http: HttpClient) {}
+
+  getPokemon(
+    params?: ApiPokemonList.Get.Request.Params
+  ): Observable<ApiPokemonList.Get.Response.Body> {
+    const dataParams = {
+      ...params,
+    };
+    let httpParams = new HttpParams({
+      fromObject: dataParams as {
+        [param: string]: string | ReadonlyArray<string>;
+      },
+    });
+    return this._http
+      .get<ApiPokemonList.Get.Response.Body>(`${pokemonBaseUrl}/pokemon`, {
+        // params: httpParams,
+      })
+      .pipe(catchError((error) => throwError(error)));
+  }
 }

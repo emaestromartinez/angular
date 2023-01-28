@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class HeaderService {
+export class SWHeaderService {
   searchFilter$ = new Subject<string>();
 
   constructor() {}

@@ -1,5 +1,4 @@
-import { HeaderModule } from './../../components/shared/header/header.module';
-import { StarWarsPeopleListComponent } from './star-wars-people-list/star-wars-people-details/star-wars-people-list.component';
+import { SWHeaderModule } from 'src/app/components/shared/sw-header/sw-header.module';
 import { StarWarsPeopleDetailsComponent } from './star-wars-people-detail/star-wars-people-details/star-wars-people-details.component';
 import { ApiStarWarsFilmsService } from '../../api/star-wars/films.service';
 import { NgModule } from '@angular/core';
@@ -12,10 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
 import { ApiStarWarsPlanetsService } from 'src/app/api/star-wars/planets.service';
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
-import { StarWarsFilmListComponent } from './star-wars-film-list/star-wars-people-details/star-wars-film-list.component';
 import { StarWarsFilmDetailsComponent } from './star-wars-film-details/star-wars-people-details/star-wars-film-details.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { StarWarsFilmListComponent } from './star-wars-film-list/star-wars-film-list.component';
+import { StarWarsPeopleListComponent } from './star-wars-people-list/star-wars-people-list.component';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     LoaderModule,
     MatTableModule,
     MatPaginatorModule,
-    HeaderModule,
+    SWHeaderModule,
   ],
   declarations: [
     StarWarsPageComponent,

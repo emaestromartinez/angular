@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { STAR_WARS_ROUTES_URL } from '../../star-wars-page.constants';
-import { Film } from '../../star-wars-page.interface';
+import { STAR_WARS_ROUTES_URL } from '../star-wars-page.constants';
+import { Film } from '../star-wars-page.interface';
 
 @Component({
   selector: 'app-star-wars-film-list',

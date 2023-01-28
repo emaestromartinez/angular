@@ -13,12 +13,9 @@
     <div [ngSwitch]="currentUrl">
       <div *ngSwitchCase="">Pick one of the above options!</div>
 
-      <div *ngSwitchCase="'people'">
+      <div *ngSwitchCase="'list'">
         <div *ngIf="!loading && filteredPokemon?.pokemon?.length">
-          Pokemon list
-          <!-- <app-pokemon-list
-            [peopleList]="filteredPeople"
-          ></app-pokemon-list> -->
+          <app-pokemon-list [pokemonList]="filteredPokemon"></app-pokemon-list>
         </div>
         <div *ngIf="!loading && filteredPokemon?.pokemon?.length === 0">
           The filtering did not find any results.

@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
+import { ApiPokemonService } from 'src/app/api/pokemon/pokemon.service';
 
 @NgModule({
   imports: [
@@ -19,7 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     MatPaginatorModule,
   ],
-  declarations: [PokemonPageComponent],
-  providers: [PokemonPageService],
+  declarations: [PokemonPageComponent, PokemonListComponent],
+  providers: [PokemonPageService, ApiPokemonService],
 })
 export class PokemonPageModule {}

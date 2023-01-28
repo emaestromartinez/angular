@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { HeaderService } from 'src/app/components/shared/header/header.service';
+import { SWHeaderService } from 'src/app/components/shared/sw-header/sw-header.service';
 import { STAR_WARS_ROUTES_URL } from './star-wars-page.constants';
 import {
   Film,
   FilmDetails,
-  People,
   PeopleDetails,
   PeopleList,
 } from './star-wars-page.interface';
@@ -21,7 +20,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _route: ActivatedRoute,
     private _starWarsPageService: StarWarsPageService,
-    private _headerService: HeaderService
+    private _SWHeaderService: SWHeaderService
   ) {}
 
   starWarsRoutesURL = STAR_WARS_ROUTES_URL;
@@ -54,7 +53,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
 
     this.getInformation();
 
-    this._headerService.searchFilter$.subscribe((lastSearch) => {
+    this._SWHeaderService.searchFilter$.subscribe((lastSearch) => {
       if (lastSearch) {
         this.lastSearch = lastSearch;
         this.filterList();
@@ -71,6 +70,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(routeChangeSub);
   }
+
   filterList() {
     switch (this.currentUrl) {
       case 'films':
