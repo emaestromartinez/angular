@@ -38,6 +38,13 @@ export const routesApp: CustomRoute[] = [
           ),
       },
       {
+        path: 'ticketing',
+        loadChildren: () =>
+          import('./pages/ticketing/ticketing-page.module').then(
+            (m) => m.TicketingPageModule
+          ),
+      },
+      {
         path: 'form',
         loadChildren: () =>
           import('./pages/example-form/example-form.module').then(
