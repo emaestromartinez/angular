@@ -11,7 +11,7 @@ export interface Pokemon {
   name: string;
   weight: number;
   types: string[];
-  image?: string;
+  sprite?: string;
 }
 export interface PokemonTypes {
   name: string;

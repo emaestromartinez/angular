@@ -40,7 +40,6 @@ export class PokemonPageService {
       .pipe(
         first(),
         mergeMap((result) => {
-          console.log('result', result);
           const pokemonSubscriptionArray = [];
           for (let index = 0; index < result.results.length; index++) {
             pokemonSubscriptionArray.push(
@@ -68,7 +67,7 @@ export class PokemonPageService {
                     name: pokemon.name,
                     weight: pokemon.weight,
                     types: pokemonTypes,
-                    // image: pokemonTypes,
+                    sprite: pokemon.sprites.front_shiny,
                   } as Pokemon;
                 }
               );
@@ -78,7 +77,6 @@ export class PokemonPageService {
                 next: result.next,
                 previous: result.previous,
               };
-              console.log('pokemonList', pokemonList);
               return pokemonList;
             })
           );
