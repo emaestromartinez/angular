@@ -164,6 +164,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
   refreshInformation() {
     this.filteredFilms = this.films;
     this.filteredPeople.people = this.peopleList?.people;

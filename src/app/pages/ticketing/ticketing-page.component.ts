@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,7 +15,26 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
   loading = false;
   subscriptions: Subscription[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.updateCurrentRoute();
+    this.getInformation();
+
+    // const eventsSubs = this.
+
+    const routeChangeSub = this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateCurrentRoute();
+        this.getInformation();
+      }
+    });
+    this.subscriptions.push(routeChangeSub);
+  }
+
+  getInformation() {}
+  updateCurrentRoute() {
+    this.currentUrl = this._route.snapshot.params['slug'];
+    this.detailsId = this._route.snapshot.params['detailsId'];
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
