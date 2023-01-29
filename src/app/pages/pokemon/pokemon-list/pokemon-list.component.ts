@@ -23,7 +23,7 @@ export class PokemonListComponent implements OnInit, OnChanges {
   length: number;
   pageSize = 20;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [20];
 
   hidePageSize = false;
   showPageSizeOptions = true;
@@ -80,17 +80,23 @@ export class PokemonListComponent implements OnInit, OnChanges {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
 
+    let isItNext = true;
+    if (event.previousPageIndex) {
+      isItNext = event.pageIndex - event.previousPageIndex === 1 ? true : false;
+    }
     if (event.previousPageIndex || event.previousPageIndex === 0) {
-      // this._pokemonPageService.pagination.next({
-      //   count: event.length,
-      //   next: event.pageIndex,
-      //   previous: event.previousPageIndex,
-      // });
       this.isLoading = true;
-      // this._pokemonPageService.getNewPagePokemon().subscribe((newPageValues) => {
-      //   this.replacePokemonList(newPageValues.pokemon);
-      //   this.isLoading = false;
-      // });
+      this._pokemonPageService
+        .getPokemon(isItNext)
+        .subscribe((newPageValues) => {
+          this._pokemonPageService.pagination.next({
+            count: newPageValues.count,
+            next: newPageValues.next,
+            previous: newPageValues.previous,
+          });
+          this.replacePokemonList(newPageValues.pokemon);
+          this.isLoading = false;
+        });
     }
   }
 }

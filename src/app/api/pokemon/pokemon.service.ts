@@ -11,6 +11,7 @@ export class ApiPokemonService {
   constructor(private _http: HttpClient) {}
 
   getPokemon(
+    nextPageURL?: string | null,
     params?: ApiPokemonList.Get.Request.Params
   ): Observable<ApiPokemonList.Get.Response.Body> {
     const dataParams = {
@@ -21,9 +22,11 @@ export class ApiPokemonService {
         [param: string]: string | ReadonlyArray<string>;
       },
     });
+    const url = nextPageURL ? nextPageURL : `${pokemonBaseUrl}/pokemon`;
+
     return this._http
-      .get<ApiPokemonList.Get.Response.Body>(`${pokemonBaseUrl}/pokemon`, {
-        // params: httpParams,
+      .get<ApiPokemonList.Get.Response.Body>(url, {
+        params: httpParams,
       })
       .pipe(catchError((error) => throwError(error)));
   }

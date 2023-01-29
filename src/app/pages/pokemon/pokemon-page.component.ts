@@ -71,6 +71,12 @@ export class PokemonPageComponent implements OnInit, OnDestroy {
                 previous: pokemonList.previous,
               };
 
+              this._pokemonPageService.pagination.next({
+                count: pokemonList.count,
+                next: pokemonList.next,
+                previous: pokemonList.previous,
+              });
+
               this.loading = false;
             });
           this.subscriptions.push(getPokemonSub);
