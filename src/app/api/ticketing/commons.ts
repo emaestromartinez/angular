@@ -1,1 +1,1 @@
-export const ticketingBaseUrl = 'ticketing-assets/data';
+export const ticketingBaseUrl = 'ticketing-assets';

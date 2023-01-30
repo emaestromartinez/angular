@@ -21,12 +21,14 @@ export class ApiTicketingService {
         [param: string]: string | ReadonlyArray<string>;
       },
     });
-    const url = `${ticketingBaseUrl}/events`;
+    // const url = `/assets/events.json`; // Working!
+    const url = `/app/api/ticketing/ticketing-assets/data/events.json`;
 
-    return this._http
-      .get<ApiTicketingList.Get.Response.Body[]>(url, {
-        params: httpParams,
-      })
-      .pipe(catchError((error) => throwError(error)));
+    return (
+      this._http
+        // .get<ApiTicketingList.Get.Response.Body[]>(url)
+        .get<any>(url)
+        .pipe(catchError((error) => throwError(error)))
+    );
   }
 }

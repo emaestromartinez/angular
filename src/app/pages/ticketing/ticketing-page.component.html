@@ -1,2 +1,37 @@
 <div class="h-16 bg-gray-200"></div>
-<div class="sm:m-8 m-1 grid grid-cols-1 md:grid-cols-2 gap-4">Tickett</div>
+<div class="sm:m-8 m-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div
+    *ngFor="let event of events"
+    class="border border-gray-500 flex flex-col justify-between gap-2"
+  >
+    <div
+      (click)="openDetails(event.id)"
+      class="px-2 font-bold text-blue-500 cursor-pointer"
+    >
+      {{ event.title }}
+    </div>
+    <div
+      (click)="openDetails(event.id)"
+      class="px-2 text-blue-500 cursor-pointer"
+    >
+      {{ event.subtitle }}
+    </div>
+    <div (click)="openDetails(event.id)" class="cursor-pointer">
+      <img [src]="event.image" />
+    </div>
+    <div class="px-2">{{ event.place }}</div>
+    <div class="px-2">
+      {{ event.startDate | date : "d/M/yy" }} -
+      {{ event.endDate | date : "d/M/yy" }}
+    </div>
+    <div class="px-2 hidden md:block" [innerHTML]="event.description"></div>
+    <div class="w-full">
+      <button
+        (click)="openDetails(event.id)"
+        class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 cursor-pointer"
+      >
+        COMPRAR
+      </button>
+    </div>
+  </div>
+</div>
