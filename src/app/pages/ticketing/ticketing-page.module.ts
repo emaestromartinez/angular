@@ -1,3 +1,4 @@
+import { EventDetailsComponent } from './event-details-page/event-details.component';
 import { SWHeaderModule } from 'src/app/components/shared/sw-header/sw-header.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -22,7 +23,7 @@ import { ApiTicketingService } from 'src/app/api/ticketing/ticketing.service';
     MatPaginatorModule,
     SWHeaderModule,
   ],
-  declarations: [TicketingPageComponent],
+  declarations: [TicketingPageComponent, EventDetailsComponent],
   providers: [TicketingPageService, ApiTicketingService],
 })
 export class TicketingPageModule {}

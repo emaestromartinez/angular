@@ -16,6 +16,7 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
   ) {}
 
   events: IEvent[];
+  selectedEvent: IEvent | undefined;
 
   currentUrl: string;
   detailsId: number;
@@ -24,7 +25,6 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
-    this.updateCurrentRoute();
     this.getInformation();
 
     const routeChangeSub = this._router.events.subscribe((event) => {
@@ -38,18 +38,28 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
 
   getInformation() {
     this._ticketingPageService.getEvents().subscribe((events) => {
-      console.log('events', events);
       this.events = events;
+      this.updateCurrentRoute();
     });
   }
   updateCurrentRoute() {
     this.currentUrl = this._route.snapshot.params['slug'];
     this.detailsId = this._route.snapshot.params['detailsId'];
+    if (!this.detailsId) {
+      this.selectedEvent = undefined;
+    } else if (!this.selectedEvent) {
+      this.selectedEvent = this.events.find((event) => {
+        return event.id === this.detailsId.toString();
+      });
+    }
+    console.log('this.detailsId', this.detailsId);
+    console.log('this.selectedEvent', this.selectedEvent);
   }
 
-  openDetails(detailsID: string) {
+  openDetails(event: IEvent) {
+    this.selectedEvent = event;
     if (!this.isLoading) {
-      this._router.navigate([detailsID], { relativeTo: this._route });
+      this._router.navigate([event.id], { relativeTo: this._route });
     }
   }
 
