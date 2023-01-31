@@ -34,6 +34,9 @@ export class TicketingPageService {
     return this._apiTicketingService.getEventInfo(detailsId).pipe(
       first(),
       map((event) => {
+        const sessions = event.sessions.map((session) => {
+          return { date: session.date, availability: session.availability };
+        });
         return {
           event: {
             id: event.event.id,
@@ -41,6 +44,7 @@ export class TicketingPageService {
             subtitle: event.event.subtitle,
             image: event.event.image,
           },
+          sessions: sessions,
         } as IEventInfo;
       })
     );

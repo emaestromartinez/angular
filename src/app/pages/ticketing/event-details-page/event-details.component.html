@@ -1,3 +1,24 @@
 <div class="sm:m-8 m-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-  event-details
+  <div class="p-4 border border-gray-500 flex flex-col justify-between gap-6">
+    <div
+      *ngFor="let session of selectedEventInfo.sessions; let i = index"
+      class="px-2 flex flex-row justify-between"
+    >
+      <div class="flex flex-row gap-4">
+        <div>Fecha: {{ session.date | date : "d/M/yy" }}</div>
+        <div class="flex flex-row">
+          Disponibilidad: {{ session.availability }}
+        </div>
+      </div>
+      <div class="flex flex-row gap-2">
+        <div (click)="subtract(i)">
+          <button class="">-</button>
+        </div>
+        <div>{{ this.sessionsArray.at(i).value }}</div>
+        <div (click)="add(i)">
+          <button class="">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

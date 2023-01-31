@@ -16,8 +16,7 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
   ) {}
 
   events: IEvent[];
-  selectedEvent: IEvent | undefined;
-  selectedEventInfo: IEventInfo | undefined;
+  selectedEventInfo: IEventInfo;
 
   currentUrl: string;
   detailsId: number;
@@ -43,17 +42,13 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
     if (!this.detailsId) {
       this._ticketingPageService.getEvents().subscribe((events) => {
         this.events = events;
-        this.updateCurrentRoute();
       });
     }
   }
   getEventInfo(detailsId?: string) {
-    console.log('Gettin Event Info: ', this.detailsId);
     this._ticketingPageService.getEventInfo(detailsId).subscribe(
       (event) => {
-        console.log('Got Event Info: ', this.detailsId);
         this.selectedEventInfo = event;
-        this.updateCurrentRoute();
       },
       (error) => {
         this.eventDetailsNotFound = true;
@@ -63,24 +58,15 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
 
   updateCurrentRoute() {
     // We need to know if the current ID is the same as before or if it's new;
-    const newId = this.detailsId !== this._route.snapshot.params['detailsId'];
 
     this.currentUrl = this._route.snapshot.params['slug'];
     this.detailsId = this._route.snapshot.params['detailsId'];
-    if (this._route.snapshot.params['detailsId'] && newId) {
+    if (this.detailsId) {
       this.getEventInfo(this.detailsId.toString());
-    }
-    if (!this.detailsId) {
-      this.selectedEvent = undefined;
-    } else if (!this.selectedEvent && this.events) {
-      this.selectedEvent = this.events.find((event) => {
-        return event.id === this.detailsId.toString();
-      });
     }
   }
 
   openDetails(event: IEvent) {
-    this.selectedEvent = event;
     if (!this.isLoading) {
       this._router.navigate([event.id], { relativeTo: this._route });
     }

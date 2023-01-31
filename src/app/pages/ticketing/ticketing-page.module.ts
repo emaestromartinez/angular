@@ -8,9 +8,8 @@ import { RouterModule } from '@angular/router';
 import { TicketingPageService } from './ticketing-page.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { ApiTicketingService } from 'src/app/api/ticketing/ticketing.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,9 +18,7 @@ import { ApiTicketingService } from 'src/app/api/ticketing/ticketing.service';
     HttpClientModule,
     TicketingPageRoutingModule,
     LoaderModule,
-    MatTableModule,
-    MatPaginatorModule,
-    SWHeaderModule,
+    ReactiveFormsModule,
   ],
   declarations: [TicketingPageComponent, EventDetailsComponent],
   providers: [TicketingPageService, ApiTicketingService],
