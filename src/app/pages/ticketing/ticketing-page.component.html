@@ -1,6 +1,6 @@
 <div class="h-16 bg-gray-200"></div>
 <div
-  *ngIf="!detailsId"
+  *ngIf="!detailsId && !eventDetailsNotFound"
   class="sm:m-8 m-4 grid grid-cols-1 md:grid-cols-2 gap-4"
 >
   <div
@@ -36,6 +36,11 @@
   </div>
 </div>
 
-<div *ngIf="detailsId && selectedEvent">
-  <app-event-details [selectedEvent]="selectedEvent"> </app-event-details>
+<div *ngIf="detailsId && selectedEvent && !eventDetailsNotFound">
+  <app-event-details [selectedEventInfo]="selectedEventInfo">
+  </app-event-details>
+</div>
+
+<div *ngIf="eventDetailsNotFound" class="sm:m-8 m-4">
+  The event with ID: {{ this.detailsId }} has not been found!
 </div>

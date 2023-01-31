@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IEvent } from '../ticketing-page.interface';
+import { IEvent, IEventInfo } from '../ticketing-page.interface';
 import { TicketingPageService } from '../ticketing-page.service';
 
 @Component({
@@ -15,12 +15,14 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     private _ticketingPageService: TicketingPageService
   ) {}
 
-  @Input() selectedEvent: IEvent;
+  @Input() selectedEventInfo: IEventInfo | undefined;
 
   isLoading = false;
   subscriptions: Subscription[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('selectedEventInfo', this.selectedEventInfo);
+  }
 
   openDetails(detailsID: string) {
     if (!this.isLoading) {

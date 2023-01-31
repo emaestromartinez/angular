@@ -26,3 +26,29 @@ export namespace ApiTicketingList {
     }
   }
 }
+export namespace ApiTicketingEvent {
+  export namespace Get {
+    export namespace Request {
+      export type Params = FiltersType;
+    }
+
+    export namespace Response {
+      export interface Body {
+        event: Event;
+        sessions: Session[];
+      }
+
+      export interface Event {
+        id: string;
+        title: string;
+        subtitle: string;
+        image: string;
+      }
+
+      export interface Session {
+        date: string;
+        availability: string;
+      }
+    }
+  }
+}

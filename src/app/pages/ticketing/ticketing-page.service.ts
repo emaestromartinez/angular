@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, first } from 'rxjs';
 import { ApiTicketingService } from 'src/app/api/ticketing/ticketing.service';
-import { IEvent } from './ticketing-page.interface';
+import { IEvent, IEventInfo } from './ticketing-page.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +26,22 @@ export class TicketingPageService {
           } as IEvent;
         });
         return events;
+      })
+    );
+  }
+
+  getEventInfo(detailsId?: string): Observable<IEventInfo> {
+    return this._apiTicketingService.getEventInfo(detailsId).pipe(
+      first(),
+      map((event) => {
+        return {
+          event: {
+            id: event.event.id,
+            title: event.event.title,
+            subtitle: event.event.subtitle,
+            image: event.event.image,
+          },
+        } as IEventInfo;
       })
     );
   }
