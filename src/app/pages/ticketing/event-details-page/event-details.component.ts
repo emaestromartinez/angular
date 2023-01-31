@@ -50,8 +50,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   add(index: number) {
     const maxValue = this.selectedEventInfo.sessions[index].availability;
     const sessionFormControl = this.sessionsArray.at(index);
-    console.log('maxValue', maxValue);
-    console.log('sessionFormControl', sessionFormControl.value);
     if (sessionFormControl.value < maxValue) {
       sessionFormControl.setValue(sessionFormControl.value + 1);
     }
