@@ -19,7 +19,6 @@ export class TicketingPageService {
   }
 
   addEvent(eventName: string, date: string, tickets: number) {
-    // Actualiza pero no lo borra!
     let event = this._cart.get(eventName);
     if (!event) {
       event = [];
@@ -34,8 +33,16 @@ export class TicketingPageService {
     } else {
       event[dateIndex].tickets = tickets;
     }
-
+  }
+  updateCart(eventTitle: string) {
     console.log('this._cart', this._cart);
+    const cartEvent = this._cart.get(eventTitle);
+    if (cartEvent) {
+      const notEmptyIndex = cartEvent.findIndex((event) => {
+        return event.tickets > 0;
+      });
+      if (notEmptyIndex === -1) this._cart.delete(eventTitle);
+    }
     this._cart$.next(this._cart);
   }
 

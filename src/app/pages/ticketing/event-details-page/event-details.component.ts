@@ -1,3 +1,4 @@
+import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   ControlContainer,
@@ -7,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, Subscription } from 'rxjs';
+import { debounceTime, iif, Subscription } from 'rxjs';
 import { CartEvent, IEventInfo } from '../ticketing-page.interface';
 import { TicketingPageService } from '../ticketing-page.service';
 
@@ -51,16 +52,23 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
     this._ticketingPageService.cart$.subscribe((cart) => {
       this.shoppingCart = [...cart.entries()].map((event) => {
-        {
-          const filteredSessions = event[1].filter((session, index) => {
+        let filteredSessions;
+        if (event[0] !== this.selectedEventInfo.event.title) {
+          const anyTicketCarted: number = event[1].findIndex((session) => {
+            if (session.tickets > 0) return true;
+            return false;
+          });
+          filteredSessions = event[1];
+        } else {
+          filteredSessions = event[1].filter((session, index) => {
             if (session.tickets > 0) {
               this.sessionsArray.at(index).setValue(session.tickets);
               return session;
             }
             return false;
           });
-          return [event[0], filteredSessions];
         }
+        return [event[0], filteredSessions];
       });
     });
   }
@@ -89,6 +97,8 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
         ticketAmount
       );
     });
+
+    this._ticketingPageService.updateCart(this.selectedEventInfo.event.title);
   }
 
   openDetails(detailsID: string) {

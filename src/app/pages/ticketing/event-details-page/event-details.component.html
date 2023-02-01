@@ -40,9 +40,9 @@
               {{ date.date | date : "d/M/yy" }}: {{ date.tickets }} tickets
             </li>
           </ng-container>
-          <ng-container *ngIf="event[1].length === 0">
+          <!-- <ng-container *ngIf="emptyShoppingCart">
             The shopping cart for {{ event[0] }} is empty;
-          </ng-container>
+          </ng-container> -->
         </ul>
       </div>
     </div>
