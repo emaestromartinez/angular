@@ -50,9 +50,15 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     });
 
     this._ticketingPageService.cart$.subscribe((cart) => {
-      console.log('this.shoppingCart', this.shoppingCart);
-      console.log('cart', cart);
-      this.shoppingCart = [...cart.entries()];
+      this.shoppingCart = [...cart.entries()].map((event) => {
+        {
+          const filteredSessions = event[1].filter((session) => {
+            if (session.tickets > 0) return session;
+            return false;
+          });
+          return [event[0], filteredSessions];
+        }
+      });
     });
   }
 
@@ -74,13 +80,11 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   addToCart() {
     this.sessionsArray.controls.forEach((sessionFormControl, index) => {
       const ticketAmount = sessionFormControl.value;
-      if (sessionFormControl.value) {
-        this._ticketingPageService.addEvent(
-          this.selectedEventInfo.event.title,
-          this.selectedEventInfo.sessions[index].date,
-          ticketAmount
-        );
-      }
+      this._ticketingPageService.addEvent(
+        this.selectedEventInfo.event.title,
+        this.selectedEventInfo.sessions[index].date,
+        ticketAmount
+      );
     });
   }
 

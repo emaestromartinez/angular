@@ -19,6 +19,7 @@ export class TicketingPageService {
   }
 
   addEvent(eventName: string, date: string, tickets: number) {
+    // Actualiza pero no lo borra!
     let event = this._cart.get(eventName);
     if (!event) {
       event = [];
@@ -27,11 +28,14 @@ export class TicketingPageService {
     let dateIndex = event.findIndex((d) => {
       return d.date === date;
     });
+
     if (dateIndex === -1) {
       event.push({ date, tickets });
     } else {
-      event[dateIndex].tickets += tickets;
+      event[dateIndex].tickets = tickets;
     }
+
+    console.log('this._cart', this._cart);
     this._cart$.next(this._cart);
   }
 
