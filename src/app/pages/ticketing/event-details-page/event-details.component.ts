@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { debounceTime, Subscription } from 'rxjs';
 import { CartEvent, IEventInfo } from '../ticketing-page.interface';
 import { TicketingPageService } from '../ticketing-page.service';
 
@@ -52,8 +52,11 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     this._ticketingPageService.cart$.subscribe((cart) => {
       this.shoppingCart = [...cart.entries()].map((event) => {
         {
-          const filteredSessions = event[1].filter((session) => {
-            if (session.tickets > 0) return session;
+          const filteredSessions = event[1].filter((session, index) => {
+            if (session.tickets > 0) {
+              this.sessionsArray.at(index).setValue(session.tickets);
+              return session;
+            }
             return false;
           });
           return [event[0], filteredSessions];
