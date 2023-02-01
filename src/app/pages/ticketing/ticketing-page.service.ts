@@ -1,13 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Observable, map, first } from 'rxjs';
+import { Observable, map, first, BehaviorSubject } from 'rxjs';
 import { ApiTicketingService } from 'src/app/api/ticketing/ticketing.service';
-import { IEvent, IEventInfo } from './ticketing-page.interface';
+import { CartEvent, IEvent, IEventInfo } from './ticketing-page.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TicketingPageService {
   constructor(private _apiTicketingService: ApiTicketingService) {}
+
+  private readonly _cart = new Map<string, CartEvent[]>();
+  private readonly _cart$ = new BehaviorSubject<Map<string, CartEvent[]>>(
+    this._cart
+  );
+
+  get cart$(): Observable<Map<string, CartEvent[]>> {
+    return this._cart$.asObservable();
+  }
+
+  addEvent(eventName: string, date: string, tickets: number) {
+    let event = this._cart.get(eventName);
+    if (!event) {
+      event = [];
+      this._cart.set(eventName, event);
+    }
+    let dateIndex = event.findIndex((d) => {
+      console.log('asegurar formato: ', d.date, date);
+      return d.date === date;
+    });
+    if (dateIndex === -1) {
+      event.push({ date, tickets });
+    } else {
+      event[dateIndex].tickets += tickets;
+    }
+    this._cart$.next(this._cart);
+  }
+
+  removeEvent(eventName: string, date: string) {
+    const event = this._cart.get(eventName);
+    if (event) {
+      const dateIndex = event.findIndex((d) => d.date === date);
+      if (dateIndex !== -1) {
+        event.splice(dateIndex, 1);
+        if (event.length === 0) {
+          this._cart.delete(eventName);
+        }
+        this._cart$.next(this._cart);
+      }
+    }
+  }
 
   getEvents(): Observable<IEvent[]> {
     return this._apiTicketingService.getEvents().pipe(

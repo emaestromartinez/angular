@@ -24,3 +24,8 @@ export interface Session {
   date: string;
   availability: string;
 }
+
+export interface CartEvent {
+  date: string;
+  tickets: number;
+}

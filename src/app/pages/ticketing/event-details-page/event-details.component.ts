@@ -1,8 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ControlContainer,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IEventInfo } from '../ticketing-page.interface';
+import { CartEvent, IEventInfo } from '../ticketing-page.interface';
 import { TicketingPageService } from '../ticketing-page.service';
 
 @Component({
@@ -13,12 +19,15 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _ticketingPageService: TicketingPageService
   ) {}
 
   @Input() selectedEventInfo: IEventInfo;
 
   form: FormGroup;
+
+  shoppingCart: Map<string, CartEvent[]> = new Map<string, CartEvent[]>();
 
   isLoading = false;
   subscriptions: Subscription[] = [];
@@ -39,6 +48,12 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
         ])
       );
     });
+
+    this._ticketingPageService.cart$.subscribe((cart) => {
+      console.log('cart', cart);
+      console.log('shoppingCart', this.shoppingCart);
+      this.shoppingCart = cart;
+    });
   }
 
   subtract(index: number) {
@@ -47,12 +62,28 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       sessionFormControl.setValue(sessionFormControl.value - 1);
     }
   }
+
   add(index: number) {
     const maxValue = this.selectedEventInfo.sessions[index].availability;
     const sessionFormControl = this.sessionsArray.at(index);
     if (sessionFormControl.value < maxValue) {
       sessionFormControl.setValue(sessionFormControl.value + 1);
     }
+  }
+
+  addToCart() {
+    this.sessionsArray.controls.forEach((sessionFormControl, index) => {
+      const ticketAmount = sessionFormControl.value;
+      console.log('ticket amount: ', ticketAmount);
+      if (sessionFormControl.value) {
+        this._ticketingPageService.addEvent(
+          this.selectedEventInfo.event.title,
+          this.selectedEventInfo.sessions[index].date,
+          ticketAmount
+        );
+        // eventName: string, date: string, tickets: number
+      }
+    });
   }
 
   openDetails(detailsID: string) {
