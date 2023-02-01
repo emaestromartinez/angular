@@ -27,7 +27,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
-  shoppingCart: Map<string, CartEvent[]> = new Map<string, CartEvent[]>();
+  shoppingCart: [string, CartEvent[]][];
 
   isLoading = false;
   subscriptions: Subscription[] = [];
@@ -50,9 +50,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     });
 
     this._ticketingPageService.cart$.subscribe((cart) => {
+      console.log('this.shoppingCart', this.shoppingCart);
       console.log('cart', cart);
-      console.log('shoppingCart', this.shoppingCart);
-      this.shoppingCart = cart;
+      this.shoppingCart = [...cart.entries()];
     });
   }
 
@@ -74,14 +74,12 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   addToCart() {
     this.sessionsArray.controls.forEach((sessionFormControl, index) => {
       const ticketAmount = sessionFormControl.value;
-      console.log('ticket amount: ', ticketAmount);
       if (sessionFormControl.value) {
         this._ticketingPageService.addEvent(
           this.selectedEventInfo.event.title,
           this.selectedEventInfo.sessions[index].date,
           ticketAmount
         );
-        // eventName: string, date: string, tickets: number
       }
     });
   }

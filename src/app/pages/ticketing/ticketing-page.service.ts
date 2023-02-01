@@ -25,7 +25,6 @@ export class TicketingPageService {
       this._cart.set(eventName, event);
     }
     let dateIndex = event.findIndex((d) => {
-      console.log('asegurar formato: ', d.date, date);
       return d.date === date;
     });
     if (dateIndex === -1) {
