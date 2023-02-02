@@ -35,7 +35,7 @@ export class TicketingPageService {
     }
   }
 
-  updateCart(eventTitle: string) {
+  updateEventCart(eventTitle: string) {
     const cartEvent = this._cart.get(eventTitle);
     if (cartEvent) {
       const notEmptyIndex = cartEvent.findIndex((event) => {
@@ -43,6 +43,18 @@ export class TicketingPageService {
       });
       if (notEmptyIndex === -1) this._cart.delete(eventTitle);
     }
+    this._cart$.next(this._cart);
+  }
+  updateCart() {
+    this._cart.forEach((cartEvent, key) => {
+      if (cartEvent) {
+        const notEmptyIndex = cartEvent.findIndex((event) => {
+          return event.tickets > 0;
+        });
+        if (notEmptyIndex === -1) this._cart.delete(key);
+      }
+    });
+
     this._cart$.next(this._cart);
   }
 

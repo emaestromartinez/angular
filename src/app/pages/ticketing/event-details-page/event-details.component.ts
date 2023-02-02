@@ -96,11 +96,14 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       );
     });
 
-    this._ticketingPageService.updateCart(this.selectedEventInfo.event.title);
+    this._ticketingPageService.updateEventCart(
+      this.selectedEventInfo.event.title
+    );
   }
 
   removeEvent(eventName: string, eventDate: string) {
     this._ticketingPageService.removeEvent(eventName, eventDate);
+    this._ticketingPageService.updateCart();
   }
 
   openDetails(detailsID: string) {
