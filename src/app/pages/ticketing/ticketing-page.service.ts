@@ -34,8 +34,8 @@ export class TicketingPageService {
       event[dateIndex].tickets = tickets;
     }
   }
+
   updateCart(eventTitle: string) {
-    console.log('this._cart', this._cart);
     const cartEvent = this._cart.get(eventTitle);
     if (cartEvent) {
       const notEmptyIndex = cartEvent.findIndex((event) => {
@@ -51,7 +51,9 @@ export class TicketingPageService {
     if (event) {
       const dateIndex = event.findIndex((d) => d.date === date);
       if (dateIndex !== -1) {
-        event.splice(dateIndex, 1);
+        // event.splice(dateIndex, 1);
+        event[dateIndex].tickets = 0;
+
         if (event.length === 0) {
           this._cart.delete(eventName);
         }

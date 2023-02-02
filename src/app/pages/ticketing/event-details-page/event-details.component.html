@@ -19,11 +19,11 @@
         </div>
         <div class="flex flex-row gap-2">
           <div (click)="subtract(i)">
-            <button class="">-</button>
+            <button class="text-blue-500 font-bold">-</button>
           </div>
           <div>{{ this.sessionsArray.at(i).value }}</div>
           <div (click)="add(i)">
-            <button class="">+</button>
+            <button class="text-blue-500 font-bold">+</button>
           </div>
         </div>
       </div>
@@ -36,13 +36,19 @@
         <h3>{{ event[0] }}</h3>
         <ul>
           <ng-container *ngFor="let date of event[1]">
-            <li *ngIf="date.tickets > 0">
-              {{ date.date | date : "d/M/yy" }}: {{ date.tickets }} tickets
+            <li
+              *ngIf="date.tickets > 0"
+              class="flex flex-row justify-between gap-6 px-4"
+            >
+              <div class="w-full">{{ date.date | date : "d/M/yy" }}:</div>
+              <div class="w-24">{{ date.tickets }} tickets</div>
+              <img
+                [src]="trashImage"
+                class="w-5 h-5 cursor-pointer"
+                (click)="removeEvent(event[0], date.date)"
+              />
             </li>
           </ng-container>
-          <!-- <ng-container *ngIf="emptyShoppingCart">
-            The shopping cart for {{ event[0] }} is empty;
-          </ng-container> -->
         </ul>
       </div>
     </div>

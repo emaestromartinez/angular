@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, iif, Subscription } from 'rxjs';
+import { TRASH_IMAGE } from '../ticketing-page.constants';
 import { CartEvent, IEventInfo } from '../ticketing-page.interface';
 import { TicketingPageService } from '../ticketing-page.service';
 
@@ -26,6 +27,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   @Input() selectedEventInfo: IEventInfo;
 
+  trashImage = TRASH_IMAGE;
   form: FormGroup;
 
   shoppingCart: [string, CartEvent[]][];
@@ -54,10 +56,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       this.shoppingCart = [...cart.entries()].map((event) => {
         let filteredSessions;
         if (event[0] !== this.selectedEventInfo.event.title) {
-          const anyTicketCarted: number = event[1].findIndex((session) => {
-            if (session.tickets > 0) return true;
-            return false;
-          });
           filteredSessions = event[1];
         } else {
           filteredSessions = event[1].filter((session, index) => {
@@ -99,6 +97,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     });
 
     this._ticketingPageService.updateCart(this.selectedEventInfo.event.title);
+  }
+
+  removeEvent(eventName: string, eventDate: string) {
+    this._ticketingPageService.removeEvent(eventName, eventDate);
   }
 
   openDetails(detailsID: string) {
