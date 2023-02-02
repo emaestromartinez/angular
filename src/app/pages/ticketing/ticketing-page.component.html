@@ -42,5 +42,8 @@
 </div>
 
 <div *ngIf="eventDetailsNotFound" class="sm:m-8 m-4">
-  The event with ID: {{ this.detailsId }} has not been found!
+  El evento con ID: {{ this.detailsId }} no ha sido encontrado!
+  <button class="text-blue-500 hover:text-blue-700" routerLink="..">
+    Volver
+  </button>
 </div>
