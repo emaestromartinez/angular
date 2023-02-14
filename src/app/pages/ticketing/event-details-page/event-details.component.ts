@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, iif, Subscription } from 'rxjs';
+import { debounceTime, iif, Subject, Subscription, takeUntil } from 'rxjs';
 import { TRASH_IMAGE } from '../ticketing-page.constants';
 import { CartEvent, IEventInfo } from '../ticketing-page.interface';
 import { TicketingPageService } from '../ticketing-page.service';
@@ -27,13 +27,14 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   @Input() selectedEventInfo: IEventInfo;
 
+  unsubscribe$: Subject<void> = new Subject<void>();
+
   trashImage = TRASH_IMAGE;
   form: FormGroup;
 
   shoppingCart: [string, CartEvent[]][];
 
   isLoading = false;
-  subscriptions: Subscription[] = [];
 
   get sessionsArray() {
     return this.form?.get('sessions') as FormArray;
@@ -43,6 +44,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     this.form = this._fb.group({
       sessions: this._fb.array([]),
     });
+
     this.selectedEventInfo.sessions.forEach((session) => {
       this.sessionsArray.push(
         this._fb.control(0, [
@@ -52,23 +54,25 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
       );
     });
 
-    this._ticketingPageService.cart$.subscribe((cart) => {
-      this.shoppingCart = [...cart.entries()].map((event) => {
-        let filteredSessions;
-        if (event[0] !== this.selectedEventInfo.event.title) {
-          filteredSessions = event[1];
-        } else {
-          filteredSessions = event[1].filter((session, index) => {
-            if (session.tickets > 0) {
-              this.sessionsArray.at(index).setValue(session.tickets);
-              return session;
-            }
-            return false;
-          });
-        }
-        return [event[0], filteredSessions];
+    const cartSub = this._ticketingPageService.cart$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((cart) => {
+        this.shoppingCart = [...cart.entries()].map((event) => {
+          let filteredSessions;
+          if (event[0] !== this.selectedEventInfo.event.title) {
+            filteredSessions = event[1];
+          } else {
+            filteredSessions = event[1].filter((session, index) => {
+              if (session.tickets > 0) {
+                this.sessionsArray.at(index).setValue(session.tickets);
+                return session;
+              }
+              return false;
+            });
+          }
+          return [event[0], filteredSessions];
+        });
       });
-    });
   }
 
   subtract(index: number) {
@@ -113,8 +117,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => {
-      subscription.unsubscribe();
-    });
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

@@ -1,17 +1,6 @@
-import {
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  UrlSegment,
-} from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { SWHeaderService } from 'src/app/components/shared/sw-header/sw-header.service';
 
 import { POKEMON_ROUTES_URL } from './pokemon-page.constants';
@@ -27,9 +16,10 @@ export class PokemonPageComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _pokemonPageService: PokemonPageService,
-    private _SWHeaderService: SWHeaderService
+    private _pokemonPageService: PokemonPageService
   ) {}
+
+  unsubscribe$: Subject<void> = new Subject<void>();
 
   pokemonRoutesURL = POKEMON_ROUTES_URL;
 
@@ -40,18 +30,18 @@ export class PokemonPageComponent implements OnInit, OnDestroy {
   currentUrl: string;
 
   loading = false;
-  subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
     this.updateCurrentRoute();
     this.getInformation();
 
-    const routeChangeSub = this._router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.updateCurrentRoute();
-      }
-    });
-    this.subscriptions.push(routeChangeSub);
+    const routeChangeSub = this._router.events
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.updateCurrentRoute();
+        }
+      });
   }
 
   getInformation() {
@@ -61,6 +51,7 @@ export class PokemonPageComponent implements OnInit, OnDestroy {
           this.loading = true;
           const getPokemonSub = this._pokemonPageService
             .getPokemon()
+            .pipe(takeUntil(this.unsubscribe$))
             .subscribe((pokemonList) => {
               this.pokemonList = pokemonList;
 
@@ -79,7 +70,6 @@ export class PokemonPageComponent implements OnInit, OnDestroy {
 
               this.loading = false;
             });
-          this.subscriptions.push(getPokemonSub);
         }
 
         break;
@@ -100,8 +90,7 @@ export class PokemonPageComponent implements OnInit, OnDestroy {
   filterList() {}
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => {
-      subscription.unsubscribe();
-    });
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

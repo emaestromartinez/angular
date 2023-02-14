@@ -1,7 +1,15 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { STAR_WARS_ROUTES_URL } from '../star-wars-page.constants';
 import { PeopleList, People } from '../star-wars-page.interface';
 import { StarWarsPageService } from '../star-wars-page.service';
@@ -10,8 +18,12 @@ import { StarWarsPageService } from '../star-wars-page.service';
   selector: 'app-star-wars-people-list',
   templateUrl: './star-wars-people-list.component.html',
 })
-export class StarWarsPeopleListComponent implements OnInit, OnChanges {
+export class StarWarsPeopleListComponent
+  implements OnInit, OnChanges, OnDestroy
+{
   @Input() peopleList: PeopleList;
+
+  unsubscribe$: Subject<void> = new Subject<void>();
 
   columnsToDisplay = ['title', 'gender', 'homeworld', 'height'];
 
@@ -89,10 +101,16 @@ export class StarWarsPeopleListComponent implements OnInit, OnChanges {
       this.isLoading = true;
       this._starWarsPageService
         .getNewPagePeople()
+        .pipe(takeUntil(this.unsubscribe$))
         .subscribe((newPageValues) => {
           this.replacePeopleList(newPageValues.people);
           this.isLoading = false;
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

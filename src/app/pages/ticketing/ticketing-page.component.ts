@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { IEvent, IEventInfo } from './ticketing-page.interface';
 import { TicketingPageService } from './ticketing-page.service';
 
@@ -15,6 +15,8 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
     private _ticketingPageService: TicketingPageService
   ) {}
 
+  unsubscribe$: Subject<void> = new Subject<void>();
+
   events: IEvent[];
   selectedEventInfo: IEventInfo;
 
@@ -23,37 +25,44 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   eventDetailsNotFound = false;
-  subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
     this.getEvents();
     this.updateCurrentRoute();
 
-    const routeChangeSub = this._router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.updateCurrentRoute();
-        this.getEvents();
-      }
-    });
-    this.subscriptions.push(routeChangeSub);
+    const routeChangeSub = this._router.events
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.updateCurrentRoute();
+          this.getEvents();
+        }
+      });
   }
 
   getEvents() {
     if (!this.detailsId) {
-      this._ticketingPageService.getEvents().subscribe((events) => {
-        this.events = events;
-      });
+      const getEventsSub = this._ticketingPageService
+        .getEvents()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((events) => {
+          this.events = events;
+        });
     }
   }
+
   getEventInfo(detailsId?: string) {
-    this._ticketingPageService.getEventInfo(detailsId).subscribe(
-      (event) => {
-        this.selectedEventInfo = event;
-      },
-      (error) => {
-        this.eventDetailsNotFound = true;
-      }
-    );
+    const getEventInfoSub = this._ticketingPageService
+      .getEventInfo(detailsId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (event) => {
+          this.selectedEventInfo = event;
+        },
+        (error) => {
+          this.eventDetailsNotFound = true;
+        }
+      );
   }
 
   updateCurrentRoute() {
@@ -73,8 +82,7 @@ export class TicketingPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => {
-      subscription.unsubscribe();
-    });
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

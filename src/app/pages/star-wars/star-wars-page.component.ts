@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { SWHeaderService } from 'src/app/components/shared/sw-header/sw-header.service';
 import { STAR_WARS_ROUTES_URL } from './star-wars-page.constants';
 import {
@@ -23,6 +23,8 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     private _SWHeaderService: SWHeaderService
   ) {}
 
+  unsubscribe$: Subject<void> = new Subject<void>();
+
   starWarsRoutesURL = STAR_WARS_ROUTES_URL;
   initialCall = true;
 
@@ -42,7 +44,6 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
   detailsId: number;
 
   loading = false;
-  subscriptions: Subscription[] = [];
 
   showFilmDetails(filmId: number) {
     this._router.navigate([filmId], { relativeTo: this._route });
@@ -53,22 +54,25 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
 
     this.getInformation();
 
-    this._SWHeaderService.searchFilter$.subscribe((lastSearch) => {
-      if (lastSearch) {
-        this.lastSearch = lastSearch;
-        this.filterList();
-      } else {
-        this.refreshInformation();
-      }
-    });
+    this._SWHeaderService.searchFilter$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((lastSearch) => {
+        if (lastSearch) {
+          this.lastSearch = lastSearch;
+          this.filterList();
+        } else {
+          this.refreshInformation();
+        }
+      });
 
-    const routeChangeSub = this._router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.updateCurrentRoute();
-        this.getInformation();
-      }
-    });
-    this.subscriptions.push(routeChangeSub);
+    const routeChangeSub = this._router.events
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.updateCurrentRoute();
+          this.getInformation();
+        }
+      });
   }
 
   filterList() {
@@ -122,12 +126,12 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
             this.loading = true;
             const getFilmsSub = this._starWarsPageService
               .getFilms()
+              .pipe(takeUntil(this.unsubscribe$))
               .subscribe((films) => {
                 this.films = films;
                 this.filteredFilms = films;
                 this.loading = false;
               });
-            this.subscriptions.push(getFilmsSub);
           }
         } else if (this.detailsId) {
           if (this.detailsId !== this.selectedFilm?.filmId) {
@@ -141,6 +145,7 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
             this.loading = true;
             const getPeopleSub = this._starWarsPageService
               .getPeople()
+              .pipe(takeUntil(this.unsubscribe$))
               .subscribe((peopleList) => {
                 this.peopleList = peopleList;
 
@@ -151,7 +156,6 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
 
                 this.loading = false;
               });
-            this.subscriptions.push(getPeopleSub);
           }
         } else if (this.detailsId) {
           if (this.detailsId !== +this.selectedPerson?.personId) {
@@ -175,27 +179,26 @@ export class StarWarsPageComponent implements OnInit, OnDestroy {
     this.loading = true;
     const getFilmsSub = this._starWarsPageService
       .getFilmDetails(detailsId)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((film) => {
         this.selectedFilm = film;
         this.loading = false;
       });
-    this.subscriptions.push(getFilmsSub);
   }
 
   getPeopleDetails(detailsId: number) {
     this.loading = true;
     const getPersonSub = this._starWarsPageService
       .getPeopleDetails(detailsId)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((person) => {
         this.selectedPerson = person;
         this.loading = false;
       });
-    this.subscriptions.push(getPersonSub);
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => {
-      subscription.unsubscribe();
-    });
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

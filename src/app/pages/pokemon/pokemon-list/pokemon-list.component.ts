@@ -1,16 +1,26 @@
 import { Pokemon, PokemonList } from './../pokemon-page.interface';
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { STAR_WARS_ROUTES_URL } from '../../star-wars/star-wars-page.constants';
 import { PokemonPageService } from '../pokemon-page.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
 })
-export class PokemonListComponent implements OnInit, OnChanges {
+export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
+  unsubscribe$: Subject<void> = new Subject<void>();
+
   @Input() pokemonList: PokemonList;
 
   columnsToDisplay = ['name', 'weight', 'types', 'image'];
@@ -88,6 +98,7 @@ export class PokemonListComponent implements OnInit, OnChanges {
       this.isLoading = true;
       this._pokemonPageService
         .getPokemon(isItNext)
+        .pipe(takeUntil(this.unsubscribe$))
         .subscribe((newPageValues) => {
           this._pokemonPageService.pagination.next({
             count: newPageValues.count,
@@ -98,5 +109,10 @@ export class PokemonListComponent implements OnInit, OnChanges {
           this.isLoading = false;
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
