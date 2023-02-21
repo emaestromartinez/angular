@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, iif, Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { TRASH_IMAGE } from '../ticketing-page.constants';
 import { CartEvent, IEventInfo } from '../ticketing-page.interface';
 import { TicketingPageService } from '../ticketing-page.service';
