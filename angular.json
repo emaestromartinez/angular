@@ -26,7 +26,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/app/api/ticketing/ticketing-assets/data"
+              "src/app/api/ticketing/ticketing-assets/data",
+              "src/mockServiceWorker.js"
             ],
             "styles": ["src/styles.scss"],
             "scripts": []
@@ -67,6 +68,15 @@
               "sourceMap": true,
               "namedChunks": true
             },
+            "mock": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/environments/environment.ts",
+                  "with": "src/app/environments/environment.mock.ts"
+                }
+              ],
+              "sourceMap": true
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -87,6 +97,9 @@
             "staging": {
               "browserTarget": "angular:build:staging"
             },
+            "mock": {
+              "browserTarget": "angular:build:mock"
+            },
             "development": {
               "browserTarget": "angular:build:development"
             }
@@ -105,7 +118,11 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/mockServiceWorker.js"
+            ],
             "styles": ["src/styles.scss"],
             "scripts": []
           }

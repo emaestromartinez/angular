@@ -45,6 +45,13 @@ export const routesApp: CustomRoute[] = [
           ),
       },
       {
+        path: 'payments',
+        loadChildren: () =>
+          import('./pages/payments/payments-page.module').then(
+            (m) => m.PaymentsPageModule
+          ),
+      },
+      {
         path: 'form',
         loadChildren: () =>
           import('./pages/example-form/example-form.module').then(

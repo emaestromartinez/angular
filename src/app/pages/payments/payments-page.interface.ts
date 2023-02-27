@@ -10,7 +10,7 @@ export interface Person {
 }
 
 export interface Payment {
-  id: string;
+  id: string; // Is this necessary?
   amount: string;
   description: string;
   date: string;
@@ -21,6 +21,5 @@ export interface Payment {
     - Debería haber otra interface que sea "Actividad",
       cuya actividad tenga un subconjunto del grupo, y poder recopilar ahi los gastos de esa actividad en específico?
     - Necesito que la "description" sea un identificador de la actividad? O realmente no hace falta, solo importa el valor?
-
 
 */

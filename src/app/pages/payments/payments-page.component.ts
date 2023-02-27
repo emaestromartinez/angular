@@ -1,6 +1,8 @@
+import { FriendsGroup } from './payments-page.interface';
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { PaymentsPageService } from './payments-page.service';
 
 @Component({
@@ -13,5 +15,30 @@ export class PaymentsPageComponent implements OnInit {
     private _router: Router
   ) {}
 
-  ngOnInit() {}
+  unsubscribe$: Subject<void> = new Subject<void>();
+
+  friendsGroup: FriendsGroup;
+
+  loading = false;
+
+  ngOnInit() {
+    this.getFriendsGroup();
+  }
+
+  getFriendsGroup() {
+    this.loading = true;
+    const getPeopleSub = this._paymentsPageService
+      .getFriendsGroup()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((friendsGroup) => {
+        this.friendsGroup = friendsGroup;
+        console.log('this.friendsGroup', this.friendsGroup);
+        this.loading = false;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }
