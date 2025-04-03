@@ -1,7 +1,10 @@
 import { ExampleFormService } from './example-form.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'src/app/components/shared/checkbox/checkbox.module';
@@ -12,9 +15,10 @@ import { SelectModule } from 'src/app/components/shared/select/select.module';
 import { InputEmailModule } from 'src/app/components/shared/input-email/input-email.module';
 
 @NgModule({
+  declarations: [ExampleFormComponent],
+  exports: [ExampleFormComponent],
   imports: [
     CommonModule,
-    HttpClientModule,
     ExampleFormRoutingModule,
     RouterModule,
     FormsModule,
@@ -24,8 +28,6 @@ import { InputEmailModule } from 'src/app/components/shared/input-email/input-em
     SelectModule,
     CheckboxModule,
   ],
-  declarations: [ExampleFormComponent],
-  providers: [ExampleFormService],
-  exports: [ExampleFormComponent],
+  providers: [ExampleFormService, provideHttpClient(withInterceptorsFromDi())],
 })
 export class ExampleFormModule {}

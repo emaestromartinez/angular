@@ -7,7 +7,10 @@ import { StarWarsPageComponent } from './star-wars-page.component';
 import { StarWarsPageRoutingModule } from './star-wars-page-routing.module';
 import { RouterModule } from '@angular/router';
 import { StarWarsPageService } from './star-wars-page.service';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ApiStarWarsPeopleService } from 'src/app/api/star-wars/people.service';
 import { ApiStarWarsPlanetsService } from 'src/app/api/star-wars/planets.service';
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
@@ -18,16 +21,6 @@ import { StarWarsFilmListComponent } from './star-wars-film-list/star-wars-film-
 import { StarWarsPeopleListComponent } from './star-wars-people-list/star-wars-people-list.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    HttpClientModule,
-    StarWarsPageRoutingModule,
-    LoaderModule,
-    MatTableModule,
-    MatPaginatorModule,
-    SWHeaderModule,
-  ],
   declarations: [
     StarWarsPageComponent,
     StarWarsFilmListComponent,
@@ -35,11 +28,21 @@ import { StarWarsPeopleListComponent } from './star-wars-people-list/star-wars-p
     StarWarsPeopleDetailsComponent,
     StarWarsPeopleListComponent,
   ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    StarWarsPageRoutingModule,
+    LoaderModule,
+    MatTableModule,
+    MatPaginatorModule,
+    SWHeaderModule,
+  ],
   providers: [
     StarWarsPageService,
     ApiStarWarsFilmsService,
     ApiStarWarsPeopleService,
     ApiStarWarsPlanetsService,
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 })
 export class StarWarsPageModule {}

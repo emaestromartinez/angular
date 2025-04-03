@@ -16,7 +16,10 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ExampleFormComponent } from './example-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CheckboxModule } from 'src/app/components/shared/checkbox/checkbox.module';
 import { InputEmailModule } from 'src/app/components/shared/input-email/input-email.module';
@@ -34,7 +37,6 @@ describe('ExampleFormComponent', () => {
       declarations: [ExampleFormComponent],
       imports: [
         CommonModule,
-        HttpClientModule,
         ExampleFormRoutingModule,
         RouterModule,
         FormsModule,
@@ -44,7 +46,10 @@ describe('ExampleFormComponent', () => {
         SelectModule,
         CheckboxModule,
       ],
-      providers: [ExampleFormService],
+      providers: [
+        ExampleFormService,
+        provideHttpClient(withInterceptorsFromDi()),
+      ],
     }).compileComponents();
   }));
 

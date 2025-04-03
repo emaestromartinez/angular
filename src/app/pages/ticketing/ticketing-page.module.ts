@@ -6,21 +6,27 @@ import { TicketingPageComponent } from './ticketing-page.component';
 import { TicketingPageRoutingModule } from './ticketing-page-routing.module';
 import { RouterModule } from '@angular/router';
 import { TicketingPageService } from './ticketing-page.service';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { LoaderModule } from 'src/app/components/shared/loader/loader.module';
 import { ApiTicketingService } from 'src/app/api/ticketing/ticketing.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
+  declarations: [TicketingPageComponent, EventDetailsComponent],
   imports: [
     CommonModule,
     RouterModule,
-    HttpClientModule,
     TicketingPageRoutingModule,
     LoaderModule,
     ReactiveFormsModule,
   ],
-  declarations: [TicketingPageComponent, EventDetailsComponent],
-  providers: [TicketingPageService, ApiTicketingService],
+  providers: [
+    TicketingPageService,
+    ApiTicketingService,
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
 })
 export class TicketingPageModule {}
