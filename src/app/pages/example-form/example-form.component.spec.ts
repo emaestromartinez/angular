@@ -1,20 +1,14 @@
+import { async } from '@angular/core/testing';
 /* tslint:disable:no-unused-variable */
 import {
-  async,
   ComponentFixture,
   fakeAsync,
-  flush,
-  flushMicrotasks,
   TestBed,
   tick,
 } from '@angular/core/testing';
 
 import { CommonModule } from '@angular/common';
-import {
-  AbstractControl,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExampleFormComponent } from './example-form.component';
 import {
   provideHttpClient,
