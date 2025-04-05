@@ -1,0 +1,28 @@
+/* Estilo para el fondo oscuro del modal */
+.fixed.inset-0.bg-gray-500.bg-opacity-50 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+/* Estilo para el modal */
+.fixed.inset-0.flex.items-center.justify-center {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal de fondo blanco con bordes redondeados */
+.bg-white.rounded-lg {
+  background-color: white;
+  border-radius: 0.5rem;
+}

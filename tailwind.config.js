@@ -4,5 +4,11 @@ module.exports = {
   theme: {
     extend: {},
   },
+  variants: {
+    extend: {
+      ringWidth: ["focus"],
+      ringColor: ["focus"],
+    },
+  },
   plugins: [],
-}
+};

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainModule } from './pages/main/main.module';
+import { ModalModule } from './components/shared/modal/modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { MainModule } from './pages/main/main.module';
     RouterModule,
     AppRoutingModule,
     MainModule,
+    ModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -24,6 +24,13 @@ export const routesApp: CustomRoute[] = [
           import('./pages/home/home.module').then((m) => m.HomeModule),
       },
       {
+        path: 'accessibility',
+        loadChildren: () =>
+          import('./pages/accessibility/accessibility-page.module').then(
+            (m) => m.AccessibilityPageModule
+          ),
+      },
+      {
         path: 'star-wars',
         loadChildren: () =>
           import('./pages/star-wars/star-wars-page.module').then(

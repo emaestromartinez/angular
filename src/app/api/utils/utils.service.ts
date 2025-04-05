@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, from, catchError, throwError } from 'rxjs';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 @Injectable({

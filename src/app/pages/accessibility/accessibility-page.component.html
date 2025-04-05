@@ -1,0 +1,84 @@
+<section class="p-6 flex flex-col items-center">
+  <h1 class="text-3xl font-bold mb-4 text-center">Web Accessibility</h1>
+  <p class="mb-6 max-w-2xl text-center">
+    On this page, I demonstrate how to apply accessibility principles so that
+    all users, regardless of their abilities, can interact with my portfolio.
+  </p>
+
+  <section class="mb-6 w-full max-w-2xl">
+    <h2 class="text-2xl font-semibold mb-2">Colors and Contrast</h2>
+    <p class="mb-2">
+      Proper contrast between text and background is essential. A ratio of at
+      least 4.5:1 is recommended for normal text.
+    </p>
+    <div class="bg-black text-white p-4 rounded text-center">
+      Example of high-contrast text
+    </div>
+  </section>
+
+  <section class="mb-6 w-full max-w-2xl">
+    <h2 class="text-2xl font-semibold mb-2">Images with Alternative Text</h2>
+    <p class="mb-2">
+      Images should include <code>alt</code> attributes to describe their
+      content.
+    </p>
+    <div class="flex justify-center">
+      <img
+        src="example.jpg"
+        alt="Example of an image with well-defined alternative text"
+        class="rounded shadow-md"
+      />
+    </div>
+  </section>
+
+  <section class="mb-6 w-full max-w-2xl">
+    <h2 class="text-2xl font-semibold mb-2">Keyboard Navigation</h2>
+    <p class="mb-2">
+      This button is fully accessible and can be activated with
+      <kbd>Enter</kbd> or <kbd>Space</kbd>:
+    </p>
+    <div class="flex justify-center">
+      <button
+        (click)="openModal()"
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        Open Accessible Modal
+      </button>
+    </div>
+  </section>
+
+  <section class="mb-6 w-full max-w-2xl">
+    <h2 class="text-2xl font-semibold mb-2">Accessible Form</h2>
+    <form class="space-y-4 flex flex-col">
+      <div class="flex flex-col">
+        <label for="nombre" class="block font-medium">Name:</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          aria-required="true"
+          required
+          class="border p-2 w-full rounded"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="mensaje" class="block font-medium">Message:</label>
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          aria-required="true"
+          required
+          class="border p-2 w-full rounded"
+        ></textarea>
+      </div>
+      <div class="flex justify-center">
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          Send
+        </button>
+      </div>
+    </form>
+  </section>
+</section>
