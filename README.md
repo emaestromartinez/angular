@@ -1,6 +1,6 @@
 # Angular Portfolio
 
-Proyecto generado con [Angular CLI](https://github.com/angular/angular-cli) versión 15.0.2.
+Proyecto actualizado a [Angular CLI](https://github.com/angular/angular-cli) versión 18.
 Prueba técnica de nivel de Eduard Maestro para Frontend.
 
 ## Cómo ejecutar el proyecto

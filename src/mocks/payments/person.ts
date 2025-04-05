@@ -1,21 +1,20 @@
-import { rest } from 'msw';
-// import * as faker from '@faker-js/faker';
+import { http, HttpResponse } from 'msw';
 
 export const GetFriendsGroup = [
-  rest.get('/friends-group/:id', (req, res, ctx) => {
-    const { id } = req.params;
+  http.get('/friends-group/:id', async ({ params }) => {
+    const { id } = params;
 
     if (id === '500') {
-      return res(
-        ctx.status(500),
-        ctx.json({
+      return HttpResponse.json(
+        {
           data: {
             error: {
               code: 500,
               message: 'General error',
             },
           },
-        })
+        },
+        { status: 500 }
       );
     }
 
@@ -57,6 +56,6 @@ export const GetFriendsGroup = [
       },
     };
 
-    return res(ctx.json(mainResponse));
+    return HttpResponse.json(mainResponse);
   }),
 ];

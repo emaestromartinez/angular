@@ -43,7 +43,7 @@ export class StarWarsPeopleListComponent
   disabled = false;
   // PaginationEnd
 
-  @ViewChild(MatTable) table: MatTable<People>;
+  @ViewChild(MatTable) table!: MatTable<People>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<People>;
 
@@ -57,9 +57,14 @@ export class StarWarsPeopleListComponent
 
   ngOnInit() {
     this.length = this.peopleList?.pagination.count;
+  }
+  ngAfterViewInit(): void {
     this.dataSource = new MatTableDataSource<People>(
       this.peopleList?.people.slice()
     );
+    if (this.table) {
+      this.table.renderRows();
+    }
   }
 
   ngOnChanges() {
