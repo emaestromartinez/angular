@@ -1,9 +1,9 @@
 import {
   Component,
-  AfterViewChecked,
   OnInit,
-  OnDestroy,
   HostListener,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { ModalService } from './modal.service';
 
@@ -12,38 +12,17 @@ import { ModalService } from './modal.service';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ModalComponent implements OnInit {
   isModalOpen = false;
-  private previouslyFocusedElement: HTMLElement | null = null;
-  private keydownListener: (event: KeyboardEvent) => void;
+  @ViewChild('modalContainer') modalContainer!: ElementRef;
 
-  constructor(private modalService: ModalService) {
-    // Crea el listener que se usará tanto para agregar como para eliminar el evento
-    this.keydownListener = (event: KeyboardEvent) => this.handleTabKey(event);
-  }
+  constructor(private modalService: ModalService) {}
 
   ngOnInit() {
     // Subscribe to the modal state from the service
     this.modalService.modalState$.subscribe((state) => {
       this.isModalOpen = state;
-      // Definir el foco solo cuando el modal esté abierto.
-      if (this.isModalOpen) {
-        // Deferir el enfoque al modal usando setTimeout
-        setTimeout(() => this.setFocusOnModal(), 0);
-      }
     });
-  }
-
-  ngAfterViewChecked() {
-    // Asegurarse de que se ejecute después de que Angular haya terminado de renderizar la vista
-    if (this.isModalOpen) {
-      this.setFocusOnModal();
-    }
-  }
-
-  ngOnDestroy() {
-    // Cleanup when the modal is destroyed
-    this.removeTrapFocus();
   }
 
   // Close the modal programmatically (via the service)
@@ -51,83 +30,47 @@ export class ModalComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.modalService.closeModal();
   }
 
-  // Set focus on the modal when it opens
-  private setFocusOnModal() {
-    const modalElement = document.getElementById('modal');
-    if (modalElement) {
-      modalElement.focus(); // Focus on the modal
-      this.trapFocus(modalElement); // Trap focus inside the modal
+  /** Capturar evento de tabulación */
+  @HostListener('keydown', ['$event'])
+  handleTab(event: KeyboardEvent) {
+    if (event.key === 'Tab' && this.isModalOpen) {
+      this.trapFocus(event);
     }
   }
 
-  // Trap the focus inside the modal
-  private trapFocus(modalElement: HTMLElement) {
-    const focusableElements = modalElement.querySelectorAll(
-      'button, input, textarea, select, a[href]'
-    );
-    const firstFocusableElement = focusableElements[0] as HTMLElement;
-    const lastFocusableElement = focusableElements[
-      focusableElements.length - 1
-    ] as HTMLElement;
-
-    // Save the previously focused element so we can return focus when the modal is closed
-    this.previouslyFocusedElement = document.activeElement as HTMLElement;
-
-    // Focus on the first focusable element
-    firstFocusableElement.focus();
-
-    // Add event listeners to trap the focus inside the modal
-    modalElement.addEventListener('keydown', this.keydownListener);
-  }
-
-  // Handle the Tab key to trap focus inside the modal
-  private handleTabKey(event: KeyboardEvent) {
-    const modalElement = document.getElementById('modal');
-    const focusableElements = modalElement?.querySelectorAll(
-      'button, input, textarea, select, a[href]'
-    );
-    const firstFocusableElement = focusableElements?.[0] as HTMLElement;
-    const lastFocusableElement = focusableElements?.[
-      focusableElements.length - 1
-    ] as HTMLElement;
-
-    if (!firstFocusableElement || !lastFocusableElement) return;
-
-    if (event.key === 'Tab') {
-      if (event.shiftKey) {
-        // Shift + Tab (move backwards)
-        if (document.activeElement === firstFocusableElement) {
-          lastFocusableElement.focus(); // Focus the last element when reaching the first
-          event.preventDefault();
-        }
-      } else {
-        // Tab (move forwards)
-        if (document.activeElement === lastFocusableElement) {
-          firstFocusableElement.focus(); // Focus the first element when reaching the last
-          event.preventDefault();
-        }
+  /** Asegurar que el foco no escape del modal */
+  private setFocusTrap() {
+    if (this.modalContainer) {
+      const focusableElements =
+        this.modalContainer.nativeElement.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+      if (focusableElements.length > 0) {
+        (focusableElements[0] as HTMLElement).focus(); // Foco en el primer elemento
       }
     }
   }
 
-  // Remove focus trap when modal is closed
-  private removeTrapFocus() {
-    const modalElement = document.getElementById('modal');
-    if (modalElement) {
-      modalElement.removeEventListener('keydown', this.keydownListener); // Remove event listener
-    }
+  /** Evitar que Tab escape del modal */
+  private trapFocus(event: KeyboardEvent) {
+    const focusableElements =
+      this.modalContainer.nativeElement.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
 
-    // Return focus to the previously focused element
-    if (this.previouslyFocusedElement) {
-      this.previouslyFocusedElement.focus();
-    }
-  }
+    if (focusableElements.length === 0) return;
 
-  // Listen for the Escape key to close the modal
-  @HostListener('document:keydown.escape', ['$event'])
-  onEscapeKey(event: KeyboardEvent) {
-    if (this.isModalOpen) {
-      this.closeModal(); // Close modal when Escape is pressed
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[
+      focusableElements.length - 1
+    ] as HTMLElement;
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      lastElement.focus();
+      event.preventDefault();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      firstElement.focus();
+      event.preventDefault();
     }
   }
 }

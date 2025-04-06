@@ -6,14 +6,10 @@ import { ModalService } from 'src/app/components/shared/modal/modal.service';
   selector: 'app-accessibility-page',
   templateUrl: './accessibility-page.component.html',
 })
-export class AccessibilityPageComponent implements OnInit {
+export class AccessibilityPageComponent {
   constructor(private modalService: ModalService) {}
 
-  message: string = '';
-
-  ngOnInit() {}
-
   openModal() {
-    this.modalService.openModal(); // Llama al servicio para abrir el modal
+    this.modalService.openModal();
   }
 }

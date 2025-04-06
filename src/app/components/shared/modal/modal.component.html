@@ -9,6 +9,9 @@
 <div
   *ngIf="isModalOpen"
   id="modal"
+  #modalContainer
+  cdkTrapFocus
+  [cdkTrapFocusAutoCapture]="true"
   tabindex="-1"
   role="dialog"
   aria-labelledby="modal-title"
@@ -19,6 +22,7 @@
   <div class="bg-white rounded-lg w-full max-w-lg p-6 flex flex-col relative">
     <!-- Botón de cierre del modal -->
     <button
+      cdkFocusInitial
       (click)="closeModal()"
       class="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
       aria-label="Close Modal"
